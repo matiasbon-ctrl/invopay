@@ -1,0 +1,20 @@
+<div class="form-floating" [style]="onStyle">
+  <select
+    [formControl]="control"
+    class="form-floating-select form-control shadow-none"
+    (change)="onSelect($event)"
+    [disabled]="disabled"
+  >
+    <option value="" disabled selected>
+      {{ label }}
+    </option>
+    <ng-content></ng-content>
+  </select>
+  <label *ngIf="control?.value !== ''">{{ label }}</label>
+  <div
+    class="error-message"
+    *ngIf="control.invalid && control.touched && control.errors"
+  >
+    {{ getErrorMessage() | translate }}
+  </div>
+</div>
