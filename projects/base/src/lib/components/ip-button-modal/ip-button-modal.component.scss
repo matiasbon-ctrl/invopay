@@ -61,6 +61,15 @@
     }
   }
 
+  &__clean {
+    background: $modal-btn-action-bg-color;
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: default !important;
+    }
+  }
+
   &__small {
     width: 3.5rem;
     height: 2.5rem;
@@ -93,5 +102,10 @@
       width: 12rem;
       height: 2rem;
     }
+  }
+
+  &__text-btn {
+    @include buttonText();
+    color: $primary-color-text;
   }
 }

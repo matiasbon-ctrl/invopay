@@ -1,18 +1,5 @@
-import {
-  animate,
-  state,
-  style,
-  transition,
-  trigger,
-} from '@angular/animations';
-import {
-  Component,
-  EventEmitter,
-  HostListener,
-  Input,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-ip-modal-mobile',
@@ -24,20 +11,20 @@ import {
       state('in', style({ transform: 'translateY(0)', opacity: 1 })),
       transition('void => in', [animate('200ms ease-out')]),
       transition('in => void', [animate('200ms ease-in')]),
-    ]),
-  ],
+    ])
+  ]
 })
 export class IpModalMobileComponent implements OnInit {
-  mobile!: boolean;
+  mobile!:boolean;
   @Input() title: string = 'TITLE NULL';
   @Output() close: EventEmitter<any> = new EventEmitter();
   @Input() showTitle: boolean = true;
   @Input() showCloseModal?: boolean = true;
   @Input() contentStyle?: string;
-  modalVisible: boolean = false;
+  modalVisible: boolean=false;
 
   ngOnInit() {
-    this.checkIfMobile();
+    this.checkIfMobile()
     if (this.mobile) {
       setTimeout(() => {
         this.modalVisible = true;
@@ -53,9 +40,10 @@ export class IpModalMobileComponent implements OnInit {
   }
 
   closeModal(): void {
-    this.modalVisible = false;
+    this.modalVisible = false
     setTimeout(() => {
-      this.close.emit();
+      this.close.emit();      
     }, 200);
   }
 }
+

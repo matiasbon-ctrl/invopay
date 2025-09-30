@@ -1,12 +1,11 @@
 @import "../../../shared/mixins/sizes.scss";
 @import "../../../shared/mixins/generalText.scss";
-@import "../../../shared/mixins/variables/color.scss";
 
 .form-floating {
   width: 100%;
   height: 2.5rem;
   border-radius: 0.75rem;
-  background: $input-bg-color;
+  background: #fff;
   margin-bottom: 1rem;
   @include sm(){
     height: 2rem;
@@ -79,7 +78,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   color: rgba(0, 0, 0, 0);
   opacity: 1;
   display: block;
-  background: url("../../../../assets/new-styles/icons/buttons/calendar-icon.svg");
+  background: url(../../../../assets/new-styles/icons/buttons/calendar-icon.svg);
   background-repeat: no-repeat;
   background-position-x: 96%;
   background-position-y: center;

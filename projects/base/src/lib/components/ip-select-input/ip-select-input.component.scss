@@ -1,13 +1,12 @@
 @import "../../../shared/mixins/sizes.scss";
 @import "../../../shared/mixins/generalText.scss";
-@import "../../../shared/mixins/variables/color.scss";
 
 .form-floating {
   width: 100%;
   @include generalInputText();
   height: 2.5rem;
   border-radius: 0.75rem;
-  background: $input-bg-color;
+  background: #fff;
   margin-bottom: 1rem;
   @include sm(){
     height: 2rem;
@@ -29,7 +28,11 @@
     background-image: url(../../../../assets/img/pay-bill/ic_down.svg);
     background-repeat: no-repeat;
     background-position-x: 96%;
-    background-position-y: center; 
+    background-position-y: center;
+    margin-right: 0.3rem;
+    &-without-icon {
+      background-image: none;
+    }
   }
   select {
     position: relative;
@@ -38,7 +41,7 @@
 .form-floating > .form-control:focus ~ label,
 .form-floating > .form-control:not(:placeholder-shown) ~ label,
 .form-floating > .form-control-plaintext ~ label {
-  transform: scale(0.8) translateY(-17px) translateX(10px) !important;
+  transform: scale(0.8) translateY(-20px) translateX(10px) !important;
   height: 1.7rem;
   @include md() {
     transform: scale(0.75) translateY(-24px) translateX(15px) !important;
@@ -89,4 +92,26 @@
     font-size: 0.875rem;
     line-height: 1rem;
   }
+}
+
+.ip-select-label-floating {
+  @include generalInputText();
+
+  padding: 0;
+  transform: scale(0.8) translateY(-20px) translateX(10px) !important;
+
+  @include medias(md, lg, xl) {
+    transform: scale(0.75) translateY(-22px) translateX(15px) !important;
+  }
+  background-color: $input-bg-color;
+  height: fit-content;
+  width: fit-content;
+}
+
+.ip-select-input {
+  border: $input-border;
+  border-radius: 0.5rem;
+}
+.mat-mdc-select {
+  @include generalInputText();
 }

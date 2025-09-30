@@ -28,7 +28,10 @@
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "tsConfig": "projects/base/tsconfig.spec.json",
-            "polyfills": ["zone.js", "zone.js/testing"]
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
           }
         }
       },
@@ -55,15 +58,24 @@
             "outputPath": "dist/test-library",
             "index": "projects/test-library/src/index.html",
             "main": "projects/test-library/src/main.ts",
-            "polyfills": ["zone.js"],
+            "polyfills": [
+              "zone.js"
+            ],
             "tsConfig": "projects/test-library/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
               "projects/test-library/src/favicon.ico",
               "projects/test-library/src/assets"
             ],
-            "styles": ["projects/test-library/src/styles.scss"],
-            "scripts": []
+            "styles": [
+              "projects/test-library/src/styles.scss"
+            ],
+            "scripts": [],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "projects/test-library/src/assets"
+              ]
+            }
           },
           "configurations": {
             "production": {
@@ -113,18 +125,23 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": ["zone.js", "zone.js/testing"],
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
             "tsConfig": "projects/test-library/tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
             "assets": [
               "projects/test-library/src/favicon.ico",
               "projects/test-library/src/assets"
             ],
-            "styles": ["projects/test-library/src/styles.scss"],
+            "styles": [
+              "projects/test-library/src/styles.scss"
+            ],
             "scripts": []
           }
         }
       }
-    }
+    } 
   }
 }

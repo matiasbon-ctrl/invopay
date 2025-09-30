@@ -3,6 +3,16 @@
     <mat-icon class="ip-title-mobile__title-back-icon" *ngIf="back" (click)="goBack()">arrow_back</mat-icon>    
     {{ title }}
   </div>
+  <!-- <app-ip-button-modal
+    [typeBtn]="'submit'"
+    *ngIf="btn === 'create'"
+    (clicked)="onClickButton($event)"
+    [size]="'large'"
+    >  
+    <mat-icon class="ip-title-mobile__btn-icon">add</mat-icon> 
+    <span *ngIf="mobile">{{ "IP.COMMON.BUTTON-CREATE" | translate }}</span> 
+    <span *ngIf="!mobile">{{ btnText ?? ("IP.COMMON.BUTTON-CREATE" | translate) }}</span> 
+  </app-ip-button-modal> -->
   <button 
     class="ip-title-mobile__btn" 
     *ngIf="btn === 'create'"

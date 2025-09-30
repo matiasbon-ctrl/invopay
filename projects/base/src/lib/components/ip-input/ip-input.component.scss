@@ -1,14 +1,12 @@
 @import "../../../shared/mixins/sizes.scss";
 @import "../../../shared/mixins/generalText.scss";
-@import "../../../shared/mixins/variables/color.scss";
 
 .form-floating {
   width: 100%;
   @include generalInputText();
   height: 2.5rem;
   border-radius: 0.75rem;
-
-  background: $input-bg-color; 
+  background: #fff;
   margin-bottom: 1rem;
   @include sm(){
     height: 2rem;

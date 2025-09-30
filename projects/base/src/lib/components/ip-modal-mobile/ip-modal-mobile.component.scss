@@ -46,6 +46,9 @@
     align-items: center;
     padding: 1rem 0;
     border-bottom: 2px solid $table-lines;
+    @include sm(){
+      border-bottom: none;
+    }    
     @include md(){
       padding: 0.5rem 0;
     }
