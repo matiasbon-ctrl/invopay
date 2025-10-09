@@ -22,6 +22,7 @@
                                      <div class="date-wrapper">
                                     <label style="margin-left: 10px;" class="placeholder">hasta</label>
                                     <app-ip-date-input
+                                    [control]="controlsForm.controls.dateEnd"
                                     [max]="maxEnd"
                                     [min]="minEnd"
                                     (changed)="onEndDateChange($event)"

@@ -25,7 +25,8 @@ export class SalesListComponent implements OnInit , OnDestroy {
 
 
     controlsForm = new FormGroup({
-      rowPaginator: new FormControl<number>(50)
+      rowPaginator: new FormControl<number>(50),
+      dateEnd : new FormControl<string>('')
       });
 
   salesData: SalesResponse | null = null;
@@ -89,7 +90,8 @@ export class SalesListComponent implements OnInit , OnDestroy {
         // Convertir a Date
         const date = new Date(target.value);
         this.currentEnd=this.formatDate(date)
-        console.log(date);
+      
+        console.log(this.currentEnd);
 
         const endMinus3Months = new Date(date);
         endMinus3Months.setMonth(endMinus3Months.getMonth() - 3);
@@ -112,8 +114,7 @@ export class SalesListComponent implements OnInit , OnDestroy {
         const date = target.value
         console.log(date);  // Date object
 
-        this.currentStart= date
-
+        this.currentStart= this.formatDate(date)
 
         const startPlus3Months = new Date(date);
         startPlus3Months.setMonth(startPlus3Months.getMonth() + 3);
@@ -125,6 +126,7 @@ export class SalesListComponent implements OnInit , OnDestroy {
 
         const now = new Date();
 
+
         if(startPlus3Months>now){
           this.maxEnd=this.formatDate(now)
         }
@@ -132,6 +134,11 @@ export class SalesListComponent implements OnInit , OnDestroy {
             this.maxEnd=this.formatDate(startPlus3Months)
         }
         console.log(this.maxEnd)
+        
+        if(new Date(this.currentEnd)<new Date(this.currentStart)){
+          this.currentEnd = ''
+          this.controlsForm.controls.dateEnd.setValue('')
+        }
       
 }
 
