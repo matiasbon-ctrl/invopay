@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BaseComponent } from 'base';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './invopay/views/home/home.component';
 
 const routes: Routes = [
   {
@@ -17,10 +17,15 @@ const routes: Routes = [
       },
     ],
   },
+  {
+    path: 'invopay',
+    loadChildren: () =>
+      import('./invopay/invopay.module').then((m) => m.InvopayModule),
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
