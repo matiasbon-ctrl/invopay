@@ -1,0 +1,82 @@
+
+  
+  <form [formGroup]="controlsForm" >
+        <app-title-page
+        [title]="'Ventas'"
+        ></app-title-page>
+
+        <div class="card-table-filters" >
+          <div class="card-body">
+            <div class="card-filtros">
+                <div class="card-filtros__actions">
+
+                                    <div class="date-wrapper">
+                                    <label style="margin-left: 10px;" class="placeholder">desde</label>
+                                     <app-ip-date-input 
+                                     [max]="maxStart"
+                                     (changed)="onStartDatechange($event)"
+                                     >
+                                     </app-ip-date-input>
+                                    </div>
+
+                                     <div class="date-wrapper">
+                                    <label style="margin-left: 10px;" class="placeholder">hasta</label>
+                                    <app-ip-date-input
+                                    [max]="maxEnd"
+                                    [min]="minEnd"
+                                    (changed)="onEndDateChange($event)"
+                                    >
+                                    </app-ip-date-input>
+                                     </div>
+
+                                    <div class="date-wrapper">
+                                    <button class="search" (click)="onApplyFilter()">
+                                    <img src="../../../assets/new-styles/icons/buttons/search-icon-white.svg">
+                                    </button>
+                                    </div>
+            </div>
+            </div>
+          </div>
+            <div class="card-table">     
+                <app-table
+                    [propertyOrder]="columnsHeaders"
+                    [data]="tableSalesDto"
+                    [actions]="['detail']"
+                    [tableStyle]="'invopay'"
+                    [isForSelectItem]="false"
+                    [scroll]="true"
+                    [keyTranslate]="''"
+                    [titlesFile]="titlesMap"
+                    (action)="onTableAction($event)"
+                    (selectedItemsChange)="onSelectedItems($event)"
+                ></app-table>
+                 <app-no-data *ngIf="sales.length<1"></app-no-data>
+            </div>
+
+             <div class="card-paginator">
+                <div class="paginator-controls">
+                    <select class="page-size-select" formControlName="rowPaginator" title="Filas por pagina">
+                    <option [value]="5">5</option>
+                    <option [value]="10">10</option>
+                    <option [value]="20">20</option>
+                    <option [value]="50">50</option>
+
+                    </select>
+
+                    <app-paginator
+                    (pageChange)="onPageChange($event)"
+                    [totalItems]="sales.length"
+                    [itemsPerPage]="itemsPerpage"
+                    [currentPages]="currentPages">
+                    </app-paginator>
+                </div>
+            </div>
+
+
+
+        </div>
+
+  </form>
+
+
+

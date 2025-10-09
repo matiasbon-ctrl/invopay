@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -59,6 +59,7 @@ import { TruncatePipe } from './Utils/truncate.pipe';
     AmountFormatPipe,
     MatDialogService,
     TruncatePipe,
+    DatePipe
   ],
   exports: [
     MaterialModule,

@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'test-library';
+  collapsed = false;
+
+  toggleSidebar() {
+    this.collapsed = !this.collapsed;
+  }
 }

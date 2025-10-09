@@ -16,6 +16,8 @@ import {
 export class PaginatorComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.itemsView = this.itemsPerPage;
+    this.currentPage = 1 // Sincronizar en ngOnInit
+
   }
   @Input() totalItems!: number;
   @Input() itemsPerPage!: number;
@@ -24,7 +26,7 @@ export class PaginatorComponent implements OnInit, OnChanges {
   @Output() pageChange = new EventEmitter<number>();
   items!: number;
   originalItems: boolean = true;
-  currentPage = this.currentPages;
+  currentPage = 1; // Inicializar directamente en 1
   nextPage = this.currentPage + 1;
   nextnextPage = this.currentPage + 2;
   itemsView!: number;
@@ -48,6 +50,7 @@ export class PaginatorComponent implements OnInit, OnChanges {
       this.itemsView = this.totalItems;
     }
   }
+  /*
   ngOnChanges(change: SimpleChanges) {
     if (this.originalItems) {
       this.items = this.itemsPerPage;
@@ -66,4 +69,26 @@ export class PaginatorComponent implements OnInit, OnChanges {
     // this.pageChange.emit(this.currentPage);
     this.viewItems();
   }
+*/ngOnChanges(changes: SimpleChanges) {
+  // Inicializar items internos si es la primera vez
+  if (changes['itemsPerPage'] && changes['itemsPerPage'].isFirstChange()) {
+    this.items = this.itemsPerPage;
+  }
+
+  // CAMBIO AQUÍ: Siempre actualizar currentPage cuando cambie el input
+  if (changes['currentPages']) {
+    this.currentPage = this.currentPages;
+  }
+
+  // Ajustar items a mostrar sin modificar el Input
+  const maxItems = Math.min(this.totalItems, this.items);
+
+  this.nextPage = this.currentPage + 1;
+  this.nextnextPage = this.currentPage + 2;
+
+  this.itemsView = this.currentPage * this.itemsPerPage;
+  if (this.itemsView > this.totalItems) {
+    this.itemsView = this.totalItems;
+  }
+}
 }
