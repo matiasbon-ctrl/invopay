@@ -12,7 +12,7 @@ onClickButton() {
 console.log("click")
 }
   @Input() title: string = '';
-  @Input() showBackButton: boolean = true;
+  @Input() showBackButton: boolean = false;
 
   constructor() {}
 

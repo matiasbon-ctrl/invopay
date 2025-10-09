@@ -1,1 +1,85 @@
-<p>sales-details works!</p>
+<form >
+<app-title-page [title]="title" ></app-title-page>
+
+
+
+
+<div class="card-container">
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">Información general</span>
+    </div>
+    <div class="card-body">
+      <div class="inner-card">
+        <label>Fecha de venta</label>
+        <span>{{dataShow.saleDate}}</span>
+      </div>
+      <div class="inner-card">
+        <label>Producto</label>
+        <span>{{dataShow.productName}}</span>
+      </div>
+      <div class="inner-card">
+        <label>Número de póliza</label>
+        <span>{{dataShow.policyNumber}}</span>
+      </div>
+      <div class="inner-card">
+        <label>Valor de póliza</label>
+        <span>{{dataShow.policyValue}}</span>
+      </div>
+      <div class="inner-card">
+        <label>Valor de prima</label>
+        <span>{{dataShow.premiumValue}}</span>
+      </div>
+      <div class="inner-card">
+        <label>Comisión broker</label>
+        <span> {{dataShow.brokerCommissionPercent}}</span>
+      </div>
+      <div class="inner-card">
+        <label>Comisión broker</label>
+        <span>{{dataShow.brokerCommissionARS}} </span>
+      </div>
+      <div class="inner-card">
+        <label>Cantidad de pagos</label>
+        <span>{{dataShow.premiumInstallments}}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="card-container" >
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">Información del cliente</span>
+    </div>
+    <div class="card-body">
+      <div class="inner-card">
+        <label>Nombre</label>
+        <span>{{dataShow.customerName}}</span>
+      </div>
+      <div class="inner-card">
+        <label>Email</label>
+        <span>{{dataShow.customerEmail}}</span>
+      </div>
+      <div class="inner-card">
+        <label>Telefono</label>
+        <span>{{dataShow.customerPhone}}</span>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="card-container" >
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">Plan de pago</span>
+    </div>
+    <div class="card-body">
+     <app-table></app-table>
+      
+    </div>
+  </div>
+</div>
+
+</form>

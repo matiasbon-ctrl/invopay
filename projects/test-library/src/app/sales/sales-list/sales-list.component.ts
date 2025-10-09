@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { Sale } from '../models/sales';
+import { map, Subscription } from 'rxjs';
+import { Sale } from '../models/sale';
 import { SalesResponse } from '../models/salesResponse';
 import { SalesService } from '../services/sales.service';
 import { Router } from '@angular/router';
@@ -20,7 +20,7 @@ export class SalesListComponent implements OnInit , OnDestroy {
   constructor(
      private readonly salesService: SalesService
     ,private readonly router: Router 
-    ,private readonly cdr :ChangeDetectorRef) { }
+    ) { }
 
 
 
@@ -38,7 +38,7 @@ export class SalesListComponent implements OnInit , OnDestroy {
   filtredData:any[]=[];
   itemsPerpage:number = 0;
   columnsHeaders = ['fila','fecha','producto','broker','cliente','montoPoliza'];
-  actions = ['view'];
+  actions = ['detail'];
   titlesMap: Map<string,string>|undefined;
 
   currentStart:string=''
@@ -99,10 +99,8 @@ export class SalesListComponent implements OnInit , OnDestroy {
         var endDate1DayLess = new Date()
         endDate1DayLess.setDate(endDate1DayLess.getDate() - 1)
         this.maxStart = this.formatDate(endDate1DayLess)
-
-   
- 
 }
+
     onStartDatechange(startDate1: any) {
 
         console.log(startDate1)
@@ -143,24 +141,42 @@ export class SalesListComponent implements OnInit , OnDestroy {
 }
 
 
-  onApplyFilter(){
+    onApplyFilter() {
 
-    this.sales.filter(x=>{
-    })
+        if (!this.currentStart || !this.currentEnd) return;
+
+          const from = new Date(this.currentStart);
+          const to = new Date(this.currentEnd);
+          to.setHours(23, 59, 59, 999);
+
+          this.salesService.getSales().pipe(
+            map(response => {
+              this.salesData = response;
+              return this.salesData.content.filter(x => {
+                const saleDate = new Date(x.saleDate);
+                return saleDate >= from && saleDate <= to;
+              });
+            })
+          ).subscribe(filtered => {
+            this.sales = filtered;
+            this.loadTable(1);
+          });
+
+    }
 
 
+  isValidDate(date: Date|string|null): boolean {
+    return date instanceof Date && !isNaN(date.getTime());
   }
-
-isValidDate(date: Date|string|null): boolean {
-  return date instanceof Date && !isNaN(date.getTime());
-}
 
 
   onTableAction(event: { event: string; dataField?: any }) {
     console.log('Action', event);
     console.log('Fila afectada:', event.dataField);
-    if (event.event === 'VIEW') {
-      // redireccionar toggle para detailsales
+    const id = event.dataField?.realSale.id
+    console.log(id)
+    if (event.event === 'detail') {
+          this.router.navigate(['sales-detail',id]);
     }
   }
   onSelectedItems(items: any[]) {
@@ -174,7 +190,7 @@ isValidDate(date: Date|string|null): boolean {
         this.sales= this.salesData.content
          // transformando el contenido para que matcheen con las columnas de la tabla
          // (lo pide el componente table) , posicionandonos en la pagina 1
-            this.loadTable(1)
+        this.loadTable(1)
       
       },
       error: (error) => {
@@ -183,6 +199,7 @@ isValidDate(date: Date|string|null): boolean {
     });
     this.subscriptions.add(getSalesSub)
   }
+
   loadTable(pagina:number) {
     console.log("pagina:"+pagina)
     console.log("itms x pag : "+this.itemsPerpage)
@@ -195,11 +212,10 @@ isValidDate(date: Date|string|null): boolean {
         const filteredSales = [...this.sales.slice(startIndex, endIndex)]
         console.log(this.sales)
         console.log(filteredSales)
-          // Forzar nueva referencia con spread operator
         this.tableSalesDto = [...filteredSales.map((item, index) => ({
           id: item.id,
           fila: startIndex+index + 1, 
-          fecha: this.formatDate(item.saleDate),
+          fecha: this.formatDate2(item.saleDate),
           producto: item.productName,
           broker: item.brokerName,
           cliente: item.customerName,
@@ -216,12 +232,11 @@ isValidDate(date: Date|string|null): boolean {
   }
 
   onVolver() {
-  console
   }
 
 
   loadTitleMap(){
-          this.titlesMap = new Map<string,string>([
+      this.titlesMap = new Map<string,string>([
       ['fila', 'Fila'],
       ['fecha', 'Fecha'],
       ['producto', 'Producto'],
@@ -239,12 +254,18 @@ isValidDate(date: Date|string|null): boolean {
     return date.toISOString().split('T')[0];
   }
 
+    formatDate2(date: string | Date): string {
+    if (typeof date === 'string') {
+      return date.replace('T', ' ');
+    }
+    const iso = date.toISOString();
+    return iso.replace('T', ' ');
+  }
+
   getTodayDate(): string {
     return new Date().toISOString().split('T')[0];
   }
 
-
-  
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe()
   }

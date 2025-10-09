@@ -1,0 +1,87 @@
+form {
+  padding: 1rem; /* padding del padre */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.card-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0; /* elimina cualquier margen */
+  margin-bottom: 10px;
+  padding: 0; /* sin padding propio para respetar el del padre */
+}
+
+.card {
+  background-color: #ffffff;
+  border-radius: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+  margin-top: 1rem; /* espacio entre el título y la card */
+}
+
+.card-header {
+  position: absolute;
+  top: -1rem;
+  left: 2rem;
+  background-color: #ffffff;
+  padding: 0.5rem 1rem; /* más padding horizontal */
+  font-weight: 600;
+  font-size: 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: calc(100% - 4rem);
+  border-radius: 0.5rem; /* bordes redondeados */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* sombra suave */
+}
+
+.card-title {
+  display: block;
+}
+
+.card-body {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+  width: 100%;
+}
+
+.inner-card {
+  background-color: #f2f3f7;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  padding-top: 1.5rem; /* espacio extra arriba para el label flotante */
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  min-width: 0; /* permite que el contenido se ajuste */
+  position: relative; /* necesario para posicionar el label */
+  margin-top: 0.5rem; /* espacio para que el label no se corte */
+}
+
+.inner-card label {
+  position: absolute;
+  top: -0.5rem;
+  left: 1rem;
+  background-color: #ffffff;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  color: #555;
+  font-weight: 400;
+  border-radius: 0.25rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  white-space: nowrap;
+}
+
+.inner-card span {
+  font-weight: 500;
+  color: #000;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}

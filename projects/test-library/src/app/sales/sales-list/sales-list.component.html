@@ -40,6 +40,7 @@
           </div>
             <div class="card-table">     
                 <app-table
+                    [keyTranslate]="'IP.ADMIN_TABLE'"
                     [propertyOrder]="columnsHeaders"
                     [data]="tableSalesDto"
                     [actions]="['detail']"
@@ -72,11 +73,9 @@
                     </app-paginator>
                 </div>
             </div>
-
-
-
         </div>
 
+        
   </form>
 
 
