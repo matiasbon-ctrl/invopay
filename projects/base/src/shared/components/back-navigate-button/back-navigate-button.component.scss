@@ -22,7 +22,7 @@
 
 .container-back-button{
   @include sm{
-    background-color: $background-tables;
+    background-color: rgb(29, 125, 243);
     box-shadow: 0px 5px 15px 0px hsla(0, 0%, 0%, 0.07);
     border-radius: 1rem;
     height: 3rem;

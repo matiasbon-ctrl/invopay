@@ -13,6 +13,7 @@
                                     <div class="date-wrapper">
                                     <label style="margin-left: 10px;" class="placeholder">desde</label>
                                      <app-ip-date-input 
+                                     [control]="controlsForm.controls.dateStart"
                                      [max]="maxStart"
                                      (changed)="onStartDatechange($event)"
                                      >
@@ -31,7 +32,7 @@
                                      </div>
 
                                     <div class="date-wrapper">
-                                    <button class="search" (click)="onApplyFilter()">
+                                    <button class="search" (click)="onClickFiltredSearch()">
                                     <img src="../../../assets/new-styles/icons/buttons/search-icon-white.svg">
                                     </button>
                                     </div>
@@ -75,7 +76,7 @@
             </div>
         </div>
 
-        
+
   </form>
 
 

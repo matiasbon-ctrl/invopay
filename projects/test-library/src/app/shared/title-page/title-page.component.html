@@ -1,5 +1,14 @@
-<div class="ip-title-mobile">
-  <div class="ip-title-mobile__title">
-    {{ title }}
+<div class="title-container">
+  <button *ngIf="showBackButton" (click)="onClickButton()" class="floating-back-button">
+      <img class="back"
+      src="../../../../assets/img/header/ep_back.svg"
+      alt=""
+      />  
+    </button>
+  
+  <div class="ip-title-mobile">
+    <div class="ip-title-mobile__title">
+      {{ title }}
+    </div>
   </div>
 </div>

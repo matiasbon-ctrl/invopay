@@ -1,11 +1,14 @@
 <form >
-<app-title-page [title]="title" ></app-title-page>
+<app-title-page 
+[title]="title"
+[showBackButton]="true"
+(backButtonClick)="onBackButtonClick()"
+></app-title-page>
 
 
-
-
-<div class="card-container">
-  <div class="card">
+<div  class="card-container">
+    
+  <div  class="card">
     <div class="card-header">
       <span class="card-title">Información general</span>
     </div>
@@ -48,7 +51,7 @@
 
 
 <div class="card-container" >
-  <div class="card">
+  <div  class="card">
     <div class="card-header">
       <span class="card-title">Información del cliente</span>
     </div>
@@ -71,15 +74,26 @@
 </div>
 
 <div class="card-container" >
-  <div class="card">
+  <div  class="card-2">
     <div class="card-header">
       <span class="card-title">Plan de pago</span>
     </div>
-    <div class="card-body">
-     <app-table></app-table>
+                    <app-table
+                    [keyTranslate]="''"
+                    [propertyOrder]="columnsHeaders"
+                    [data]="dataShow.installmentPlan"
+                    [actions]="[]"
+                    [tableStyle]="'invopay'"
+                    [isForSelectItem]="false"
+                    [scroll]="true"
+                    [keyTranslate]="''"
+                    [titlesFile]="titlesMap"
+                ></app-table>
+            <app-no-data *ngIf="dataShow.installmentPlan.length<1"></app-no-data>
       
-    </div>
   </div>
 </div>
+  
 
 </form>
+

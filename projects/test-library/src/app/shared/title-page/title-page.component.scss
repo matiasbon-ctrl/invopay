@@ -2,6 +2,47 @@
 @import "../../../../../base/src/shared/mixins/sizes.scss";
 @import "../../../../../base/src/shared/mixins/variables/color.scss";
 
+.title-container {
+  position: relative;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.floating-back-button {
+  position: absolute;
+  top: -1.8rem; // más arriba (era -0.75rem)
+  left: 0.5rem; // más a la izquierda (era 2rem)
+  z-index: 10;
+  background: linear-gradient(135deg, #4A90E2 0%, #63B3ED 100%);
+  padding: 0.20rem;
+  border: none;
+  border-radius: 35%;
+  box-shadow: 0 6px 8px rgba(74, 144, 226, 0.3);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  transition: all 0.3s ease;
+
+  .back {
+    width: 1.5rem;
+    height: 1.5rem;
+    filter: brightness(0) invert(1);
+  }
+
+  &:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 4px 12px rgba(74, 144, 226, 0.4);
+    background: linear-gradient(135deg, #5BA0F2 0%, #73C3FD 100%);
+  }
+
+  &:active {
+    transform: translateY(0) scale(1);
+  }
+}
+
 .ip-title-mobile {
   width: 100%;
   box-sizing: border-box;
@@ -11,7 +52,6 @@
   box-shadow: 0px 5px 15px 0px hsla(0, 0%, 0%, 0.07);
   border-radius: 0.7rem;
   justify-content: space-between;
-  margin-bottom: 1rem;
   height: 5rem;
   padding: 1rem 2.5rem;
 

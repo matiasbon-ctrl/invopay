@@ -18,7 +18,11 @@ export interface DataShow {
 
 export interface Installment {
   number: number;
-  dueDate: string;              // formatted as 'dd/MM/yyyy'
-  amount: number;
-  paid: boolean;
+  dueDate: string;              // 'dd/MM/yyyy'
+  amount: string;
+  paid: string;                // indica si la cuota fue pagada
+  state?: string;               // "Pagada" | "Pendiente"
+  brokerCommissionPaid?: string; // si la comisión del broker fue pagada
+  commissionValue?: string;     // valor de la comisión (ARS)
+  paymentDate?: string | null;  // fecha de pago de la cuota o comisión
 }

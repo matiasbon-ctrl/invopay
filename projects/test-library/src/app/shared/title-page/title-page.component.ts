@@ -8,16 +8,14 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class TitlePageComponent {
 
 
-onClickButton() {
-console.log("click")
-}
   @Input() title: string = '';
   @Input() showBackButton: boolean = false;
+  @Output() backButtonClick = new EventEmitter<void>();
 
   constructor() {}
 
-  goBack(): void {
-
+  onClickButton(): void {
+    console.log("click");
+    this.backButtonClick.emit();
   }
-
 }
