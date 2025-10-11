@@ -14,13 +14,15 @@ import { ComponentsModule } from 'projects/base/src/lib/components/components.mo
 import { SalesListComponent } from './sales/sales-list/sales-list.component';
 import { SalesDetailsComponent } from './sales/sales-details/sales-details.component';
 import { TitlePageComponent } from './shared/title-page/title-page.component';
+import { RevenuesListComponent } from './revenues/revenues-list/revenues-list.component';
+import { RevenueDetailComponent } from './revenues/revenue-detail/revenue-detail.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent,SalesListComponent, SalesDetailsComponent, TitlePageComponent],
+  declarations: [AppComponent, HomeComponent,SalesListComponent, SalesDetailsComponent, TitlePageComponent, RevenuesListComponent, RevenueDetailComponent],
   imports: [
 
     ComponentsModule,

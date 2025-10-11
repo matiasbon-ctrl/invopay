@@ -28,14 +28,16 @@
         <li routerLinkActive="active"
            [routerLink]="['sales-list']">
             <i class="icon">💰</i>
-            <span *ngIf="!collapsed">Recaudaciones</span>
+            <span *ngIf="!collapsed">Ventas</span>
         </li>
 
         <li routerLinkActive="active"
-          [routerLink]="['library/base']">
+          [routerLink]="['revenues-list']">
             <i class="icon">💸</i>
-            <span *ngIf="!collapsed">Comisiones</span>
+            <span *ngIf="!collapsed">Recaudaciones</span>
         </li>
+
+  
       </ul>
     </aside>
 
