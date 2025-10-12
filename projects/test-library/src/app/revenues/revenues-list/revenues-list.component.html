@@ -1,79 +1,85 @@
+<form [formGroup]="controlsForm">
+  <app-title-page [title]="'Recaudaciones'"></app-title-page>
 
-  
-  <form [formGroup]="controlsForm" >
-        <app-title-page
-        [title]="'Recaudaciones'"
-        ></app-title-page>
-
-        <div class="card-table-filters" >
-          <div class="card-body">
-            <div class="card-filtros">
-                <div class="card-filtros__actions">
-           
-                    <div class="date-wrapper">
-                    <label style="margin-left: 10px;" class="placeholder">desde</label>
-                        <app-ip-date-input 
-                        [control]="controlsForm.controls.dateStart"
-                        [max]="maxStart"
-                        (changed)="onStartDatechange($event)"
-                        >
-                        </app-ip-date-input>
-                    </div>
-                    <div class="date-wrapper">
-                    <label style="margin-left: 10px;" class="placeholder">hasta</label>
-                    <app-ip-date-input
-                    [control]="controlsForm.controls.dateEnd"
-                    [max]="maxEnd"
-                    [min]="minEnd"
-                    (changed)="onEndDateChange($event)"
-                    ></app-ip-date-input>
-                    </div>
-
-                    <div class="date-wrapper">
-                    <button class="search" (click)="onClickFiltredSearch()">
-                    <img src="../../../assets/new-styles/icons/buttons/search-icon-white.svg">
-                    </button>
-                    </div>
-            </div>
+  <div class="card-table-filters">
+    <div class="card-body">
+      <div class="card-filtros">
+        <div class="card-filtros__actions">
+          
+          <!-- Select con el mismo estilo que date inputs -->
+          <div class="select-wrapper">
+            <label class="placeholder">Canal de pago</label>
+            <div class="custom-select-container">
+              <select formControlName="yourSelectControl" class="custom-select">
+                <option value="">Seleccione una opción</option>
+                <option value="1">Opción 1</option>
+                <option value="2">Opción 2</option>
+                <option value="3">Opción 3</option>
+              </select>
             </div>
           </div>
-            <div class="card-table">     
-                <app-table
-                    [keyTranslate]="'IP.ADMIN_TABLE'"
-                    [propertyOrder]="columnsHeaders"
-                    [data]="tableRevDto"
-                    [actions]="['detail']"
-                    [tableStyle]="'invopay'"
-                    [isForSelectItem]="false"
-                    [scroll]="true"
-                    [keyTranslate]="''"
-                    [titlesFile]="titlesMap"
-                    (action)="onTableAction($event)"
-                    (selectedItemsChange)="onSelectedItems($event)"
-                ></app-table>
-                 <app-no-data *ngIf="revenues.length<1"></app-no-data>
-            </div>
 
-             <div class="card-paginator">
-                <div class="paginator-controls">
-                    <select class="page-size-select" formControlName="rowPaginator" title="Filas por pagina">
-                    <option [value]="5">5</option>
-                    <option [value]="10">10</option>
-                    <option [value]="20">20</option>
-                    <option [value]="50">50</option>
-                    </select>
-                    <app-paginator
-                    (pageChange)="onPageChange($event)"
-                    [totalItems]="revenues.length"
-                    [itemsPerPage]="itemsPerpage"
-                    [currentPages]="currentPages">
-                    </app-paginator>
-                </div>
-            </div>
+          <div class="date-wrapper">
+            <label style="margin-left: 10px;" class="placeholder">desde</label>
+            <app-ip-date-input 
+              [control]="controlsForm.controls.dateStart"
+              [max]="maxStart"
+              (changed)="onStartDatechange($event)">
+            </app-ip-date-input>
+          </div>
+
+          <div class="date-wrapper">
+            <label style="margin-left: 10px;" class="placeholder">hasta</label>
+            <app-ip-date-input
+              [control]="controlsForm.controls.dateEnd"
+              [max]="maxEnd"
+              [min]="minEnd"
+              (changed)="onEndDateChange($event)">
+            </app-ip-date-input>
+          </div>
+
+          <div class="date-wrapper">
+            <button class="search" (click)="onClickFiltredSearch()">
+              <img src="../../../assets/new-styles/icons/buttons/search-icon-white.svg">
+            </button>
+          </div>
+          
         </div>
+      </div>
+    </div>
+    
+    <div class="card-table">     
+      <app-table
+        [keyTranslate]="'IP.ADMIN_TABLE'"
+        [propertyOrder]="columnsHeaders"
+        [data]="tableRevDto"
+        [actions]="['detail']"
+        [tableStyle]="'invopay'"
+        [isForSelectItem]="false"
+        [scroll]="true"
+        [keyTranslate]="''"
+        [titlesFile]="titlesMap"
+        (action)="onTableAction($event)"
+        (selectedItemsChange)="onSelectedItems($event)">
+      </app-table>
+      <app-no-data *ngIf="revenues.length<1"></app-no-data>
+    </div>
 
-
-  </form>
-
-
-
+    <div class="card-paginator">
+      <div class="paginator-controls">
+        <select class="page-size-select" formControlName="rowPaginator" title="Filas por pagina">
+          <option [value]="5">5</option>
+          <option [value]="10">10</option>
+          <option [value]="20">20</option>
+          <option [value]="50">50</option>
+        </select>
+        <app-paginator
+          (pageChange)="onPageChange($event)"
+          [totalItems]="revenues.length"
+          [itemsPerPage]="itemsPerpage"
+          [currentPages]="currentPages">
+        </app-paginator>
+      </div>
+    </div>
+  </div>
+</form>

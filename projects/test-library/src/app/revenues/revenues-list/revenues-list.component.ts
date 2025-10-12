@@ -51,6 +51,11 @@ export class RevenuesListComponent {
   currentEnd:string=''
 
 
+  paymentChannels = [
+  { label: 'Transferencia', value: 'transferencia' },
+  { label: 'Efectivo', value: 'efectivo' },
+  { label: 'Tarjeta', value: 'tarjeta' },
+];
 
 
   ngOnInit(): void {

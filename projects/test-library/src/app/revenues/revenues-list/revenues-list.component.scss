@@ -65,6 +65,101 @@
         gap: 0.875rem;
       }
 
+      // Estilos para el select wrapper (igual que date-wrapper)
+      .select-wrapper {
+        min-width: 200px;
+        display: flex;
+        flex-direction: column;
+
+        @include sm() {
+          min-width: 100%;
+        }
+
+        @include md() {
+          min-width: 180px;
+        }
+
+        @include lg() {
+          min-width: 200px;
+        }
+
+        .placeholder {
+          font-weight: 200;
+          font-size: 0.75rem;
+          color: #6b7280;
+          margin-bottom: 0.25rem;
+          margin-left: 10px;
+
+          @include sm() {
+            font-size: 0.6875rem;
+          }
+        }
+
+        .custom-select-container {
+          display: flex;
+          justify-content: flex-end;
+          align-items: center;
+          position: relative;
+          margin-bottom: 0;
+          height: 1.75rem;
+          border: 1.5px solid #e5e7eb;
+          border-radius: 0.5rem;
+          transition: all 0.3s ease;
+          background-color: white;
+
+          @include sm() {
+            height: 1.625rem;
+          }
+
+          @include md() {
+            height: 1.6875rem;
+          }
+
+          &:focus-within {
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+          }
+
+          &:hover:not(:focus-within) {
+            border-color: #d1d5db;
+          }
+
+          .custom-select {
+            width: 100%;
+            height: 1.75rem;
+            border: none;
+            background: transparent;
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: #1f2937;
+            padding: 0 2rem 0 0.75rem;
+            outline: none;
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.5rem center;
+
+            @include sm() {
+              height: 1.625rem;
+              font-size: 0.75rem;
+            }
+
+            @include md() {
+              height: 1.6875rem;
+              font-size: 0.78125rem;
+            }
+
+            &:focus {
+              box-shadow: none;
+            }
+
+            option {
+              padding: 0.5rem;
+            }
+          }
+        }
+      }
+
       app-ip-date-input {
         min-width: 200px;
 
@@ -82,9 +177,9 @@
 
         ::ng-deep {
           .form-floating {
-            display: flex;              
-            justify-content: flex-end; 
-            align-items: center;       
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
             position: relative;
             margin-bottom: 0;
             height: 1.75rem;
@@ -188,10 +283,10 @@
       table {
         width: 100%;
         border-collapse: collapse;
-        
+
         thead {
           background-color: #f9fafb;
-          
+
           th {
             padding: 0.875rem 1rem;
             text-align: left;
@@ -249,11 +344,13 @@
 
 .card-filtros .date-wrapper .placeholder {
   font-weight: 200;
-  font-size: 14px;
-  color: #333;
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin-bottom: 0.25rem;
 }
 
-.card-filtros__actions .search { height: 1.75rem;
+.card-filtros__actions .search {
+  height: 1.75rem;
   padding: 0 0.75rem;
   border: none;
   border-radius: 0.5rem;
@@ -279,7 +376,7 @@
     width: 0.875rem;
     height: 0.875rem;
     display: block;
-    
+
     @include sm() {
       width: 0.8125rem;
       height: 0.8125rem;
@@ -288,13 +385,13 @@
 
   &:hover {
     background-color: rgb(5, 53, 143);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   }
 
   &::after {
-    content: "BUSCAR"; 
+    content: "BUSCAR";
     position: absolute;
-    top: -2rem; 
+    top: -2rem;
     left: 50%;
     transform: translateX(-50%);
     background-color: rgba(27, 25, 25, 0.8);
@@ -312,10 +409,11 @@
     opacity: 1;
   }
 }
+
 .card-paginator {
   display: flex;
   justify-content: flex-end;
-  align-items: end; // 🔹 cambia flex-end por center
+  align-items: end;
   padding: 0.75rem 1.5rem;
   background-color: #fff;
   border-top: 1px solid #e5e7eb;
@@ -324,11 +422,11 @@
 
   .paginator-controls {
     display: flex;
-    align-items: end; // 🔹 centra verticalmente el select y el paginador
+    align-items: end;
     gap: 0.75rem;
 
     select {
-      margin-bottom: 15px;  
+      margin-bottom: 15px;
       width: 3rem;
       height: 1.75rem;
       text-align: center;
