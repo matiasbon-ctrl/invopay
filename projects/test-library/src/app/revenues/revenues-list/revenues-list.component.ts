@@ -29,7 +29,8 @@ export class RevenuesListComponent {
     controlsForm = new FormGroup({
       rowPaginator: new FormControl<number>(50),
       dateEnd : new FormControl<string>(''),
-      dateStart: new FormControl<string>('')
+      dateStart: new FormControl<string>(''),
+      chanelPayment: new FormControl<string>('')
       });
 
   revenueData: RevenuesResponse | null = null;
@@ -49,6 +50,7 @@ export class RevenuesListComponent {
   maxEnd : string=''
   minEnd : string =''
   currentEnd:string=''
+  currentPayChannel =''
 
 
   paymentChannels = [
@@ -61,13 +63,8 @@ export class RevenuesListComponent {
   ngOnInit(): void {
 
       console.log('RevenueListComponent init ');
- 
-
       console.log(this.formatDate(new Date()))
-      this.itemsPerpage=50
-      var now = new Date()
-      now.setMonth(new Date().getMonth()-1)
-      this.currentStart = this.formatDate(now)
+
       this.loadTitleMap();
       this.loadControlsSubscriptions()
       this.loadRevenues()
@@ -106,18 +103,23 @@ export class RevenuesListComponent {
         }   
       });
       this.subscriptions.add(rowPaginatorSubscription);
+    const channelPaymentSubscription =this.controlsForm.controls.chanelPayment.valueChanges.subscribe({
+           next: (n) => {
+          if(n){
+            this.currentPayChannel = this.paymentChannels.find(pc => pc.value === n)?.value||'';
+            this.loadTable(1); 
+            this.currentPages = 1;
+          }
+        } 
+    })
+    this.subscriptions.add(channelPaymentSubscription)
 
 }
   onEndDateChange(endDate: any) {
 
-      const target = endDate.target as HTMLInputElement;
-        
-        
-        // Convertir a Date
+        const target = endDate.target as HTMLInputElement;
         const date = new Date(target.value);
         this.currentEnd=this.formatDate(date)
-      
-
         const endMinus3Months = new Date(date);
         endMinus3Months.setMonth(endMinus3Months.getMonth() - 3);
         
@@ -170,6 +172,7 @@ export class RevenuesListComponent {
 
           const from = new Date(this.currentStart);
           const to = new Date(this.currentEnd);
+          const chanelPayment = this.currentPayChannel;
           to.setHours(23, 59, 59, 999);
 
           this.revenueService.getRevenues().pipe(
@@ -177,7 +180,9 @@ export class RevenuesListComponent {
               this.revenueData = response;
               return this.revenueData.content.filter(x => {
                 const saleDate = new Date(x.revenueDate);
-                return saleDate >= from && saleDate <= to;
+                const matchesDate = saleDate >= from && saleDate <= to;
+                const matchesChannel = !this.currentPayChannel || x.paymentChannel.toLocaleLowerCase() === this.currentPayChannel.toLocaleLowerCase();
+                return matchesDate && matchesChannel;
               });
             })
           ).subscribe(filtered => {
@@ -212,13 +217,21 @@ export class RevenuesListComponent {
       next: (response: RevenuesResponse) => {
         this.revenueData = response;
         this.revenues= this.revenueData.content
-         // transformando el contenido para que matcheen con las columnas de la tabla
-         // (lo pide el componente table) , posicionandonos en la pagina 1
-        this.loadTable(1)
-      const stateSaved = this.stateService.getState()
-      if(stateSaved){
-        this.loadPreviusState(stateSaved)}
-      },
+        const stateSaved = this.stateService.getState()
+        if(stateSaved){
+          this.loadPreviusState(stateSaved)
+        }
+        else{  
+        this.itemsPerpage=50;
+        var oneMountAgo = new Date();
+        oneMountAgo.setMonth(new Date().getMonth()-1)
+        this.currentStart = this.formatDate(oneMountAgo)
+        this.currentEnd = this.formatDate(new Date)
+        this.controlsForm.controls.dateStart.setValue(this.currentStart)
+        this.controlsForm.controls.dateEnd.setValue(this.currentEnd)
+        this.loadTable(1)}
+      }
+      ,
       error: (error) => {
         console.error('Error al cargar las recaudaciones:', error);
       }

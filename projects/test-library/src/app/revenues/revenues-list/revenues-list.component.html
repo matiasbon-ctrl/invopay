@@ -10,11 +10,11 @@
           <div class="select-wrapper">
             <label class="placeholder">Canal de pago</label>
             <div class="custom-select-container">
-              <select formControlName="yourSelectControl" class="custom-select">
-                <option value="">Seleccione una opción</option>
-                <option value="1">Opción 1</option>
-                <option value="2">Opción 2</option>
-                <option value="3">Opción 3</option>
+              <select formControlName="chanelPayment" class="custom-select">
+                 of list"
+                <option  value="">Seleccione una opción</option>
+                <option *ngFor="let item of paymentChannels" value="{{item.value}}">{{item.label}}</option>
+            
               </select>
             </div>
           </div>

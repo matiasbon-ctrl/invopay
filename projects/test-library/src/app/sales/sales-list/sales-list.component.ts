@@ -58,19 +58,9 @@ export class SalesListComponent implements OnInit , OnDestroy {
 
   ngOnInit(): void {
 
-      console.log('SalesListComponent Init');
- 
-
-      console.log(this.formatDate(new Date()))
-      this.itemsPerpage=50
-      var now = new Date()
-      now.setMonth(new Date().getMonth()-1)
-      this.currentStart = this.formatDate(now)
       this.loadTitleMap();
       this.loadControlsSubscriptions()
       this.loadSales()
-
-      
   }
 
 
@@ -213,12 +203,21 @@ export class SalesListComponent implements OnInit , OnDestroy {
       next: (response: SalesResponse) => {
         this.salesData = response;
         this.sales= this.salesData.content
-         // transformando el contenido para que matcheen con las columnas de la tabla
-         // (lo pide el componente table) , posicionandonos en la pagina 1
-        this.loadTable(1)
+       
       const stateSaved = this.stateService.getState()
       if(stateSaved){
-        this.loadPreviusState(stateSaved)}
+        this.loadPreviusState(stateSaved)
+      }
+      else{  
+        this.itemsPerpage=50;
+        var oneMountAgo = new Date();
+        oneMountAgo.setMonth(new Date().getMonth()-1)
+        this.currentStart = this.formatDate(oneMountAgo)
+        this.currentEnd = this.formatDate(new Date())
+        this.controlsForm.controls.dateStart.setValue(this.currentStart)
+        this.controlsForm.controls.dateEnd.setValue(this.currentEnd)
+        this.onApplyFilter(1)
+      }
       },
       error: (error) => {
         console.error('Error al cargar ventas:', error);
