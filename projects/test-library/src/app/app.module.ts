@@ -16,13 +16,14 @@ import { SalesDetailsComponent } from './sales/sales-details/sales-details.compo
 import { TitlePageComponent } from './shared/title-page/title-page.component';
 import { RevenuesListComponent } from './revenues/revenues-list/revenues-list.component';
 import { RevenueDetailComponent } from './revenues/revenue-detail/revenue-detail.component';
+import { SupplierListComponent } from './suppliers/supplier-list/supplier-list.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent,SalesListComponent, SalesDetailsComponent, TitlePageComponent, RevenuesListComponent, RevenueDetailComponent],
+  declarations: [AppComponent, HomeComponent,SalesListComponent, SalesDetailsComponent, TitlePageComponent, RevenuesListComponent, RevenueDetailComponent, SupplierListComponent],
   imports: [
 
     ComponentsModule,
