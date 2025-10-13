@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BaseComponent } from 'base';
-import { HomeComponent } from './home/home.component';
 import { SalesListComponent } from './sales/sales-list/sales-list.component';
 import { SalesDetailsComponent } from './sales/sales-details/sales-details.component';
 import { RevenuesListComponent } from './revenues/revenues-list/revenues-list.component';
 import { RevenueDetailComponent } from './revenues/revenue-detail/revenue-detail.component';
+import { HomeComponent } from './invopay/views/home/home.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'home',
     component: HomeComponent,
   },
   {
@@ -37,11 +37,17 @@ const routes: Routes = [
       },
     ],
   },
+  {
+    path: 'invopay',
+    loadChildren: () =>
+      import('./invopay/invopay.module').then((m) => m.InvopayModule),
+  },
   { path: '**', redirectTo: '' }
+
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
