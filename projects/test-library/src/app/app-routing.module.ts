@@ -5,7 +5,7 @@ import { HomeComponent } from './invopay/views/home/home.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'home',
     component: HomeComponent,
   },
   {

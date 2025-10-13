@@ -9,6 +9,11 @@ const routes: Routes = [
     path: 'login-admin',
     component: IpLoginComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'login-broker',
+    component: IpLoginComponent,
+    canActivate: [AuthGuard]
   }
 ];
 
