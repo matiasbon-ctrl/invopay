@@ -1,1 +1,134 @@
-<p>revenue-detail works!</p>
+<form >
+<app-title-page 
+[title]="title"
+[showBackButton]="true"
+(backButtonClick)="onBackButtonClick()"
+></app-title-page>
+
+
+<div  class="card-container">
+    
+  <div  class="card">
+    <div class="card-header">
+      <span class="card-title">Datos de transacción</span>
+    </div>
+    <div *ngIf="dataShow.transactionData" class="card-body">
+      <div class="inner-card">
+        <label>Fecha</label>
+        <span>{{dataShow.transactionData.revenueDate}}</span>
+      </div>
+      <div class="inner-card">
+        <label>Canal de pago</label>
+        <span>{{dataShow.transactionData.paymentChannel}}</span>
+      </div>
+      <div class="inner-card">
+        <label>Proveedor de pago</label>
+        <span>{{dataShow.transactionData.paymentProvider}}</span>
+      </div>
+      <div class="inner-card">
+        <label>Moneda</label>
+        <span>{{dataShow.transactionData.currency}}</span>
+      </div>
+      <div class="inner-card">
+        <label>Monto</label>
+        <span>{{dataShow.transactionData.amount}}</span>
+      </div>
+      <div class="inner-card">
+        <label>Observaciones de la transaccion</label>
+        <span> {{dataShow.transactionData.transactionObservations}}</span>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="dataShow.conciliationData"  class="card-container" >
+  <div  *ngIf="dataShow.conciliationData.isConsolidated && dataShow.policyData && dataShow.transactionData" class="card">
+    <div class="card-header">
+      <span class="card-title">Datos conciliación</span>
+    </div>
+    <div class="card-body">
+      <div class="inner-card">
+        <label>Consolidada</label>
+        <span>{{dataShow.conciliationData.isConsolidated}}</span>
+      </div>
+      <div class="inner-card">
+        <label>Producto</label>
+        <span>{{dataShow.conciliationData.productName}}</span>
+      </div>
+      <div class="inner-card">
+        <label>Póliza</label>
+        <span>{{dataShow.policyData.number}}</span>
+      </div>
+       <div class="inner-card">
+        <label>Monto </label>
+        <span>{{dataShow.transactionData.currency}} {{dataShow.policyData.amount}}</span>
+      </div>
+      <div class="inner-card">
+        <label>  Nro Pago </label>
+        <span>ARG {{dataShow.conciliationData.paymentNumber}}</span>
+      </div>
+       <div class="inner-card">
+        <label>  Valor Pago </label>
+        <span>{{dataShow.transactionData.currency}} {{dataShow.conciliationData.paymentValue}}</span>
+      </div>
+
+      <div class="inner-card">
+        <label>  Broker </label>
+        <span>{{dataShow.conciliationData.brokerName}}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="dataShow.conciliationData"  class="card-container" >
+  <div   *ngIf="dataShow.conciliationData.isConsolidated && dataShow.policyData " class="card">
+    <div class="card-header">
+      <span class="card-title">Datos de póliza</span>
+    </div>
+    <div class="card-body">
+      <div class="inner-card">
+        <label>  Producto </label>
+        <span> {{dataShow.conciliationData.productName}}</span>
+      </div>
+         <div class="inner-card">
+        <label>  Numero póliza </label>
+        <span> {{dataShow.conciliationData.productName}}</span>
+      </div>   <div class="inner-card">
+        <label>  Fecha de venta </label>
+        <span> {{dataShow.transactionData?.revenueDate}}</span>
+      </div>   <div class="inner-card">
+        <label>  Monto poliza </label>
+        <span> {{dataShow.policyData.amount}}</span>
+      </div> 
+     <div class="inner-card">
+        <label>  Monto prima </label>
+        <span> {{dataShow.policyData.premiumAmount}}</span>
+     </div>
+
+             <div class="card-2">
+                 <div class="card-table">
+             <label>Plan de Pago de la Prima</label>
+                    <app-table
+                    [keyTranslate]="''"
+                    [propertyOrder]="columnsHeaders"
+                    [data]="dataShow.policyData.premiumPaymentPlan"
+                    [actions]="[]"
+                    [tableStyle]="'invopay'"
+                    [isForSelectItem]="false"
+                    [scroll]="true"
+                    [keyTranslate]="''"
+                    [titlesFile]="titlesMap"
+                ></app-table>
+            <app-no-data *ngIf="dataShow.policyData.premiumPaymentPlan.length<1"></app-no-data>
+            </div>
+            </div>
+     </div>
+
+  </div>
+</div>
+  
+
+</form>
+

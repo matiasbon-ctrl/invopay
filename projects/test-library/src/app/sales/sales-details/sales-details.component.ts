@@ -73,10 +73,10 @@ loadSaleDetail() {
           saleDate: formatDate(this.sale.saleDate, 'dd/MM/yyyy', 'en-US'),
           productName: this.sale.productName,
           policyNumber: this.sale.policyData.number,
-          policyValue: 'ARS ' + this.formatNumberToArg(this.sale.policyData.amount),
-          premiumValue: 'ARS ' + this.formatNumberToArg(this.sale.policyData.premiumAmount),
+          policyValue:  this.sale.currency + this.formatNumberToArg(this.sale.policyData.amount),
+          premiumValue: this.sale.currency  + this.formatNumberToArg(this.sale.policyData.premiumAmount),
           brokerCommissionPercent: this.calcularPorcentaje(this.sale.amount, this.sale.policyData.amount) + ' %',
-          brokerCommissionARS: 'ARS ' + this.formatNumberToArg(this.sale.amount),
+          brokerCommissionARS: this.sale.currency + this.formatNumberToArg(this.sale.amount),
           brokerBusiness: this.sale.brokerNameBussiness,
           brokerName: this.sale.brokerName,
           premiumInstallments: this.sale.premiumPaymentInstallments,
@@ -86,14 +86,13 @@ loadSaleDetail() {
 
           installmentPlan: this.sale.policyData.premiumPaymentPlan.map(cuota => ({
             number: cuota.installmentNumber,
-            amount: 'ARS ' + this.formatNumberToArg(cuota.amount),
+            amount: this.sale.currency  + this.formatNumberToArg(cuota.amount),
             dueDate: formatDate(cuota.dueDate, 'dd/MM/yyyy', 'en-US'),
             paid: cuota.isPaid ? 'PAGADA' : 'NO PAGADA',
             state: cuota.isPaid ? 'PAGADA' : 'NO PAGADA',
-            brokerCommissionPaid:
-              this.calcularPorcentaje(this.sale.amount, this.sale.policyData.amount) > 0 ? 'SI' : 'NO',
+            brokerCommissionPaid:this.calcularPorcentaje(this.sale.amount, this.sale.policyData.amount) > 0 ? 'SI' : 'NO',
             commissionValue:
-              'ARS ' +
+              this.sale.currency  +
               this.formatNumberToArg(
                 this.calcularValorDePorcentaje(
                   cuota.amount,

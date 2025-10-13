@@ -74,8 +74,6 @@ export class RevenuesListComponent {
 
 
   loadPreviusState(stateSaved : RevenueListState){
-
-
         this.itemsPerpage=stateSaved.itemsXPage
         this.controlsForm.controls.rowPaginator.setValue(this.itemsPerpage)
         this.currentStart=stateSaved.startFilterValue
@@ -83,13 +81,13 @@ export class RevenuesListComponent {
         this.currentEnd=stateSaved.endFilterValue
         this.controlsForm.controls.dateEnd.setValue(this.currentEnd)
         this.currentPages=stateSaved.currentPage
+        this.currentPayChannel= stateSaved.chanelPaymentFilterValue
+        this.controlsForm.controls.chanelPayment.setValue(this.currentPayChannel)
         this.onApplyFilter(this.currentPages)
 
             setTimeout(() => {
               window.scrollTo(0, stateSaved.scrollPosition);
              }, 100);
-      
-      
   }
 
   loadControlsSubscriptions() {
@@ -128,7 +126,7 @@ export class RevenuesListComponent {
         this.maxStart = this.formatDate(endDate1DayLess)
 }
 
-    onStartDatechange(startDate1: any) {
+  onStartDatechange(startDate1: any) {
 
         console.log(startDate1)
         const target = startDate1.target as HTMLInputElement;
@@ -205,7 +203,7 @@ export class RevenuesListComponent {
     const id = event.dataField?.realSale.id
     console.log(id)
     if (event.event === 'detail') {
-          this.router.navigate(['revenues-detail',id]);
+          this.router.navigate(['revenue-detail',id]);
     }
   }
   onSelectedItems(items: any[]) {
@@ -320,12 +318,13 @@ formatDate2(date: string | Date): string {
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe()
       const state: RevenueListState={
-          scrollPosition:window.scrollY,
-          startFilterValue: this.currentStart,
-          endFilterValue: this.currentEnd,
-          currentPage:this.currentPages,
-          itemsXPage:this.itemsPerpage
-        }
+        scrollPosition: window.scrollY,
+        startFilterValue: this.currentStart,
+        endFilterValue: this.currentEnd,
+        currentPage: this.currentPages,
+        itemsXPage: this.itemsPerpage,
+        chanelPaymentFilterValue: this.currentPayChannel
+      }
       this.stateService.saveState(state)
 
   }

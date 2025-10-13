@@ -1,6 +1,6 @@
 export interface Revenue {
   id: number;
-  revenueDate: string; // fecha en ISO, podés convertir a Date si querés
+  revenueDate: string; 
   currency: string;
   revenueAmount: number;
   paymentProvider: string;

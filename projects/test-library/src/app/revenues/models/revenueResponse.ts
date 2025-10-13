@@ -1,3 +1,4 @@
+import { Pageable, Sort } from "../../shared/models/pageable";
 import { Revenue } from "./revenue";
 
 export interface RevenuesResponse {
@@ -12,18 +13,4 @@ export interface RevenuesResponse {
   number: number;
   sort: Sort;
   empty: boolean;
-}
-export interface Sort {
-  unsorted: boolean;
-  empty: boolean;
-  sorted: boolean;
-}
-
-export interface Pageable {
-  pageNumber: number;
-  pageSize: number;
-  sort: Sort;
-  offset: number;
-  paged: boolean;
-  unpaged: boolean;
 }

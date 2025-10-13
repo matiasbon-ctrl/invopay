@@ -5,6 +5,7 @@ import { HomeComponent } from './home/home.component';
 import { SalesListComponent } from './sales/sales-list/sales-list.component';
 import { SalesDetailsComponent } from './sales/sales-details/sales-details.component';
 import { RevenuesListComponent } from './revenues/revenues-list/revenues-list.component';
+import { RevenueDetailComponent } from './revenues/revenue-detail/revenue-detail.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,10 @@ const routes: Routes = [
   {
     path: 'revenues-list',
     component: RevenuesListComponent
+  },
+  {
+    path: 'revenue-detail/:id',
+    component: RevenueDetailComponent
   },
   {
     path: 'library',
