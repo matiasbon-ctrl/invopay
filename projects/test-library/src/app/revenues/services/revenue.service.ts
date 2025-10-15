@@ -3,13 +3,14 @@ import { Observable } from 'rxjs';
 import { RevenuesResponse } from '../models/revenueResponse';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { RevenueDetail } from '../models/revenueDetail';
+import { environment } from 'projects/test-library/src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RevenueService {
 
-  private readonly apiUrl='https://api.130.211.34.27.nip.io/api/v1/invopay/revenue'
+  private readonly apiUrl=  environment.api+'invopay/revenue'
   constructor(private http: HttpClient) {}
 
    getRevenues(): Observable<RevenuesResponse> {

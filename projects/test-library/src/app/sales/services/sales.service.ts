@@ -4,12 +4,14 @@ import { Observable } from 'rxjs';
 import { SalesResponse } from '../models/salesResponse';
 import { Sale } from '../models/sale';
 import { saleDetail } from '../models/saleDetail';
+import { environment } from 'projects/test-library/src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SalesService {
- private apiUrl = 'https://api.130.211.34.27.nip.io/api/v1/invopay';
+ private apiUrl = environment.api+'/invopay';
+ 
 
   constructor(private http: HttpClient) {}
 
