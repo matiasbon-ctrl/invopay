@@ -3,10 +3,10 @@
 
   <div class="card-table-filters">
     <div class="card-body">
+        <!--FILTROS-->
       <div class="card-filtros">
         <div class="card-filtros__actions">
           
-          <!-- Select con el mismo estilo que date inputs -->
           <div class="select-wrapper">
             <label class="placeholder">Canal de pago</label>
             <div class="custom-select-container">
@@ -48,7 +48,8 @@
       </div>
     </div>
     
-    <div class="card-table">     
+    <!--TABLA-->
+    <div *ngIf="!isMobile" class="card-table">     
       <app-table
         [keyTranslate]="'IP.ADMIN_TABLE'"
         [propertyOrder]="columnsHeaders"
@@ -57,14 +58,55 @@
         [tableStyle]="'invopay'"
         [isForSelectItem]="false"
         [scroll]="true"
-        [keyTranslate]="''"
         [titlesFile]="titlesMap"
         (action)="onTableAction($event)"
         (selectedItemsChange)="onSelectedItems($event)">
       </app-table>
-      <app-no-data *ngIf="revenues.length<1"></app-no-data>
+
+
+    </div>
+    <div *ngIf="isMobile" class="card-mobile">
+        <div   class="payment-card-mobile-container" *ngFor="let revenue of tableRevDto; let i = index">
+            <div class="payment-card-mobile-data">
+            <div class="card-header-mobile">
+            <span class="card-id-mobile">#{{ revenue.id }}</span>
+            <div class="icon-movil-container">
+                    <button class="menu-icon-mobile" (click)="toggleMobileMenu(i)">
+                        ⋮
+                    </button>
+                    <ul *ngIf="showMobileMenuIndex === i" class="menu-movil">
+                        <li (click)="onMobileMenuAction('detail', revenue)">Revisar</li>
+                    </ul>
+            </div>
+            </div>
+
+      
+            <div class="card-body-mobile">
+
+            <div class="info-row-mobile">
+                <span class="info-label-mobile">Fecha</span>
+                <span class="info-value-mobile">{{ revenue.fecha }}</span>
+            </div>
+            <div class="info-row-mobile">
+                <span class="info-label-mobile">Canal de pago</span>
+                <span class="info-value-mobile">{{ revenue.canalPago }}</span>
+            </div>
+
+            <div class="info-row-mobile">
+                <span class="info-label-mobile">Proveedor</span>
+                <span class="info-value-mobile">{{ revenue.proveedorPago}}</span>
+            </div>
+            <div class="info-row-mobile">
+                <span class="info-label-mobile">Monto Recaudado</span>
+                <span class="info-value-mobile">{{revenue.moneda}}{{ revenue.montoRecaudado }}</span>
+            </div>
+            </div>
+        </div>
+        <app-no-data *ngIf="revenues.length < 1"></app-no-data>
+        </div>
     </div>
 
+  
     <div class="card-paginator">
       <div class="paginator-controls">
         <select class="page-size-select" formControlName="rowPaginator" title="Filas por pagina">

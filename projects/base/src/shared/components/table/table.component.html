@@ -90,6 +90,13 @@
             src="../../../../assets/new-styles/img/card-master.png"
             class="table__body-row-item-mastercard"
           />
+          <!-- Renderizar imagen -->
+              <img
+                *ngIf="imageColumns.includes(key) && dataField[key]"
+                [src]="dataField[key]"
+                [alt]="key"
+                class="table__body-row-item-image"
+              />
           <span
             [matTooltip]="generateTooltip(dataField[key], key, keyTranslate)"
             [matTooltipDisabled]="
@@ -105,7 +112,8 @@
                 ? 'keep-all'
                 : 'inherit'
             "
-            *ngIf="dataField[key] !== true && dataField[key] !== false"
+            *ngIf="!imageColumns.includes(key) && dataField[key] !== true && dataField[key] !== false"
+
           >
             {{ dataField[key] | transformDataTable : key : keyTranslate }}
           </span>

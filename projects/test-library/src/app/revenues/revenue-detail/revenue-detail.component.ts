@@ -4,7 +4,6 @@ import { RevenueService } from '../services/revenue.service';
 import { switchMap } from 'rxjs';
 import { RevenueDetail } from '../models/revenueDetail';
 import { formatDate } from '@angular/common';
-import { showData } from './showData';
 
 @Component({
   selector: 'app-revenue-detail',
@@ -18,7 +17,7 @@ export class RevenueDetailComponent {
     saleId!: string
     revenue!:RevenueDetail
     title=''
-    dataShow!: showData
+    dataShow!: any
     columnsHeaders:string[]= [
           'installmentNumber',
           'dueDate',
@@ -32,17 +31,9 @@ export class RevenueDetailComponent {
   
     constructor(private route: ActivatedRoute,private readonly service:RevenueService,private readonly router: Router) {}
   
-  
-  
-      onBackButtonClick() {
-        this.router.navigate(['revenues-list'])
+      ngOnInit(): void {
+          this.loadRevenueDetail();
       }
-  
-  
-  
-    ngOnInit(): void {
-        this.loadRevenueDetail();
-     }
   
   
   loadRevenueDetail() {
@@ -63,9 +54,9 @@ export class RevenueDetailComponent {
          this.dataShow = {
                          transactionData: this.revenue?.transactionData
                         ? {
-                            revenueDate: this.revenue.transactionData.revenueDate,
+                            revenueDate: formatDate(this.revenue.transactionData.revenueDate,'dd/MM/yyyy','en-US') ,
                             currency: this.revenue.transactionData.currency,
-                            amount: this.revenue.transactionData.amount,
+                            amount: this.formatNumberToArg( this.revenue.transactionData.amount),
                             paymentProvider: this.revenue.transactionData.paymentProvider,
                             paymentChannel: this.revenue.transactionData.paymentChannel,
                             transactionObservations: this.revenue.transactionData.transactionObservations
@@ -78,16 +69,16 @@ export class RevenueDetailComponent {
                               policyNumber: this.revenue.conciliationData.policyNumber,
                               policyAmount: this.revenue.conciliationData.policyAmount,
                               paymentNumber: this.revenue.conciliationData.paymentNumber,
-                              paymentValue: this.revenue.conciliationData.paymentValue,
+                              paymentValue: this.formatNumberToArg(this.revenue.conciliationData.paymentValue),
                               brokerName: this.revenue.conciliationData.brokerName
                             }:null,
                         policyData: this.revenue?.policyData
                           ? {
                               number: this.revenue.policyData.number,
-                              amount: this.revenue.policyData.amount,
-                              saleDate: this.revenue.policyData.saleDate,
+                              amount: this.formatNumberToArg(this.revenue.policyData.amount),
+                              saleDate:   formatDate( this.revenue.policyData.saleDate,'dd/MM/yyyy','en-US'),
                               productName: this.revenue.policyData.productName,
-                              premiumAmount: this.revenue.policyData.premiumAmount,
+                              premiumAmount: this.formatNumberToArg( this.revenue.policyData.premiumAmount),
                               premiumPaymentInstallments: this.revenue.policyData.premiumPaymentInstallments,
                               premiumPaymentPlan: this.revenue.policyData.premiumPaymentPlan?.map(p => ({
                                 installmentNumber: p.installmentNumber,
@@ -108,6 +99,11 @@ export class RevenueDetailComponent {
       });
   }
 
+
+
+      onBackButtonClick() {
+        this.router.navigate(['revenues-list'])
+       }
     
       formatNumberToArg(value: number): string {
         if (isNaN(value)) return '0,00';

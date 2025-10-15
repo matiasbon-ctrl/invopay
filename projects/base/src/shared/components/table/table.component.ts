@@ -36,7 +36,9 @@ export class TableComponent implements OnInit, OnChanges {
   @Input() actionKey?: string;
   @Input() scroll = false;
   @Input() forErrors = false;
-  @Input() titlesFile?: Map<string,string>
+  @Input() titlesFile?: Map<string,string>;
+  @Input() imageColumns: string[] = [];
+
 
   selectedItems: Set<any> = new Set();
   selectAllChecked = false;

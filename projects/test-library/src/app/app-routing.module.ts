@@ -6,6 +6,7 @@ import { SalesDetailsComponent } from './sales/sales-details/sales-details.compo
 import { RevenuesListComponent } from './revenues/revenues-list/revenues-list.component';
 import { RevenueDetailComponent } from './revenues/revenue-detail/revenue-detail.component';
 import { HomeComponent } from './invopay/views/home/home.component';
+import { SupplierListComponent } from './suppliers/supplier-list/supplier-list.component';
 
 const routes: Routes = [
   {
@@ -27,6 +28,10 @@ const routes: Routes = [
   {
     path: 'revenue-detail/:id',
     component: RevenueDetailComponent
+  },
+  {
+    path: 'suppliers-list',
+    component: SupplierListComponent
   },
   {
     path: 'library',

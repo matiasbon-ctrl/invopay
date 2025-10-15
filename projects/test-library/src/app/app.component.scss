@@ -18,8 +18,8 @@
   top: 0;
   left: 0;
   right: 0;
-  z-index: 100; /* Mayor que el sidebar */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .navbar-left {
@@ -52,6 +52,26 @@
   gap: 1rem;
 }
 
+.title-User {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.1rem;
+}
+
+.company {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #333;
+  line-height: 1.2;
+}
+
+.user {
+  font-size: 0.8rem;
+  color: #666;
+  line-height: 1.2;
+}
+
 .icon-btn {
   background: none;
   border: none;
@@ -66,19 +86,13 @@
   }
 }
 
-.company,
-.user {
-  font-size: 0.9rem;
-  color: #666;
-}
-
 /* CONTENEDOR PRINCIPAL */
 .main {
   display: flex;
   flex: 1;
   overflow: hidden;
   position: relative;
-  top: 64px; /* Offset para el navbar fixed */
+  top: 64px;
   height: calc(100vh - 64px);
 }
 
@@ -90,8 +104,8 @@
   padding-top: 0;
   overflow-y: auto;
   overflow-x: hidden;
-  position: fixed; /* Fixed para que esté pegado al navbar */
-  top: 64px; /* Justo debajo del navbar */
+  position: fixed;
+  top: 64px;
   left: 0;
   bottom: 0;
   z-index: 10;
@@ -100,12 +114,6 @@
 
 .sidebar.collapsed {
   width: 60px;
-}
-
-/* Ajustar contenido cuando sidebar cambia */
-.content {
-  margin-left: 240px; /* Espacio para el sidebar fixed */
-  transition: margin-left 0.3s ease;
 }
 
 .sidebar ul {
@@ -117,7 +125,6 @@
 .sidebar li {
   cursor: pointer;
   transition: all 0.2s;
-  
   display: flex;
   align-items: center;
   gap: 0.8rem;
@@ -125,7 +132,6 @@
   color: #333;
   text-decoration: none;
   border-left: 4px solid transparent;
-  transition: all 0.2s;
 
   &.active,
   &:hover {
@@ -141,6 +147,13 @@
   text-align: center;
 }
 
+.sidebar .icon img {
+  width: 1em;
+  height: 1em;
+  object-fit: contain;
+  vertical-align: middle;
+}
+
 /* CONTENIDO */
 .content {
   flex: 1;
@@ -148,11 +161,93 @@
   background-color: #f7f7f7;
   overflow-y: auto;
   height: 100%;
-  margin-left: 240px; /* Espacio para el sidebar expanded */
+  margin-left: 240px;
   transition: margin-left 0.3s ease;
 }
 
 /* Cuando el sidebar está colapsado */
 .main.sidebar-collapsed .content {
-  margin-left: 60px; /* Espacio para el sidebar collapsed */
+  margin-left: 60px;
+}
+
+/* ========== RESPONSIVE MOBILE ========== */
+@media (max-width: 768px) {
+  
+  /* Navbar en móvil */
+  .navbar {
+    padding: 0 0.75rem;
+  }
+
+  .navbar-right .title-User {
+    display: none; /* Ocultar todo el contenedor en móvil */
+  }
+
+  /* Sidebar como menú hamburguesa en móvil */
+  .sidebar {
+    position: fixed;
+    top: 64px;
+    left: -240px; /* Oculto por defecto */
+    bottom: 0;
+    width: 240px;
+    z-index: 50;
+    transition: left 0.3s ease;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Cuando el sidebar está abierto en móvil */
+  .sidebar:not(.collapsed) {
+    left: 0; /* Mostrar desde la izquierda */
+  }
+
+  /* Overlay oscuro cuando el menú está abierto */
+  .main::before {
+    content: '';
+    position: fixed;
+    top: 64px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 40;
+  }
+
+  /* Mostrar overlay cuando el sidebar está abierto */
+  .main:not(.sidebar-collapsed)::before {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* Contenido ocupa todo el ancho en móvil */
+  .content {
+    margin-left: 0 !important;
+    padding: 1rem;
+  }
+
+  /* El botón de menú siempre visible en móvil */
+  .menu-btn {
+    display: block;
+  }
+
+  /* Items del sidebar siempre muestran texto en móvil */
+  .sidebar li span {
+    display: inline !important;
+  }
+}
+
+/* ========== TABLET ========== */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .sidebar {
+    width: 200px;
+  }
+
+  .content {
+    margin-left: 200px;
+  }
+
+  .main.sidebar-collapsed .content {
+    margin-left: 60px;
+  }
 }

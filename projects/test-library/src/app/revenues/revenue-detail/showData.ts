@@ -9,7 +9,7 @@ export interface showData {
 export interface TransactionData {
   revenueDate: string;
   currency: string;
-  amount: number;
+  amount: string;
   paymentProvider: string;
   paymentChannel: string;
   transactionObservations: string;

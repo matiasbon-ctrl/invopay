@@ -1,0 +1,30 @@
+<form>
+  <app-title-page [title]="'Proveedores'"></app-title-page>
+
+  <div class="card-table-filters">
+    <div class="card-body">
+      <div class="card-filtros">
+ 
+      </div>
+    </div>
+    
+    <div class="card-table">     
+      <app-table
+        [keyTranslate]="'IP.ADMIN_TABLE'"
+        [propertyOrder]="columnsHeaders"
+        [data]="this.tableDto"
+        [actions]="['detail']"
+        [tableStyle]="'invopay'"
+        [isForSelectItem]="false"
+        [scroll]="true"
+        [imageColumns]="['logo']" 
+        [titlesFile]="this.titlesMap"
+        (action)="onTableAction($event)"
+        (selectedItemsChange)="onSelectedItems($event)">
+      </app-table>
+      <app-no-data *ngIf="suppliers.length<1"></app-no-data>
+    </div>
+
+
+  </div>
+</form>

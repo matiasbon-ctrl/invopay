@@ -34,7 +34,7 @@
         <span>{{dataShow.transactionData.amount}}</span>
       </div>
       <div class="inner-card">
-        <label>Observaciones de la transaccion</label>
+        <textarea class="floating-textarea" readonly tabindex="0" aria-label="Observaciones" readonly>Observaciones de la transaccion</textarea>
         <span> {{dataShow.transactionData.transactionObservations}}</span>
       </div>
 
@@ -67,7 +67,7 @@
       </div>
       <div class="inner-card">
         <label>  Nro Pago </label>
-        <span>ARG {{dataShow.conciliationData.paymentNumber}}</span>
+        <span>{{dataShow.conciliationData.paymentNumber}}</span>
       </div>
        <div class="inner-card">
         <label>  Valor Pago </label>
@@ -90,14 +90,14 @@
     <div class="card-body">
       <div class="inner-card">
         <label>  Producto </label>
-        <span> {{dataShow.conciliationData.productName}}</span>
+        <span> {{dataShow.policyData.productName}}</span>
       </div>
          <div class="inner-card">
         <label>  Numero póliza </label>
-        <span> {{dataShow.conciliationData.productName}}</span>
+        <span> {{dataShow.policyData.number}}</span>
       </div>   <div class="inner-card">
         <label>  Fecha de venta </label>
-        <span> {{dataShow.transactionData?.revenueDate}}</span>
+        <span> {{dataShow.policyData.saleDate}}</span>
       </div>   <div class="inner-card">
         <label>  Monto poliza </label>
         <span> {{dataShow.policyData.amount}}</span>
@@ -106,10 +106,9 @@
         <label>  Monto prima </label>
         <span> {{dataShow.policyData.premiumAmount}}</span>
      </div>
-
              <div class="card-2">
-                 <div class="card-table">
-             <label>Plan de Pago de la Prima</label>
+             <div class="card-table">
+                    <label>Plan de Pago de la Prima</label>
                     <app-table
                     [keyTranslate]="''"
                     [propertyOrder]="columnsHeaders"
@@ -120,7 +119,7 @@
                     [scroll]="true"
                     [keyTranslate]="''"
                     [titlesFile]="titlesMap"
-                ></app-table>
+                    ></app-table>
             <app-no-data *ngIf="dataShow.policyData.premiumPaymentPlan.length<1"></app-no-data>
             </div>
             </div>

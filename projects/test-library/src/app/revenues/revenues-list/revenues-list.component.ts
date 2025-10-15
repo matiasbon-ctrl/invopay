@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { RevenueService } from '../services/revenue.service';
 import { map, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
@@ -17,21 +17,23 @@ export class RevenuesListComponent {
 
 
 
-  private readonly subscriptions = new Subscription();
   constructor(
-     private readonly revenueService: RevenueService
-    ,private readonly router: Router ,
-    private readonly stateService: RevenuesListStateService
+      private readonly revenueService: RevenueService,
+      private readonly router: Router ,
+      private readonly stateService: RevenuesListStateService
     ) { }
 
+    isMobile: boolean=true;
+    showMobileMenuIndex: number|null=null;
+  private readonly subscriptions = new Subscription();
 
 
-    controlsForm = new FormGroup({
-      rowPaginator: new FormControl<number>(50),
-      dateEnd : new FormControl<string>(''),
-      dateStart: new FormControl<string>(''),
-      chanelPayment: new FormControl<string>('')
-      });
+  controlsForm = new FormGroup({
+    rowPaginator: new FormControl<number>(50),
+    dateEnd : new FormControl<string>(''),
+    dateStart: new FormControl<string>(''),
+    chanelPayment: new FormControl<string>('')
+    });
 
   revenueData: RevenuesResponse | null = null;
   revenues: Revenue[] = [];
@@ -40,7 +42,7 @@ export class RevenuesListComponent {
 
 
   filtredData:any[]=[];
-  itemsPerpage:number = 0;
+  itemsPerpage:number = 1;
   columnsHeaders = ['fecha','moneda','montoRecaudado','proveedorPago','canalPago','consolidada','nroPoliza','producto','montoPrima','broker'];
   actions = ['detail'];
   titlesMap: Map<string,string>|undefined;
@@ -57,7 +59,7 @@ export class RevenuesListComponent {
   { label: 'Transferencia', value: 'transferencia' },
   { label: 'Efectivo', value: 'efectivo' },
   { label: 'Tarjeta', value: 'tarjeta' },
-];
+  ];
 
 
   ngOnInit(): void {
@@ -65,6 +67,7 @@ export class RevenuesListComponent {
       console.log('RevenueListComponent init ');
       console.log(this.formatDate(new Date()))
 
+      this.checkScreenSize()
       this.loadTitleMap();
       this.loadControlsSubscriptions()
       this.loadRevenues()
@@ -87,7 +90,7 @@ export class RevenuesListComponent {
 
             setTimeout(() => {
               window.scrollTo(0, stateSaved.scrollPosition);
-             }, 100);
+              }, 100);
   }
 
   loadControlsSubscriptions() {
@@ -102,7 +105,7 @@ export class RevenuesListComponent {
       });
       this.subscriptions.add(rowPaginatorSubscription);
     const channelPaymentSubscription =this.controlsForm.controls.chanelPayment.valueChanges.subscribe({
-           next: (n) => {
+            next: (n) => {
           if(n){
             this.currentPayChannel = this.paymentChannels.find(pc => pc.value === n)?.value||'';
             this.loadTable(1); 
@@ -112,7 +115,7 @@ export class RevenuesListComponent {
     })
     this.subscriptions.add(channelPaymentSubscription)
 
-}
+  }
   onEndDateChange(endDate: any) {
 
         const target = endDate.target as HTMLInputElement;
@@ -124,7 +127,7 @@ export class RevenuesListComponent {
         var endDate1DayLess = new Date()
         endDate1DayLess.setDate(endDate1DayLess.getDate() - 1)
         this.maxStart = this.formatDate(endDate1DayLess)
-}
+  }
 
   onStartDatechange(startDate1: any) {
 
@@ -132,7 +135,7 @@ export class RevenuesListComponent {
         const target = startDate1.target as HTMLInputElement;
         
         console.log(target.value);  
-  
+
         // Convertir a Date
         const date = target.value
 
@@ -160,38 +163,38 @@ export class RevenuesListComponent {
           this.currentEnd = ''
           this.controlsForm.controls.dateEnd.setValue('')
         }  
-   }
-
-
-    onApplyFilter(page:number) {
-      console.log("apply filter page "+page )
-
-        if (!this.currentStart || !this.currentEnd) return;
-
-          const from = new Date(this.currentStart);
-          const to = new Date(this.currentEnd);
-          const chanelPayment = this.currentPayChannel;
-          to.setHours(23, 59, 59, 999);
-
-          this.revenueService.getRevenues().pipe(
-            map(response => {
-              this.revenueData = response;
-              return this.revenueData.content.filter(x => {
-                const saleDate = new Date(x.revenueDate);
-                const matchesDate = saleDate >= from && saleDate <= to;
-                const matchesChannel = !this.currentPayChannel || x.paymentChannel.toLocaleLowerCase() === this.currentPayChannel.toLocaleLowerCase();
-                return matchesDate && matchesChannel;
-              });
-            })
-          ).subscribe(filtered => {
-            this.revenues = filtered;
-            this.loadTable(page);
-          });
     }
 
-    onClickFiltredSearch() {
-      this.onApplyFilter(1)
-    }
+
+  onApplyFilter(page:number) {
+    console.log("apply filter page "+page )
+
+      if (!this.currentStart || !this.currentEnd) return;
+
+        const from = new Date(this.currentStart);
+        const to = new Date(this.currentEnd);
+        const chanelPayment = this.currentPayChannel;
+        to.setHours(23, 59, 59, 999);
+
+        this.revenueService.getRevenues().pipe(
+          map(response => {
+            this.revenueData = response;
+            return this.revenueData.content.filter(x => {
+              const saleDate = new Date(x.revenueDate);
+              const matchesDate = saleDate >= from && saleDate <= to;
+              const matchesChannel = !this.currentPayChannel || x.paymentChannel.toLocaleLowerCase() === this.currentPayChannel.toLocaleLowerCase();
+              return matchesDate && matchesChannel;
+            });
+          })
+        ).subscribe(filtered => {
+          this.revenues = filtered;
+          this.loadTable(page);
+        });
+  }
+
+  onClickFiltredSearch() {
+    this.onApplyFilter(1)
+  }
 
   isValidDate(date: Date|string|null): boolean {
     return date instanceof Date && !isNaN(date.getTime());
@@ -211,7 +214,7 @@ export class RevenuesListComponent {
   }
 
   loadRevenues(): void {
-   var getRevenuesSub= this.revenueService.getRevenues().subscribe({
+    var getRevenuesSub= this.revenueService.getRevenues().subscribe({
       next: (response: RevenuesResponse) => {
         this.revenueData = response;
         this.revenues= this.revenueData.content
@@ -220,7 +223,8 @@ export class RevenuesListComponent {
           this.loadPreviusState(stateSaved)
         }
         else{  
-        this.itemsPerpage=50;
+        this.itemsPerpage=10;
+        this.controlsForm.controls.rowPaginator.setValue(this.itemsPerpage)
         var oneMountAgo = new Date();
         oneMountAgo.setMonth(new Date().getMonth()-1)
         this.currentStart = this.formatDate(oneMountAgo)
@@ -253,13 +257,13 @@ export class RevenuesListComponent {
           id: item.id,
           fecha: this.formatDate2(item.revenueDate),
           moneda:item.currency,
-          montoRecaudado: item.revenueAmount,
+          montoRecaudado: this.formatNumberToArg(item.revenueAmount),
           proveedorPago:item.paymentProvider,
           canalPago:item.paymentChannel,
           consolidada: item.isConsolidated ? 'SI':'NO',
           nroPoliza: item.policyNumber,
           producto: item.productName,
-          montoPrima:item.premiumAmount,
+          montoPrima: item.premiumAmount? this.formatNumberToArg(item.premiumAmount):'-',
           broker:item.brokerName,
           realSale: item
         }))];
@@ -272,12 +276,11 @@ export class RevenuesListComponent {
     this.loadTable(pageNumber);
   }
 
-  onVolver() {
-  }
+
 
 
   loadTitleMap(){
-   this.titlesMap = new Map<string, string>([
+    this.titlesMap = new Map<string, string>([
     ['fecha', 'Fecha'],
     ['moneda', 'Moneda'],
     ['montoRecaudado', 'Monto Recaudado'],
@@ -298,19 +301,19 @@ export class RevenuesListComponent {
     return date.toISOString().split('T')[0];
   }
 
-formatDate2(date: string | Date): string {
-  const d = new Date(date);
+  formatDate2(date: string | Date): string {
+    const d = new Date(date);
 
-  const day = String(d.getDate()).padStart(2, '0');
-  const month = String(d.getMonth() + 1).padStart(2, '0');
-  const year = d.getFullYear();
+    const day = String(d.getDate()).padStart(2, '0');
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const year = d.getFullYear();
 
-  const hours = String(d.getHours()).padStart(2, '0');
-  const minutes = String(d.getMinutes()).padStart(2, '0');
-  const seconds = String(d.getSeconds()).padStart(2, '0');
+    const hours = String(d.getHours()).padStart(2, '0');
+    const minutes = String(d.getMinutes()).padStart(2, '0');
+    const seconds = String(d.getSeconds()).padStart(2, '0');
 
-  return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
-}
+    return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+  }
   getTodayDate(): string {
     return new Date().toISOString().split('T')[0];
   }
@@ -328,6 +331,48 @@ formatDate2(date: string | Date): string {
       this.stateService.saveState(state)
 
   }
+
+  formatNumberToArg(value: number): string {
+      if (isNaN(value)) return '0,00';
+      return new Intl.NumberFormat('es-AR', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      }).format(value);
+  }
+
+  toggleMobileMenu(index: number) {
+    if (this.showMobileMenuIndex === index) {
+        this.showMobileMenuIndex = null; // cierra si se vuelve a hacer click
+      } else {
+        this.showMobileMenuIndex = index; // abre solo ese menú
+      }  
+    }
+  onMobileMenuAction(accion: string, revenue: any) {
+    console.log('Action', accion);
+    console.log('Card :', revenue);
+    const id = revenue.id
+    console.log(id)
+    if (accion === 'detail') {
+          this.router.navigate(['revenue-detail',id]);
+    }
+  }
+
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.checkScreenSize();
+  }
+
+  private checkScreenSize() {
+    this.isMobile = window.innerWidth <= 768;
+    if(this.isMobile){
+    this.itemsPerpage=10
+    this.controlsForm.controls.rowPaginator.setValue(this.itemsPerpage)
+    }
+
+  }
+
+
 }
 
 

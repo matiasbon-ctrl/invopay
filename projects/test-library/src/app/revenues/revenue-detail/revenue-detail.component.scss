@@ -80,6 +80,8 @@ form {
 
 .card-title {
   display: block;
+  color: rgb(51, 47, 47)
+
 }
 
 .card-body {
@@ -119,6 +121,10 @@ form {
   white-space: nowrap;
 }
 
+/* Oculta scrollbar en Chrome, Edge, Safari */
+.inner-card textarea::-webkit-scrollbar {
+  display: none;
+}
 .inner-card span {
   font-weight: 500;
   color: #000;
@@ -287,4 +293,64 @@ form {
   .inner-card app-table ::ng-deep tbody td {
     padding: 0.5rem;
   }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* textarea flotante, visualmente igual al label */
+.inner-card .floating-textarea {
+  position: absolute;
+  top: -0.5rem;
+  left: 1rem;
+  background-color: #ffffff;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  color: #555;
+  font-weight: 400;
+  border-radius: 0.25rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  border: none;
+  outline: none;
+  resize: none;
+
+  /* VISUAL: que parezca una sola línea (igual al label) */
+  line-height: 1.4rem;         /* altura de línea */
+  height: 1.6rem;              /* altura visible = 1 línea (ajusta si hace falta) */
+  width: calc(100% - 2rem);    /* deja margen respecto al inner-card */
+  max-width: calc(100% - 2rem);
+
+  /* LÓGICA: envolver texto internamente y permitir scroll vertical oculto */
+  white-space: pre-wrap;       /* permite wrap manteniendo saltos de línea */
+  overflow-y: auto;            /* scroll vertical cuando sobrepasa el alto */
+  overflow-x: hidden;
+
+  /* Ocultar scrollbars en la mayoría de navegadores */
+  scrollbar-width: none;       /* Firefox */
+  -ms-overflow-style: none;    /* IE 10+ */
+}
+.inner-card .floating-textarea::-webkit-scrollbar {
+  display: none;               /* Chrome, Edge, Safari */
+}
+
+/* Para que el usuario perciba que se puede scrollear, opcional: mostrar un sutil indicador */
+.inner-card .floating-textarea:focus {
+  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+}
+
+/* Si querés agregar un pequeño 'fade' en la parte inferior para indicar contenido extra (opcional) */
+.inner-card .floating-textarea::after {
+  /* no funciona en textarea; usar un pseudo-elemento en el contenedor si querés */
 }

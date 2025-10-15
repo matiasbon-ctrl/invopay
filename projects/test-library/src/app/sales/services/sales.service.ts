@@ -20,12 +20,8 @@ export class SalesService {
     });
   }
   getSale(id: string): Observable<saleDetail> {
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.temporalToken}`,
-      'Content-Type': 'application/json'
 
-    });
 
-    return this.http.get<saleDetail>(`${this.apiUrl}/sale/${id}`, { headers });
+    return this.http.get<saleDetail>(`${this.apiUrl}/sale/${id}`);
   }
 }
