@@ -62,6 +62,7 @@
         (action)="onTableAction($event)"
         (selectedItemsChange)="onSelectedItems($event)">
       </app-table>
+       <app-no-data *ngIf="revenues.length<1"></app-no-data>
 
 
     </div>
