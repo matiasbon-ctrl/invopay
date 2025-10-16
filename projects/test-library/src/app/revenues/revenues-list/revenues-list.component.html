@@ -107,7 +107,7 @@
     </div>
 
   
-    <div class="card-paginator">
+    <div class="card-paginator"  *ngIf="revenues.length>5">
       <div class="paginator-controls">
         <select class="page-size-select" formControlName="rowPaginator" title="Filas por pagina">
           <option [value]="5">5</option>
@@ -115,13 +115,14 @@
           <option [value]="20">20</option>
           <option [value]="50">50</option>
         </select>
+
         <app-paginator
           (pageChange)="onPageChange($event)"
           [totalItems]="revenues.length"
           [itemsPerPage]="itemsPerpage"
           [currentPages]="currentPages">
         </app-paginator>
-      </div>
+     </div>
     </div>
   </div>
 </form>

@@ -109,6 +109,7 @@
   height: calc(100vh - 57px); /* 100% de altura menos el navbar */
   z-index: 10;
   box-shadow: 2px 0 4px rgba(0, 0, 0, 0.05);
+
 }
 
 .sidebar.collapsed {
@@ -167,6 +168,10 @@
 /* Cuando el sidebar está colapsado */
 .main.sidebar-collapsed .content {
   margin-left: 60px;
+}
+/* Items del sidebar siempre muestran texto en móvil */
+.sidebar li span {
+  color: #2196f3;
 }
 
 /* ========== RESPONSIVE MOBILE ========== */

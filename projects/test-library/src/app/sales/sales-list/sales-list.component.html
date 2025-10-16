@@ -92,7 +92,7 @@
                         </div>
                         <div class="info-row-mobile">
                             <span class="info-label-mobile">Monto de poliza</span>
-                            <span class="info-value-mobile">{{sale.moneda}}{{ sale.montoPoliza }}</span>
+                            <span class="info-value-mobile">{{sale.moneda}}{{ sale.montoRecaudado }}</span>
                         </div>
                     </div>
                 </div>
@@ -101,7 +101,7 @@
         </div>
 
 
-        <div class="card-paginator">
+        <div class="card-paginator"  *ngIf="sales.length>5" >
             <div class="paginator-controls">
                 <select class="page-size-select" formControlName="rowPaginator" title="Filas por pagina">
                     <option [value]="5">5</option>
@@ -109,8 +109,10 @@
                     <option [value]="20">20</option>
                     <option [value]="50">50</option>
                 </select>
-                <app-paginator (pageChange)="onPageChange($event)" [totalItems]="sales.length"
-                    [itemsPerPage]="itemsPerpage" [currentPages]="currentPages">
+                <app-paginator (pageChange)="onPageChange($event)" 
+                    [totalItems]="sales.length"
+                    [itemsPerPage]="itemsPerpage" 
+                    [currentPages]="currentPages">
                 </app-paginator>
             </div>
         </div>
