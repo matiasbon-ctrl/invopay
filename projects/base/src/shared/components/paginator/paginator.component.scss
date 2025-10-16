@@ -7,7 +7,7 @@
   display: inline-flex;
   padding: 1.06rem;
   justify-content: flex-end;
-  align-items: flex-end;
+  align-items: center; // 👈 CAMBIO AQUÍ (era flex-end)
   gap: 0.3125rem;
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
@@ -56,7 +56,6 @@
     width: 2rem;
     height: 2rem;
     padding: 0.625rem;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 0.625rem;
