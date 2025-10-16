@@ -1,5 +1,4 @@
-
 {
-  "buildCommand": "npx ng build base && npx ng build test-library --configuration production",
+  "buildCommand": "npm run vercel-build",
   "outputDirectory": "dist/test-library"
 }
