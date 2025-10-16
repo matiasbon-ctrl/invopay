@@ -1,4 +1,5 @@
 export interface RevenueListState{
+    enabled:boolean
     currentPage : number,
     startFilterValue : string,
     endFilterValue:string,

@@ -10,7 +10,7 @@ import { environment } from 'projects/test-library/src/environments/environment'
 })
 export class RevenueService {
 
-  private readonly apiUrl=  environment.api+'invopay/revenue'
+  private readonly apiUrl=  environment.api+'/invopay/revenue'
   constructor(private http: HttpClient) {}
 
    getRevenues(): Observable<RevenuesResponse> {

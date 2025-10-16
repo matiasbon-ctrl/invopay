@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener, Inject, OnDestroy, OnInit } from '@angular/core';
 import { map, Subscription } from 'rxjs';
 import { Sale } from '../models/sale';
 import { SalesResponse } from '../models/salesResponse';
@@ -30,20 +30,27 @@ export class SalesListComponent implements OnInit , OnDestroy {
 
 
     controlsForm = new FormGroup({
+      brokerFilter :new FormControl<string>(''),
+      productFilter : new FormControl<string>(''),
       rowPaginator: new FormControl<number>(50),
       dateEnd : new FormControl<string>(''),
       dateStart: new FormControl<string>('')
       });
+  
+  isMobile: boolean = false;
+  showMobileMenuIndex: number|null=null;
 
   salesData: SalesResponse | null = null;
   sales: Sale[] = [];
   tableSalesDto: any[] = [];
   currentPages=1
 
-
   filtredData:any[]=[];
   itemsPerpage:number = 0;
   columnsHeaders = ['fila','fecha','producto','broker','cliente','montoPoliza'];
+  products=['Seguro de Vida Total','Seguro de Hogar Premium','Seguro Automotor Plus','Seguro de Accidentes Personales'];
+  brokers= ['Sofía Gómez','María Rodríguez']
+
   actions = ['detail'];
   titlesMap: Map<string,string>|undefined;
 
@@ -53,11 +60,14 @@ export class SalesListComponent implements OnInit , OnDestroy {
   minEnd : string =''
   currentEnd:string=''
 
+  currentProduct:string =''
+  currentBroker :string =''
+
 
 
 
   ngOnInit(): void {
-
+      this.checkScreenSize()
       this.loadTitleMap();
       this.loadControlsSubscriptions()
       this.loadSales()
@@ -74,10 +84,16 @@ export class SalesListComponent implements OnInit , OnDestroy {
         this.currentEnd=stateSaved.endFilterValue
         this.controlsForm.controls.dateEnd.setValue(this.currentEnd)
         this.currentPages=stateSaved.currentPage
+        this.currentBroker= stateSaved.brokerFitler
+        this.controlsForm.controls.brokerFilter.setValue(this.currentBroker)
+        this.currentProduct= stateSaved.productFilter
+        this.controlsForm.controls.productFilter.setValue(this.currentProduct)
         this.onApplyFilter(this.currentPages)
 
             setTimeout(() => {
               window.scrollTo(0, stateSaved.scrollPosition);
+              this.stateService.clearState()
+
              }, 100);
       
       
@@ -94,6 +110,29 @@ export class SalesListComponent implements OnInit , OnDestroy {
         }   
       });
       this.subscriptions.add(rowPaginatorSubscription);
+
+      const brokerFilterSubs = this.controlsForm.controls.brokerFilter.valueChanges.subscribe({
+        next: (value) => { 
+          if(value){
+            console.log('broker')
+            console.log(value)
+            this.currentBroker = value;
+          }
+        }
+      });
+      this.subscriptions.add(brokerFilterSubs)
+
+      const  productFitlerSubs = this.controlsForm.controls.productFilter.valueChanges.subscribe({
+        next: (value) => { 
+          console.log('product')
+          console.log(value)
+
+          if(value){
+            this.currentProduct = value;
+          }
+        }
+      });
+      this.subscriptions.add(productFitlerSubs)
 
 }
   onEndDateChange(endDate: any) {
@@ -114,7 +153,7 @@ export class SalesListComponent implements OnInit , OnDestroy {
         this.maxStart = this.formatDate(endDate1DayLess)
 }
 
-    onStartDatechange(startDate1: any) {
+  onStartDatechange(startDate1: any) {
 
         console.log(startDate1)
         const target = startDate1.target as HTMLInputElement;
@@ -165,8 +204,11 @@ export class SalesListComponent implements OnInit , OnDestroy {
             map(response => {
               this.salesData = response;
               return this.salesData.content.filter(x => {
-                const saleDate = new Date(x.saleDate);
-                return saleDate >= from && saleDate <= to;
+              const saleDate = new Date(x.saleDate);
+              const matchesDate = saleDate >= from && saleDate <= to;
+              const matchesProduct = !this.currentProduct || x.productName.toLocaleLowerCase() === this.currentProduct.toLocaleLowerCase();
+              const matchesBroker = !this.currentBroker || x.brokerName.toLocaleLowerCase() === this.currentBroker.toLocaleLowerCase();
+                return matchesDate && matchesBroker && matchesProduct;
               });
             })
           ).subscribe(filtered => {
@@ -191,6 +233,17 @@ export class SalesListComponent implements OnInit , OnDestroy {
     const id = event.dataField?.realSale.id
     console.log(id)
     if (event.event === 'detail') {
+          const state: SaleListState={
+          scrollPosition:window.scrollY,
+          startFilterValue: this.currentStart,
+          endFilterValue: this.currentEnd,
+          productFilter:this.currentProduct,
+          brokerFitler:this.currentBroker,
+          currentPage:this.currentPages,
+          itemsXPage:this.itemsPerpage,
+          enabled:false
+            }
+      this.stateService.saveState(state)
           this.router.navigate(['sales-detail',id]);
     }
   }
@@ -205,10 +258,11 @@ export class SalesListComponent implements OnInit , OnDestroy {
         this.sales= this.salesData.content
        
       const stateSaved = this.stateService.getState()
-      if(stateSaved){
+      if(stateSaved && stateSaved.enabled===true){
         this.loadPreviusState(stateSaved)
       }
       else{  
+        this.stateService.clearState()
         this.itemsPerpage=50;
         var oneMountAgo = new Date();
         oneMountAgo.setMonth(new Date().getMonth()-1)
@@ -229,7 +283,6 @@ export class SalesListComponent implements OnInit , OnDestroy {
   loadTable(pagina:number) {
     console.log("pagina:"+pagina)
     console.log("itms x pag : "+this.itemsPerpage)
-
         const itemsPerPage =Number(this.itemsPerpage)
         const startIndex = (pagina-1) * itemsPerPage;
         const endIndex = startIndex + itemsPerPage;
@@ -245,7 +298,7 @@ export class SalesListComponent implements OnInit , OnDestroy {
           producto: item.productName,
           broker: item.brokerName,
           cliente: item.customerName,
-          montoPoliza: item.policyAmount,
+          montoPoliza:item.currency+" "+this.formatNumberToArg(item.policyAmount),
           realSale: item
         }))];
 
@@ -257,7 +310,44 @@ export class SalesListComponent implements OnInit , OnDestroy {
     this.loadTable(pageNumber);
   }
 
-  onVolver() {
+
+  toggleMobileMenu(index: number) {
+  if (this.showMobileMenuIndex === index) {
+        this.showMobileMenuIndex = null; 
+  } else {
+        this.showMobileMenuIndex = index; 
+  }  
+  }
+  
+  onMobileMenuAction(accion: string, revenue: any) {
+    console.log('Action', accion);
+    console.log('Card :', revenue);
+    const id = revenue.id
+    console.log(id)
+  if (accion === 'detail') {
+    this.router.navigate(['revenue-detail',id]);
+  }
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+  this.checkScreenSize();
+  }
+    
+  private checkScreenSize() {
+    this.isMobile = window.innerWidth <= 768;
+    if(this.isMobile){
+    this.itemsPerpage=10
+    this.controlsForm.controls.rowPaginator.setValue(this.itemsPerpage)
+    }
+  }
+
+  formatNumberToArg(value: number): string {
+      if (isNaN(value)) return '0,00';
+      return new Intl.NumberFormat('es-AR', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      }).format(value);
   }
 
 
@@ -294,14 +384,7 @@ export class SalesListComponent implements OnInit , OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe()
-      const state: SaleListState={
-          scrollPosition:window.scrollY,
-          startFilterValue: this.currentStart,
-          endFilterValue: this.currentEnd,
-          currentPage:this.currentPages,
-          itemsXPage:this.itemsPerpage
-        }
-      this.stateService.saveState(state)
+
 
   }
 }

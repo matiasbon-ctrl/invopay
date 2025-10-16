@@ -1,82 +1,120 @@
+<form [formGroup]="controlsForm">
+    <app-title-page [title]="'Ventas'"></app-title-page>
 
-  
-  <form [formGroup]="controlsForm" >
-        <app-title-page
-        [title]="'Ventas'"
-        ></app-title-page>
-
-        <div class="card-table-filters" >
-          <div class="card-body">
+    <div class="card-table-filters">
+        <div class="card-body">
             <div class="card-filtros">
                 <div class="card-filtros__actions">
+                    <div class="select-wrapper">
+                        <label class="placeholder">Producto</label>
+                        <div class="custom-select-container">
+                            <select formControlName="productFilter" class="custom-select">
+                                of list"
+                                <option value="">Seleccione una opción</option>
+                                <option *ngFor="let item of this.products" value={{item}}>{{item}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="select-wrapper">
+                        <label class="placeholder">Broker</label>
+                        <div class="custom-select-container">
+                            <select formControlName="brokerFilter" class="custom-select">
+                                <option value="">Seleccione una opción</option>
+                                <option *ngFor="let item of this.brokers" value={{item}}>{{item}}</option>
 
-                                    <div class="date-wrapper">
-                                    <label style="margin-left: 10px;" class="placeholder">desde</label>
-                                     <app-ip-date-input 
-                                     [control]="controlsForm.controls.dateStart"
-                                     [max]="maxStart"
-                                     (changed)="onStartDatechange($event)"
-                                     >
-                                     </app-ip-date-input>
-                                    </div>
+                            </select>
+                        </div>
+                    </div>
 
-                                     <div class="date-wrapper">
-                                    <label style="margin-left: 10px;" class="placeholder">hasta</label>
-                                    <app-ip-date-input
-                                    [control]="controlsForm.controls.dateEnd"
-                                    [max]="maxEnd"
-                                    [min]="minEnd"
-                                    (changed)="onEndDateChange($event)"
-                                    >
-                                    </app-ip-date-input>
-                                     </div>
+                    <div class="date-wrapper">
+                        <label style="margin-left: 10px;" class="placeholder">desde</label>
+                        <app-ip-date-input [control]="controlsForm.controls.dateStart" [max]="maxStart"
+                            (changed)="onStartDatechange($event)">
+                        </app-ip-date-input>
+                    </div>
 
-                                    <div class="date-wrapper">
-                                    <button class="search" (click)="onClickFiltredSearch()">
-                                    <img src="../../../assets/new-styles/icons/buttons/search-icon-white.svg">
-                                    </button>
-                                    </div>
-            </div>
-            </div>
-          </div>
-            <div class="card-table">     
-                <app-table
-                    [keyTranslate]="'IP.ADMIN_TABLE'"
-                    [propertyOrder]="columnsHeaders"
-                    [data]="tableSalesDto"
-                    [actions]="['detail']"
-                    [tableStyle]="'invopay'"
-                    [isForSelectItem]="false"
-                    [scroll]="true"
-                    [titlesFile]="titlesMap"
-                    (action)="onTableAction($event)"
-                    (selectedItemsChange)="onSelectedItems($event)"
-                ></app-table>
-                 <app-no-data *ngIf="sales.length<1"></app-no-data>
-            </div>
+                    <div class="date-wrapper">
+                        <label style="margin-left: 10px;" class="placeholder">hasta</label>
+                        <app-ip-date-input [control]="controlsForm.controls.dateEnd" [max]="maxEnd" [min]="minEnd"
+                            (changed)="onEndDateChange($event)">
+                        </app-ip-date-input>
+                    </div>
 
-             <div class="card-paginator">
-                <div class="paginator-controls">
-                    <select class="page-size-select" formControlName="rowPaginator" title="Filas por pagina">
-                    <option [value]="5">5</option>
-                    <option [value]="10">10</option>
-                    <option [value]="20">20</option>
-                    <option [value]="50">50</option>
-
-                    </select>
-
-                    <app-paginator
-                    (pageChange)="onPageChange($event)"
-                    [totalItems]="sales.length"
-                    [itemsPerPage]="itemsPerpage"
-                    [currentPages]="currentPages">
-                    </app-paginator>
+                    <div class="date-wrapper">
+                        <button class="search" (click)="onClickFiltredSearch()">
+                            <img src="../../../assets/new-styles/icons/buttons/search-icon-white.svg">
+                        </button>
+                    </div>
                 </div>
+            </div>
+        </div>
+        <div class="card-table" *ngIf="!isMobile">
+            <app-table [keyTranslate]="'IP.ADMIN_TABLE'" [propertyOrder]="columnsHeaders" [data]="tableSalesDto"
+                [actions]="['detail']" [tableStyle]="'invopay'" [isForSelectItem]="false" [scroll]="true"
+                [titlesFile]="titlesMap" (action)="onTableAction($event)"
+                (selectedItemsChange)="onSelectedItems($event)"></app-table>
+            <app-no-data *ngIf="sales.length<1"></app-no-data>
+        </div>
+        <div *ngIf="isMobile" class="card-mobile">
+            <div class="payment-card-mobile-container" *ngFor="let sale of tableSalesDto; let i = index">
+                <div class="payment-card-mobile-data">
+                    <div class="card-header-mobile">
+                        <span class="card-id-mobile">#{{ sale.id }}</span>
+                        <div class="icon-movil-container">
+                            <button class="menu-icon-mobile" (click)="toggleMobileMenu(i)">
+                                ⋮
+                            </button>
+                            <ul *ngIf="showMobileMenuIndex === i" class="menu-movil">
+                                <li (click)="onMobileMenuAction('detail', sale)">Revisar</li>
+                            </ul>
+                        </div>
+                    </div>
+
+
+                    <div class="card-body-mobile">
+
+                        <div class="info-row-mobile">
+                            <span class="info-label-mobile">Fecha</span>
+                            <span class="info-value-mobile">{{ sale.fecha }}</span>
+                        </div>
+                        <div class="info-row-mobile">
+                            <span class="info-label-mobile">Producto</span>
+                            <span class="info-value-mobile">{{ sale.producto }}</span>
+                        </div>
+
+                        <div class="info-row-mobile">
+                            <span class="info-label-mobile">Broker</span>
+                            <span class="info-value-mobile">{{ sale.broker}}</span>
+                        </div>
+                         <div class="info-row-mobile">
+                            <span class="info-label-mobile">Cliente</span>
+                            <span class="info-value-mobile">{{ sale.cliente}}</span>
+                        </div>
+                        <div class="info-row-mobile">
+                            <span class="info-label-mobile">Monto de poliza</span>
+                            <span class="info-value-mobile">{{sale.moneda}}{{ sale.montoPoliza }}</span>
+                        </div>
+                    </div>
+                </div>
+                <app-no-data *ngIf="sales.length < 1"></app-no-data>
             </div>
         </div>
 
 
-  </form>
+        <div class="card-paginator">
+            <div class="paginator-controls">
+                <select class="page-size-select" formControlName="rowPaginator" title="Filas por pagina">
+                    <option [value]="5">5</option>
+                    <option [value]="10">10</option>
+                    <option [value]="20">20</option>
+                    <option [value]="50">50</option>
+                </select>
+                <app-paginator (pageChange)="onPageChange($event)" [totalItems]="sales.length"
+                    [itemsPerPage]="itemsPerpage" [currentPages]="currentPages">
+                </app-paginator>
+            </div>
+        </div>
+    </div>
 
 
-
+</form>

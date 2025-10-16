@@ -4,6 +4,8 @@ import { RevenueService } from '../services/revenue.service';
 import { switchMap } from 'rxjs';
 import { RevenueDetail } from '../models/revenueDetail';
 import { formatDate } from '@angular/common';
+import { RevenueListState } from '../services/revenueListState';
+import { RevenuesListStateService } from '../services/revenues-list-state.service';
 
 @Component({
   selector: 'app-revenue-detail',
@@ -29,7 +31,7 @@ export class RevenueDetailComponent {
         ['dueDate', 'Vencimiento'],
       ]);
   
-    constructor(private route: ActivatedRoute,private readonly service:RevenueService,private readonly router: Router) {}
+    constructor(private route: ActivatedRoute,private readonly stateRevenueService:RevenuesListStateService,private readonly service:RevenueService,private readonly router: Router) {}
   
       ngOnInit(): void {
           this.loadRevenueDetail();
@@ -87,21 +89,25 @@ export class RevenueDetailComponent {
                                 isPaid: p.isPaid
                               })) ?? []
                             }
-                          : null
-                        
+                          : null 
                       };
       
-          this.title = 'Detalles de la recoleccion ';
+          this.title = 'Detalles de la recaudacion ';
         },
         error: err => {
-          console.error('Error cargando detalle de recaudacion:', err);
+          console.error('Error cargando detalle', err);
         },
       });
-  }
+    }
 
 
 
       onBackButtonClick() {
+        const state = this.stateRevenueService.getState()
+        if(state){
+        state.enabled=true
+        this.stateRevenueService.saveState(state)
+        }
         this.router.navigate(['revenues-list'])
        }
     

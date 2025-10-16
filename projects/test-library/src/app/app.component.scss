@@ -12,7 +12,7 @@
   justify-content: space-between;
   align-items: center;
   background-color: white;
-  height: 64px;
+  height: 57px;
   padding: 0 1rem;
   position: fixed;
   top: 0;
@@ -29,16 +29,15 @@
 }
 
 .logo {
-  height: 32px;
+  height: 20px;
 }
 
 .menu-btn {
   background: none;
   border: none;
-  font-size: 1.5rem;
+  font-size: 150%;
   cursor: pointer;
-  padding: 0.5rem;
-  border-radius: 4px;
+  border-radius: 50% ;
   transition: background 0.2s;
 
   &:hover {
@@ -105,15 +104,15 @@
   overflow-y: auto;
   overflow-x: hidden;
   position: fixed;
-  top: 64px;
+  top: 57px; /* Altura del navbar */
   left: 0;
-  bottom: 0;
+  height: calc(100vh - 57px); /* 100% de altura menos el navbar */
   z-index: 10;
   box-shadow: 2px 0 4px rgba(0, 0, 0, 0.05);
 }
 
 .sidebar.collapsed {
-  width: 60px;
+  width: 55px;
 }
 
 .sidebar ul {

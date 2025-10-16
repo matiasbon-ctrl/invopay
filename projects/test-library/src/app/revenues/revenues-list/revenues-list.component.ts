@@ -23,7 +23,7 @@ export class RevenuesListComponent {
       private readonly stateService: RevenuesListStateService
     ) { }
 
-    isMobile: boolean=true;
+    isMobile: boolean=false;
     showMobileMenuIndex: number|null=null;
   private readonly subscriptions = new Subscription();
 
@@ -206,6 +206,16 @@ export class RevenuesListComponent {
     const id = event.dataField?.realSale.id
     console.log(id)
     if (event.event === 'detail') {
+        const state: RevenueListState={
+        scrollPosition: window.scrollY,
+        startFilterValue: this.currentStart,
+        endFilterValue: this.currentEnd,
+        currentPage: this.currentPages,
+        itemsXPage: this.itemsPerpage,
+        chanelPaymentFilterValue: this.currentPayChannel,
+        enabled:false
+      }
+      this.stateService.saveState(state)
           this.router.navigate(['revenue-detail',id]);
     }
   }
@@ -219,10 +229,11 @@ export class RevenuesListComponent {
         this.revenueData = response;
         this.revenues= this.revenueData.content
         const stateSaved = this.stateService.getState()
-        if(stateSaved){
+        if(stateSaved  && stateSaved.enabled){
           this.loadPreviusState(stateSaved)
         }
         else{  
+        this.stateService.clearState()
         this.itemsPerpage=10;
         this.controlsForm.controls.rowPaginator.setValue(this.itemsPerpage)
         var oneMountAgo = new Date();
@@ -320,15 +331,6 @@ export class RevenuesListComponent {
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe()
-      const state: RevenueListState={
-        scrollPosition: window.scrollY,
-        startFilterValue: this.currentStart,
-        endFilterValue: this.currentEnd,
-        currentPage: this.currentPages,
-        itemsXPage: this.itemsPerpage,
-        chanelPaymentFilterValue: this.currentPayChannel
-      }
-      this.stateService.saveState(state)
 
   }
 
@@ -369,7 +371,6 @@ export class RevenuesListComponent {
     this.itemsPerpage=10
     this.controlsForm.controls.rowPaginator.setValue(this.itemsPerpage)
     }
-
   }
 
 

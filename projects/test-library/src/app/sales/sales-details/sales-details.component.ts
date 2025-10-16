@@ -6,6 +6,8 @@ import { formatDate } from '@angular/common';
 import { saleDetail } from '../models/saleDetail';
 import { TableEvent } from 'projects/base/src/shared/components/table/Itable';
 import { switchMap } from 'rxjs';
+import { SaleListState } from '../services/saleListState';
+import { SalesListStateService } from '../services/sales-list-state.service';
 
 @Component({
   selector: 'app-sales-details',
@@ -38,11 +40,16 @@ export class SalesDetailsComponent {
       ['paymentDate', 'Fecha pago']
     ]);
 
-  constructor(private route: ActivatedRoute,private readonly service:SalesService,private readonly router: Router) {}
+  constructor(private route: ActivatedRoute,private readonly stateSaleService :SalesListStateService,private readonly service:SalesService,private readonly router: Router) {}
 
 
 
     onBackButtonClick() {
+      const state = this.stateSaleService.getState()
+      if(state){
+      state.enabled=true
+      this.stateSaleService.saveState(state)
+      }
       this.router.navigate(['sales-list'])
     }
 
