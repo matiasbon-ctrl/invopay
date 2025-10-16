@@ -7,47 +7,27 @@ import { RevenuesListComponent } from './revenues/revenues-list/revenues-list.co
 import { RevenueDetailComponent } from './revenues/revenue-detail/revenue-detail.component';
 import { HomeComponent } from './invopay/views/home/home.component';
 import { SupplierListComponent } from './suppliers/supplier-list/supplier-list.component';
-
+import { LayoutComponent } from './layout/layout/layout.component';
 const routes: Routes = [
-  {
-    path: 'home',
-    component: HomeComponent,
-  },
-  {
-    path: 'sales-list',
-    component: SalesListComponent
-  },
-  {
-    path: 'sales-detail/:id',
-    component: SalesDetailsComponent
-  },
-  {
-    path: 'revenues-list',
-    component: RevenuesListComponent
-  },
-  {
-    path: 'revenue-detail/:id',
-    component: RevenueDetailComponent
-  },
-  {
-    path: 'suppliers-list',
-    component: SupplierListComponent
-  },
-  {
-    path: 'library',
-    children: [
-      {
-        path: 'base',
-        component: BaseComponent,
-      },
-    ],
-  },
+  // 🔹 Login y módulo invopay
   {
     path: 'invopay',
     loadChildren: () =>
       import('./invopay/invopay.module').then((m) => m.InvopayModule),
   },
-  { path: '**', redirectTo: '' }
+  {
+    path: '', 
+    component: HomeComponent,
+    children: [
+      { path: 'sales-list', component: SalesListComponent },
+      { path: 'sales-detail/:id', component: SalesDetailsComponent },
+      { path: 'revenues-list', component: RevenuesListComponent },
+      { path: 'revenue-detail/:id', component: RevenueDetailComponent },
+      { path: 'suppliers-list', component: SupplierListComponent },
+      { path: 'library/base', component: BaseComponent },
+    ],
+  },
+  { path: '**', redirectTo: '', pathMatch: 'full' },
 
 ];
 

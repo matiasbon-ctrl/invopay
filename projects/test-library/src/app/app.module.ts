@@ -17,13 +17,14 @@ import { RevenueDetailComponent } from './revenues/revenue-detail/revenue-detail
 import { SupplierListComponent } from './suppliers/supplier-list/supplier-list.component';
 import { InvopayModule } from './invopay/invopay.module';
 import { HomeComponent } from './invopay/views/home/home.component';
+import { LayoutComponent } from './layout/layout/layout.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent,SalesListComponent, SalesDetailsComponent, TitlePageComponent, RevenuesListComponent, RevenueDetailComponent, SupplierListComponent],
+  declarations: [AppComponent, HomeComponent,SalesListComponent, SalesDetailsComponent, TitlePageComponent, RevenuesListComponent, RevenueDetailComponent, SupplierListComponent, LayoutComponent],
   imports: [
 
     ComponentsModule,

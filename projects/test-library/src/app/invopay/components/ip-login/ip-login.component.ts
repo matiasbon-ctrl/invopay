@@ -10,6 +10,7 @@ import IpErrorResponse from '../../interface/ip-error-response';
 import { IpAuthService } from '../../services/ip-auth.service';
 import { IpProfileService } from '../../services/ip-profile.service';
 import { IpSnackbarService } from '../../services/ip-snackbar.service';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-ip-login',
@@ -82,9 +83,11 @@ export class IpLoginComponent implements OnInit, OnDestroy {
       };
       this.authService.login(loginData, this.isAdminLogin).subscribe({
         next: (resp) => {
+          console.log("to home")
           this.router.navigate(['/home']).then().catch(errorHandler);
         },
         error: (e: HttpErrorResponse) => {
+          console.log(e.error)
           if (e.error.description) {
             this.errorMessage = e.error.description;
           } else {
