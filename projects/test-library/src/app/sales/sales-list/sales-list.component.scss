@@ -334,7 +334,7 @@
 .card-paginator {
   display: flex;
   justify-content: flex-end;
-  align-items: end; // 🔹 cambia flex-end por center
+  align-items: center; // 👈 CAMBIO: de end a center
   padding: 0.75rem 1.5rem;
   background-color: #fff;
   border-top: 1px solid #e5e7eb;
@@ -343,11 +343,10 @@
 
   .paginator-controls {
     display: flex;
-    align-items: end; // 🔹 centra verticalmente el select y el paginador
+    align-items: center; // 🔹 centra verticalmente el select y el paginador
     gap: 0.75rem;
 
     select {
-      margin-bottom: 15px;  
       width: 3rem;
       height: 1.75rem;
       text-align: center;
@@ -361,9 +360,6 @@
       cursor: pointer;
       padding: 0;
       line-height: 1.75rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
 
       &:hover {
         border-color: #3b82f6;
