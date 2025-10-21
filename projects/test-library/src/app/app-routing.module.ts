@@ -8,15 +8,18 @@ import { RevenueDetailComponent } from './revenues/revenue-detail/revenue-detail
 import { HomeComponent } from './invopay/views/home/home.component';
 import { SupplierListComponent } from './suppliers/supplier-list/supplier-list.component';
 import { LayoutComponent } from './layout/layout/layout.component';
+import { AuthPrivateGuard } from './guards/auth-private.guard';
 const routes: Routes = [
   // 🔹 Login y módulo invopay
   {
     path: 'invopay',
     loadChildren: () =>
       import('./invopay/invopay.module').then((m) => m.InvopayModule),
-  },
-  {
+  }
+  ,
+   {
     path: '', 
+    //canActivate: [AuthPrivateGuard], // ✅ Agrega el guard aquí
     component: HomeComponent,
     children: [
       { path: 'sales-list', component: SalesListComponent },
@@ -26,9 +29,9 @@ const routes: Routes = [
       { path: 'suppliers-list', component: SupplierListComponent },
       { path: 'library/base', component: BaseComponent },
     ],
-  },
+  }
+  ,
   { path: '**', redirectTo: '', pathMatch: 'full' },
-
 ];
 
 @NgModule({

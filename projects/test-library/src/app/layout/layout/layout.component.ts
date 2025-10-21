@@ -29,6 +29,9 @@ logOut() {
         next: (value) => {
           this.userName = value.username;
         },
+        error: (error) => {
+          this.userName = "Usuario"
+        }
       });
     this.subscriptions.add(profileSubscription)
     this.checkScreenSize();

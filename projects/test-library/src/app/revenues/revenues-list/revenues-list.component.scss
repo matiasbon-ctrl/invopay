@@ -68,6 +68,9 @@
 
       @include md() {
         gap: 0.875rem;
+        flex-wrap: wrap;
+        width: 100%;
+        margin-left: 0;
       }
 
       // Estilos para el select wrapper (igual que date-wrapper)
@@ -474,7 +477,7 @@
         border-color: #2563eb;
         box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
       }
-     @include sm() {
+      @include sm() {
         display: none; // ocupa todo el ancho en móvil
         }
 

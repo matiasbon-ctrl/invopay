@@ -35,7 +35,6 @@ export class SupplierListComponent {
   actions = ['detail'];
 
 
-
   ngOnInit(): void {
       console.log('RevenueListComponent init ');
       console.log(this.formatDate(new Date()))
@@ -79,7 +78,14 @@ export class SupplierListComponent {
   loadTable() {
    
         this.tableDto = [...this.suppliers.map((item, index) => ({
-          logo: item.logoUrl,
+    
+          logo:   index === 0
+                ? 'https://cdn.brandfetch.io/id4J-eZGRh/w/400/h/400/theme/dark/icon.jpeg?c=1bxid64Mup7aczewSAYMX&t=1753066547229'
+                : index === 1
+                ? 'https://seeklogo.com/images/B/banco-de-la-nacion-argentina-logo-F9D4809C60-seeklogo.com.png'
+                : index===2
+                ? 'https://www.galicia.ar/content/dam/galicia/banco-galicia/personas/promociones/combustible/logo-galicia.jpg'
+                : item.logoUrl,
           name: item.name,
           chanelPaymment:item.paymentChannels,
           active: item.isActive? 'SI':'NO',

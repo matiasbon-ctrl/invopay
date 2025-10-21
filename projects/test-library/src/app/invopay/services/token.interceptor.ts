@@ -44,6 +44,8 @@ export class TokenInterceptor implements HttpInterceptor {
           if (error.status === 401) {
             this.ipSnackbarService.showErrorMessage(error, true);
             this.ipAuthService.logOut();
+            //deberia redirigir a login
+           // this.router.navigate(['invopay/login-broker'])
           }
           else if (error.status === 403) {
             // WARNING: this isn't being returned as expected (keep commented)

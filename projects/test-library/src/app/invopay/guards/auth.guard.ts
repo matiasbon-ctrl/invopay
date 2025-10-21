@@ -21,6 +21,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
     | boolean
     | UrlTree {
     const token = this.authService.getToken();
+    
     if (token) {
       return this.router.createUrlTree(['/invopay/admin/home']);
     }
