@@ -19,15 +19,13 @@ const routes: Routes = [
   ,
    {
     path: '', 
-    //canActivate: [AuthPrivateGuard], // ✅ Agrega el guard aquí
     component: HomeComponent,
     children: [
-      { path: 'sales-list', component: SalesListComponent },
-      { path: 'sales-detail/:id', component: SalesDetailsComponent },
-      { path: 'revenues-list', component: RevenuesListComponent },
-      { path: 'revenue-detail/:id', component: RevenueDetailComponent },
-      { path: 'suppliers-list', component: SupplierListComponent },
-      { path: 'library/base', component: BaseComponent },
+      { path: 'sales-list', component: SalesListComponent ,canActivate: [AuthPrivateGuard] },
+      { path: 'sales-detail/:id', component: SalesDetailsComponent ,canActivate: [AuthPrivateGuard]},
+      { path: 'revenues-list', component: RevenuesListComponent,canActivate: [AuthPrivateGuard] },
+      { path: 'revenue-detail/:id', component: RevenueDetailComponent,canActivate: [AuthPrivateGuard] },
+      { path: 'suppliers-list', component: SupplierListComponent,canActivate: [AuthPrivateGuard] },
     ],
   }
   ,

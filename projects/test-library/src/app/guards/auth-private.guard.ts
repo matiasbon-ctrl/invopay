@@ -7,35 +7,27 @@ export const AuthPrivateGuard: CanActivateFn = (route, state) => {
   const authService = inject(IpAuthService);
   const router = inject(Router);
 
+  // pasan rutas publicas
+  if (publicRoutes.includes(state.url)) {
+    return true;
+  }
+
+  // Solo verifico existencia
   const token = authService.getToken();
-
-  if (publicRoutes.includes(state.url)) return true;
-
-  //  Permitir la raíz '' o '/' si hay token
-  if ((state.url === '' || state.url === '/') && token && !isTokenExpired(token)) {
-    return true;
+  
+  if (!token || token.trim() === '') {
+    console.log('AuthPrivateGuard: no hay token');
+    return router.parseUrl('/invopay/login-broker');
   }
 
-  if (token && !isTokenExpired(token)) {
-    console.log('AuthPrivateGuard: token válido');
-    return true;
+  // Verificar formato básico de JWE (5 partes)
+  const parts = token.split('.');
+  if (parts.length !== 5) {
+    console.log('AuthPrivateGuard: token con formato invalido');
+    authService.logOut();
+    return router.parseUrl('/invopay/login-broker');
   }
 
-  console.log('AuthPrivateGuard: token invalido o expirado');
-  return router.parseUrl('/invopay/login-broker');
+  console.log('AuthPrivateGuard: token valido pasa');
+  return true;
 };
-
-
-// Función para validar expiración JWT
-function isTokenExpired(token: string): boolean {
-  if (!token) return true;
-  try {
-    const parts = token.split('.');
-    if (parts.length !== 3) return true;
-    const decoded = JSON.parse(atob(parts[1]));
-    if (!decoded.exp) return false;
-    return Date.now() > decoded.exp * 1000;
-  } catch {
-    return true;
-  }
-}
