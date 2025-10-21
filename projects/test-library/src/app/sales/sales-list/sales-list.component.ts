@@ -95,8 +95,6 @@ export class SalesListComponent implements OnInit , OnDestroy {
               this.stateService.clearState()
 
              }, 100);
-      
-      
   }
 
   loadControlsSubscriptions() {
@@ -301,7 +299,6 @@ export class SalesListComponent implements OnInit , OnDestroy {
           montoPoliza:item.currency+" "+this.formatNumberToArg(item.policyAmount),
           realSale: item
         }))];
-
         console.log(this.tableSalesDto)
   }
 
