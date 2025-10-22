@@ -14,9 +14,6 @@ import { RevenueListState } from '../services/revenueListState';
 })
 export class RevenuesListComponent {
 
-
-
-
   constructor(
       private readonly revenueService: RevenueService,
       private readonly router: Router ,
@@ -25,6 +22,8 @@ export class RevenuesListComponent {
 
     isMobile: boolean=false;
     showMobileMenuIndex: number|null=null;
+    isModalOpen = false; 
+
   private readonly subscriptions = new Subscription();
 
 
@@ -189,6 +188,7 @@ export class RevenuesListComponent {
         ).subscribe(filtered => {
           this.revenues = filtered;
           this.loadTable(page);
+          this.isModalOpen=false
         });
   }
 
@@ -287,9 +287,6 @@ export class RevenuesListComponent {
     this.loadTable(pageNumber);
   }
 
-
-
-
   loadTitleMap(){
     this.titlesMap = new Map<string, string>([
     ['fecha', 'Fecha'],
@@ -359,6 +356,11 @@ export class RevenuesListComponent {
     }
   }
 
+   onClickFiltredSearchMobile() {
+    if (this.isMobile) {
+      this.isModalOpen = true
+    } 
+  }
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
@@ -372,6 +374,9 @@ export class RevenuesListComponent {
     this.controlsForm.controls.rowPaginator.setValue(this.itemsPerpage)
     }
   }
+
+    
+
 
 
 }

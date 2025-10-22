@@ -16,15 +16,18 @@ import { state } from '@angular/animations';
   styleUrls: ['./sales-list.component.scss']
 })
 export class SalesListComponent implements OnInit , OnDestroy {
-
-
-
+   onClickFiltredSearchMobile() {
+    if (this.isMobile) {
+      this.isModalOpen = true
+    } 
+  }
 
   private readonly subscriptions = new Subscription();
+  isModalOpen: boolean=false
   constructor(
-     private readonly salesService: SalesService
-    ,private readonly router: Router ,
-    private readonly stateService: SalesListStateService
+     private readonly salesService: SalesService,
+     private readonly router: Router ,
+     private readonly stateService: SalesListStateService
     ) { }
 
 

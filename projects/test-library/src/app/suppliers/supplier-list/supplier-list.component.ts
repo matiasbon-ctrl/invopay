@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { TableEvent } from 'projects/base/src/shared/components/table/Itable';
 import { Subscription } from 'rxjs';
@@ -11,7 +11,20 @@ import { PaymentMethod, PaymentMethodResponse } from './models/paymenMethod';
   styleUrls: ['./supplier-list.component.scss']
 })
 export class SupplierListComponent {
+  /*
+ajustarTamano($event: Event) {
+   const img = $event.target as HTMLImageElement | null; // ✅ Usar $event, no event
+  if (!img) return;
+  if (img.naturalWidth > 200) {
+    img.style.width = '60px';
+  } else if (img.naturalWidth > 100) {
+    img.style.width = '80px';
+  } else {
+    img.style.width = '150px';
+  }
+}*/
 
+  isMobile:boolean= false;
   private readonly subscriptions = new Subscription();
   titlesMap: Map<string, string>=  new Map<string, string>([
     ['logo', 'Logo'],
@@ -38,6 +51,7 @@ export class SupplierListComponent {
   ngOnInit(): void {
       console.log('RevenueListComponent init ');
       console.log(this.formatDate(new Date()))
+      this.checkScreenSize()
       this.loadSuppliers()
       
   }
@@ -76,9 +90,7 @@ export class SupplierListComponent {
   }
 
   loadTable() {
-   
         this.tableDto = [...this.suppliers.map((item, index) => ({
-    
           logo:   index === 0
                 ? 'https://cdn.brandfetch.io/id4J-eZGRh/w/400/h/400/theme/dark/icon.jpeg?c=1bxid64Mup7aczewSAYMX&t=1753066547229'
                 : index === 1
@@ -92,7 +104,6 @@ export class SupplierListComponent {
           description:item.description,
           realItem: item
         }))];
-
         console.log(this.tableDto)
   }
  
@@ -123,7 +134,28 @@ export class SupplierListComponent {
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe()
- 
+  }
+
+    @HostListener('window:resize', ['$event'])
+    onResize(event: any) {
+    this.checkScreenSize();
+    }
+      
+    private checkScreenSize() {
+      this.isMobile = window.innerWidth <= 768;
+
+    }
+
+  toggleMobileMenu(index: number) {
+    if (this.showMobileMenuIndex === index) {
+     this.showMobileMenuIndex = null; 
+    }else{
+     this.showMobileMenuIndex = index; 
+    }  
+  }
+  showMobileMenuIndex: any;
+  onMobileMenuAction(arg0: string,_t22: any) {
+  throw new Error('Method not implemented.');
   }
 
 }

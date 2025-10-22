@@ -18,13 +18,14 @@ import { SupplierListComponent } from './suppliers/supplier-list/supplier-list.c
 import { InvopayModule } from './invopay/invopay.module';
 import { HomeComponent } from './invopay/views/home/home.component';
 import { LayoutComponent } from './layout/layout/layout.component';
+import { FilterModalMobileComponent } from './shared/filter-modal-mobile/filter-modal-mobile.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent,SalesListComponent, SalesDetailsComponent, TitlePageComponent, RevenuesListComponent, RevenueDetailComponent, SupplierListComponent, LayoutComponent],
+  declarations: [AppComponent, HomeComponent,SalesListComponent, SalesDetailsComponent, TitlePageComponent, RevenuesListComponent, RevenueDetailComponent, SupplierListComponent, LayoutComponent, FilterModalMobileComponent],
   imports: [
 
     ComponentsModule,

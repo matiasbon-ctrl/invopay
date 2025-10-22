@@ -4,7 +4,7 @@
     <div class="card-table-filters">
         <div class="card-body">
             <div class="card-filtros">
-                <div class="card-filtros__actions">
+                <div *ngIf="!isMobile" class="card-filtros__actions">
                     <div class="select-wrapper">
                         <label class="placeholder">Producto</label>
                         <div class="custom-select-container">
@@ -45,6 +45,15 @@
                             <img src="../../../assets/new-styles/icons/buttons/search-icon-white.svg">
                         </button>
                     </div>
+                </div>
+               <div *ngIf="isMobile" class="card-filtros__actions">
+                <div class="date-wrapper " style="margin-left: auto; display: flex; justify-content: flex-end; align-items: center;">
+                    <button class="search-mobile" (click)="onClickFiltredSearchMobile()">
+                    <img src="../../../assets/new-styles/icons/buttons/search-icon-white.svg">
+                    FILTRAR
+                    </button>
+                </div>
+                
                 </div>
             </div>
         </div>
@@ -120,3 +129,70 @@
 
 
 </form>
+
+<!-- MODAL DE FILTROS MOBILE -->
+<app-filter-modal-mobile  
+  *ngIf="isMobile"
+  [isOpen]="isModalOpen" 
+  (closed)="isModalOpen = false">
+  
+  <div class="modal-filters-content">
+    <h2 class="modal-title">Filtros de búsqueda</h2>
+
+    <!-- broker -->
+    <div class="select-wrapper" style="margin-bottom: 3vh;">
+      <label class="placeholder">Broker</label>
+      <div class="custom-select-container">
+        <select [formControl]="controlsForm.controls.brokerFilter" class="custom-select">
+          <option value="">Seleccione una opción</option>
+          <option *ngFor="let item of brokers" [value]="item">
+            {{item}}
+          </option>
+        </select>
+      </div>
+    </div>
+        <!-- Producto -->
+    <div class="select-wrapper" style="margin-bottom: 3vh;">
+      <label class="placeholder">Producto</label>
+      <div class="custom-select-container">
+        <select [formControl]="controlsForm.controls.productFilter" class="custom-select">
+          <option value="">Seleccione una opción</option>
+          <option *ngFor="let item of products" [value]="item">
+            {{item}}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="date-row">
+
+    <div class="date-wrapper">
+      <label class="placeholder">Desde</label>
+      <app-ip-date-input 
+        [control]="controlsForm.controls.dateStart"
+        [max]="maxStart"
+        (changed)="onStartDatechange($event)">
+      </app-ip-date-input>
+    </div>
+
+    <!-- Fecha hasta -->
+    <div class="date-wrapper">
+      <label class="placeholder">Hasta</label>
+      <app-ip-date-input
+        [control]="controlsForm.controls.dateEnd"
+        [max]="maxEnd"
+        [min]="minEnd"
+        (changed)="onEndDateChange($event)">
+      </app-ip-date-input>
+    </div>
+    </div>
+    <!-- Botones de acción -->
+    <div class="modal-actions">
+
+      <button class="search" (click)="onClickFiltredSearch()">
+                <img src="../../../assets/new-styles/icons/buttons/search-icon-white.svg">
+      </button>
+    </div>
+  </div>
+
+</app-filter-modal-mobile>

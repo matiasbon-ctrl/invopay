@@ -634,3 +634,55 @@ width: 100%;
 .menu-movil li:hover {
   background: #f3f3f3;
 }
+
+
+
+
+.search-mobile {
+  height: 2rem; /* antes 1.75rem */
+  padding: 15px; /* antes 0 0.75rem */
+  border: none;
+  border-radius: 0.5rem;
+  background-color: rgb(46, 116, 245);
+  color: white;
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem; /* texto un poquito más grande */
+
+  img {
+    width: 1rem; /* antes 0.875rem */
+    height: 1rem;
+    display: block;
+
+  
+  }
+
+  &:hover {
+    background-color: rgb(5, 53, 143);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  &::after {
+    content: "BUSCAR";
+    position: absolute;
+    top: -2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(27, 25, 25, 0.8);
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.8rem; /* ligeramente más legible */
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+  }
+
+  &:hover::after {
+    opacity: 1;
+  }
+}

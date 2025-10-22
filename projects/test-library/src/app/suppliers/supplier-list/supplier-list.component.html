@@ -8,7 +8,7 @@
       </div>
     </div>
     
-    <div class="card-table">     
+    <div *ngIf="!isMobile" class="card-table">     
       <app-table
         [keyTranslate]="'IP.ADMIN_TABLE'"
         [propertyOrder]="columnsHeaders"
@@ -24,6 +24,56 @@
       </app-table>
       <app-no-data *ngIf="suppliers.length<1"></app-no-data>
     </div>
+
+           <div *ngIf="isMobile" class="card-mobile">
+            <div class="payment-card-mobile-container" *ngFor="let item of tableDto; let i = index">
+                <div class="payment-card-mobile-data">
+                    <div class="card-header-mobile">
+                        <span class="card-id-mobile">
+                                    <img 
+                                      [src]="item.logo"
+                                      alt="Logo"
+                                      class="logo-img-mobile"
+                                     
+                                    />                     
+                       </span>
+                        <div class="icon-movil-container">
+                            <button class="menu-icon-mobile" (click)="toggleMobileMenu(i)">
+                                ⋮
+                            </button>
+                            <ul *ngIf="showMobileMenuIndex === i" class="menu-movil">
+                                <li (click)="onMobileMenuAction('detail', item)">Revisar</li>
+                            </ul>
+                        </div>
+                    </div>
+
+
+                    <div class="card-body-mobile">
+                       <div class="info-row-mobile">
+                            <span class="info-label-mobile">Nombre</span>
+                            <span class="info-value-mobile">{{ item.name }}</span>
+                        </div>
+                 
+                        <div class="info-row-mobile">
+                            <span class="info-label-mobile">Activo</span>
+                            <span class="info-value-mobile">{{ item.active }}</span>
+                        </div>
+
+                        <div class="info-row-mobile">
+                            <span class="info-label-mobile">Canales</span>
+                            <span class="info-value-mobile">{{item.chanelPaymment}}</span>
+                        </div>
+                             <div class="info-row-mobile">
+                            <span class="info-label-mobile">Descripcion</span>
+                            <span class="info-value-mobile">{{ item.description }}</span>
+                        </div>
+            
+                    </div>
+                </div>
+                <app-no-data *ngIf="suppliers.length < 1"></app-no-data>
+            </div>
+        </div>
+
 
 
   </div>
