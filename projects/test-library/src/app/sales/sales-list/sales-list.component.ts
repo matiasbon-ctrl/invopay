@@ -264,7 +264,7 @@ export class SalesListComponent implements OnInit , OnDestroy {
       }
       else{  
         this.stateService.clearState()
-        this.itemsPerpage=50;
+        this.itemsPerpage=10;
         var oneMountAgo = new Date();
         oneMountAgo.setMonth(new Date().getMonth()-1)
         this.currentStart = this.formatDate(oneMountAgo)
