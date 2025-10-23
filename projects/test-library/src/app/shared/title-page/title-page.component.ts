@@ -10,6 +10,7 @@ export class TitlePageComponent {
 
   @Input() title: string = '';
   @Input() showBackButton: boolean = false;
+  @Input() isMobile:boolean =false;
   @Output() backButtonClick = new EventEmitter<void>();
 
   constructor() {}

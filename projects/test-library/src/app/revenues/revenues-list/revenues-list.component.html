@@ -1,12 +1,20 @@
 <form [formGroup]="controlsForm">
-  <app-title-page [title]="'Recaudaciones'"></app-title-page>
+  <app-title-page *ngIf="!isMobile" [isMobile]="isMobile" [title]="'Recaudaciones'"></app-title-page>
+
+        <div *ngIf="isMobile" class="mobile-header">
+            <app-title-page  [isMobile]="isMobile" [title]="'Recaudaciones'"></app-title-page>
+            <button  class="search-mobile" (click)="onClickFiltredSearchMobile()">
+                <img src="../../../assets/new-styles/icons/buttons/search-icon-white.svg" />
+                FILTRAR
+            </button>
+        </div>
+
+
 
   <div class="card-table-filters">
     <div class="card-body">
         <!--FILTROS-->
       <div class="card-filtros">
-
-
 
         <div *ngIf="!isMobile" class="card-filtros__actions">
           
@@ -47,15 +55,7 @@
           
         </div>
 
-        <div *ngIf="isMobile" class="card-filtros__actions">
-          <div class="date-wrapper " style="margin-left: auto; display: flex; justify-content: flex-end; align-items: center;">
-            <button class="search-mobile" (click)="onClickFiltredSearchMobile()">
-              <img src="../../../assets/new-styles/icons/buttons/search-icon-white.svg">
-              FILTRAR
-            </button>
-          </div>
-          
-        </div>
+
 
       </div>
     </div>

@@ -46,8 +46,6 @@ form {
   min-width: calc(50% - 0.5rem);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   border-radius: 1rem;
-  
-
 }
 
 .card-2 label {
@@ -61,21 +59,25 @@ form {
 }
 
 .card-header {
-  position: absolute;
+position: absolute;
   top: -1rem;
   left: 2rem;
   background-color: #ffffff;
-  padding: 0.5rem 1rem; /* más padding horizontal */
+  padding: 0.5rem 1rem;
   font-weight: 600;
   font-size: 1rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  min-width: calc(25% - 0.75rem);
-  max-width: calc(50% - 2rem);
-
-  border-radius: 0.5rem; /* bordes redondeados */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* sombra suave */
+  max-width: calc(100% - 4rem);
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+.card-header span {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 600;   /* igual que el header */
+  font-size: 1rem;    /* mismo tamaño */
+  color: #333;        /* o el color del header */
 }
 
 .card-title {
@@ -126,8 +128,9 @@ form {
   display: none;
 }
 .inner-card span {
+ font-family: 'Roboto', sans-serif;
   font-weight: 500;
-  color: #000;
+  color: #5f6a7d;
   word-wrap: break-word; /* rompe palabras largas */
   overflow-wrap: break-word; /* rompe en el límite del contenedor */
   line-height: 1.4; /* mejor legibilidad */

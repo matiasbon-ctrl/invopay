@@ -665,24 +665,15 @@ width: 100%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   }
 
-  &::after {
-    content: "BUSCAR";
-    position: absolute;
-    top: -2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: rgba(27, 25, 25, 0.8);
-    color: white;
-    padding: 0.25rem 0.5rem;
-    border-radius: 0.25rem;
-    font-size: 0.8rem; /* ligeramente más legible */
-    white-space: nowrap;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.2s ease;
-  }
+
 
   &:hover::after {
     opacity: 1;
   }
+}
+.mobile-header {
+  display: flex;
+  justify-content: space-between; // título izquierda, botón derecha
+  align-items: center;            // misma altura vertical
+  width: 100%;
 }

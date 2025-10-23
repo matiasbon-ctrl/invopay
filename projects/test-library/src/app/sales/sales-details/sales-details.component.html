@@ -92,7 +92,7 @@
                 <app-no-data *ngIf="dataShow.installmentPlan.length<1"></app-no-data>
           
       </div>
-      <div *ngIf="!isMobile" class="card-2">
+      <div *ngIf="isMobile" class="card-2">
         <div class="card-header">
           <span class="card-title">Plan de pago</span>
         </div>
@@ -100,7 +100,7 @@
                   <div   class="payment-card-mobile-container" *ngFor="let item of dataShow.installmentPlan; let i = index">
                       <div class="payment-card-mobile-data">
                       <div class="card-header-mobile">
-                      <span class="card-id-mobile">#{{ item.number }}</span>
+                      <span class="card-id-mobile">Cuota # {{ item.number }}</span>
                       </div>
                       <div class="card-body-mobile">
                       <div class="info-row-mobile">
