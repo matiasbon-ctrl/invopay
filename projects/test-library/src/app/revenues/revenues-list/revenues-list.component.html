@@ -103,16 +103,23 @@
 
             <div class="info-row-mobile">
                 <span class="info-label-mobile">Canal de pago</span>
-                <span class="info-value-mobile">{{ revenue.canalPago }}</span>
+                <span class="info-value-mobile"
+                 [title]="revenue.canalPago?.length > 20 ? revenue.canalPago : null">
+                    {{ revenue.canalPago | slice:0:20 }}{{ revenue.canalPago.length > 20 ? '...' : '' }}
+                </span> 
             </div>
 
             <div class="info-row-mobile">
                 <span class="info-label-mobile">Proveedor</span>
-                <span class="info-value-mobile">{{ revenue.proveedorPago}}</span>
+                <span class="info-value-mobile"
+                [title]="revenue.proveedorPago?.length > 20 ? revenue.proveedorPago : null">
+                 {{ revenue.proveedorPago | slice:0:20 }}{{ revenue.proveedorPago.length > 20 ? '...' : '' }}
+                </span>
             </div>
             <div class="info-row-mobile">
                 <span class="info-label-mobile">Monto Recaudado</span>
-                <span class="info-value-mobile">{{revenue.moneda}} {{ revenue.montoRecaudado }}</span>
+                <span class="info-value-mobile"
+                >{{revenue.moneda}} {{ revenue.montoRecaudado }}</span>
             </div>
             </div>
         </div>

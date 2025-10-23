@@ -88,7 +88,12 @@
                         </div>
                         <div class="info-row-mobile">
                             <span class="info-label-mobile">Producto</span>
-                            <span class="info-value-mobile">{{ sale.producto }}</span>
+                            
+                            <span class="info-value-mobile" 
+                            [title]="sale.producto?.length > 20 ? sale.producto : null">
+                              {{ sale.producto | slice:0:20 }}{{ sale.producto.length > 20 ? ' ...' : '' }}
+                            </span>
+
                         </div>
 
                         <div class="info-row-mobile">
