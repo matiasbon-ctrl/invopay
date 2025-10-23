@@ -10,10 +10,9 @@
 
 .floating-back-button {
   position: absolute;
-  top: -1.8rem; // más arriba (era -0.75rem)
-  left: 0.5rem; // más a la izquierda (era 2rem)
+
   z-index: 10;
-  background: linear-gradient(135deg, #4A90E2 0%, #63B3ED 100%);
+  background: transparent;
   padding: 0.20rem;
   border: none;
   border-radius: 35%;
@@ -120,7 +119,6 @@
     }
 
     &-icon {
-      color: $tab-btn-icon-color;
       scale: 0.9;
 
       @include sm() {

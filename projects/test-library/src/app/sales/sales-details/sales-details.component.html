@@ -92,7 +92,7 @@
                 <app-no-data *ngIf="dataShow.installmentPlan.length<1"></app-no-data>
           
       </div>
-      <div  class="card-2">
+      <div *ngIf="!isMobile" class="card-2">
         <div class="card-header">
           <span class="card-title">Plan de pago</span>
         </div>
