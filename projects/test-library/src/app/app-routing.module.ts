@@ -19,6 +19,7 @@ const routes: Routes = [
   ,
    {
     path: '', 
+    canActivate:[AuthPrivateGuard],
     component: HomeComponent,
     children: [
       { path: 'sales-list', component: SalesListComponent ,canActivate: [AuthPrivateGuard] },
