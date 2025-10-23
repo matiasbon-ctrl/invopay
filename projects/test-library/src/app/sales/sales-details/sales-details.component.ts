@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Sale } from '../models/sale';
 import { SalesService } from '../services/sales.service';
@@ -39,6 +39,7 @@ export class SalesDetailsComponent {
       ['commissionValue', 'Valor comisión'],
       ['paymentDate', 'Fecha pago']
     ]);
+isMobile: any;
 
   constructor(private route: ActivatedRoute,private readonly stateSaleService :SalesListStateService,private readonly service:SalesService,private readonly router: Router) {}
 
@@ -56,6 +57,7 @@ export class SalesDetailsComponent {
 
 
   ngOnInit(): void {
+    this.checkScreenSize()
       this.loadSaleDetail();
    }
 
@@ -134,6 +136,18 @@ loadSaleDetail() {
         maximumFractionDigits: 2
       }).format(value);
       }
+
+
+      @HostListener('window:resize', ['$event'])
+      onResize(event: any) {
+      this.checkScreenSize();
+      }
+        
+      private checkScreenSize() {
+        this.isMobile = window.innerWidth <= 768;
+        if(this.isMobile){
+        }
+      }      
     
 }
 

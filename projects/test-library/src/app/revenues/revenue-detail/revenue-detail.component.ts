@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RevenueService } from '../services/revenue.service';
 import { switchMap } from 'rxjs';
@@ -13,6 +13,8 @@ import { RevenuesListStateService } from '../services/revenues-list-state.servic
   styleUrls: ['./revenue-detail.component.scss']
 })
 export class RevenueDetailComponent {
+
+     isMobile: boolean=false;
 
 
     
@@ -34,6 +36,7 @@ export class RevenueDetailComponent {
     constructor(private route: ActivatedRoute,private readonly stateRevenueService:RevenuesListStateService,private readonly service:RevenueService,private readonly router: Router) {}
   
       ngOnInit(): void {
+          this.checkScreenSize();
           this.loadRevenueDetail();
       }
   
@@ -84,8 +87,8 @@ export class RevenueDetailComponent {
                               premiumPaymentInstallments: this.revenue.policyData.premiumPaymentInstallments,
                               premiumPaymentPlan: this.revenue.policyData.premiumPaymentPlan?.map(p => ({
                                 installmentNumber: p.installmentNumber,
-                                dueDate: p.dueDate,
-                                amount: p.amount,
+                                dueDate:formatDate(  p.dueDate,'dd/MM/yyyy','en-US') ,
+                                amount: this.formatNumberToArg( p.amount),
                                 isPaid: p.isPaid
                               })) ?? []
                             }
@@ -117,6 +120,18 @@ export class RevenueDetailComponent {
           minimumFractionDigits: 2,
           maximumFractionDigits: 2
         }).format(value);
+        }
+
+      @HostListener('window:resize', ['$event'])
+        onResize(event: any) {
+          this.checkScreenSize();
+        }
+      
+        private checkScreenSize() {
+          this.isMobile = window.innerWidth <= 768;
+          if(this.isMobile){
+     
+          }
         }
       
 }

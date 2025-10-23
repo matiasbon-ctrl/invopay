@@ -74,24 +74,68 @@
 </div>
 
 <div class="card-container" >
-  <div  class="card-2">
-    <div class="card-header">
-      <span class="card-title">Plan de pago</span>
-    </div>
-                    <app-table
-                    [keyTranslate]="''"
-                    [propertyOrder]="columnsHeaders"
-                    [data]="dataShow.installmentPlan"
-                    [actions]="[]"
-                    [tableStyle]="'invopay'"
-                    [isForSelectItem]="false"
-                    [scroll]="true"
-                    [keyTranslate]="''"
-                    [titlesFile]="titlesMap"
-                ></app-table>
-            <app-no-data *ngIf="dataShow.installmentPlan.length<1"></app-no-data>
-      
-  </div>
+      <div *ngIf="!isMobile" class="card-2">
+        <div class="card-header">
+          <span class="card-title">Plan de pago</span>
+        </div>
+                        <app-table
+                        [keyTranslate]="''"
+                        [propertyOrder]="columnsHeaders"
+                        [data]="dataShow.installmentPlan"
+                        [actions]="[]"
+                        [tableStyle]="'invopay'"
+                        [isForSelectItem]="false"
+                        [scroll]="true"
+                        [keyTranslate]="''"
+                        [titlesFile]="titlesMap"
+                    ></app-table>
+                <app-no-data *ngIf="dataShow.installmentPlan.length<1"></app-no-data>
+          
+      </div>
+      <div  class="card-2">
+        <div class="card-header">
+          <span class="card-title">Plan de pago</span>
+        </div>
+               <div  class="card-mobile">
+                  <div   class="payment-card-mobile-container" *ngFor="let item of dataShow.installmentPlan; let i = index">
+                      <div class="payment-card-mobile-data">
+                      <div class="card-header-mobile">
+                      <span class="card-id-mobile">#{{ item.number }}</span>
+                      </div>
+                      <div class="card-body-mobile">
+                      <div class="info-row-mobile">
+                          <span class="info-label-mobile">Valor Pago</span>
+                          <span class="info-value-mobile">{{ item.amount }}</span>
+                      </div>
+                      <div class="info-row-mobile">
+                          <span class="info-label-mobile">Vencimiento</span>
+                          <span class="info-value-mobile"
+                          >{{item.dueDate}}</span>
+                      </div>
+                      <div class="info-row-mobile">
+                          <span class="info-label-mobile">Estado</span>
+                          <span class="info-value-mobile"
+                          >{{item.state}}</span>
+                      </div>
+                      <div class="info-row-mobile">
+                        <span class="info-label-mobile">Comisión broker</span>
+                        <span class="info-value-mobile"
+                        >{{item.commissionValue}} </span>
+                      </div> 
+                      <div class="info-row-mobile">
+                        <span class="info-label-mobile">Fecha pago</span>
+                        <span class="info-value-mobile"
+                        >{{item.paymentDate}} </span>
+                      </div> 
+
+                      </div>
+                  </div>
+                  <app-no-data *ngIf="dataShow.installmentPlan.length < 1"></app-no-data>
+                  </div>
+              </div> 
+
+              
+      </div>
 </div>
   
 

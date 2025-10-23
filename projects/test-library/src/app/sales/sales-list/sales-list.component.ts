@@ -325,7 +325,7 @@ export class SalesListComponent implements OnInit , OnDestroy {
     const id = revenue.id
     console.log(id)
   if (accion === 'detail') {
-    this.router.navigate(['revenue-detail',id]);
+    this.router.navigate(['sales-detail',id]);
   }
   }
 
