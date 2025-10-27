@@ -234,7 +234,7 @@ export class RevenuesListComponent {
         }
         else{  
         this.stateService.clearState()
-        this.itemsPerpage=10;
+        this.itemsPerpage=20;
         this.controlsForm.controls.rowPaginator.setValue(this.itemsPerpage)
         var oneMountAgo = new Date();
         oneMountAgo.setMonth(new Date().getMonth()-1)
@@ -370,7 +370,7 @@ export class RevenuesListComponent {
   private checkScreenSize() {
     this.isMobile = window.innerWidth <= 768;
     if(this.isMobile){
-    this.itemsPerpage=10
+    this.itemsPerpage=20
     this.controlsForm.controls.rowPaginator.setValue(this.itemsPerpage)
     }
   }

@@ -41,9 +41,9 @@ form {
   box-sizing: border-box;
   padding-top: 2rem;
   padding-bottom: 2rem;
-  flex: 0 1 calc(50% - 0.5rem); /* ocupa la mitad de la card-2 */
-  max-width: calc(50% - 0.5rem);
-  min-width: calc(50% - 0.5rem);
+  flex: 0 1 100%;   /* ocupa toda la fila */
+  max-width: 100%;  /* ancho máximo total */
+  min-width: 100%;  /* ancho mínimo total */
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   border-radius: 1rem;
 }
@@ -60,7 +60,7 @@ form {
 
 .card-header {
 position: absolute;
-  top: -1rem;
+  top: 0.5rem;
   left: 2rem;
   background-color: #ffffff;
   padding: 0.5rem 1rem;
@@ -71,7 +71,6 @@ position: absolute;
   text-overflow: ellipsis;
   max-width: calc(100% - 4rem);
   border-radius: 0.5rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 .card-header span {
   font-family: 'Roboto', sans-serif;
@@ -98,7 +97,8 @@ position: absolute;
   background-color: #f2f3f7;
   border-radius: 0.5rem;
   padding: 1rem;
-  padding-top: 1.5rem; /* espacio extra arriba para el label flotante */
+  padding-top: 1.2rem; /* espacio extra arriba para el label flotante */
+  padding-bottom: 0.2rem;/*sobrescribo el paddig bottom para achicar el tamaño total del input*/
   display: inline-flex; /* se ajusta al contenido */
   flex-direction: column;
   box-sizing: border-box;
@@ -107,6 +107,7 @@ position: absolute;
   flex: 0 1 calc(25% - 0.75rem); /* no crece, puede encogerse hasta el min-width */
   position: relative; /* necesario para posicionar el label */
   margin-top: 0.2rem; /* espacio para que el label no se corte */
+
 }
 
 .inner-card label {
@@ -134,6 +135,8 @@ position: absolute;
   word-wrap: break-word; /* rompe palabras largas */
   overflow-wrap: break-word; /* rompe en el límite del contenedor */
   line-height: 1.4; /* mejor legibilidad */
+  font-size: 0.95rem; /* 👈 achica el texto */
+
 }
 
 /* MEDIA QUERIES PARA RESPONSIVIDAD */

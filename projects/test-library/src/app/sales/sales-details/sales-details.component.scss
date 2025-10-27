@@ -29,7 +29,7 @@ form {
   background-color: #ffffff;
   border-radius: 1rem;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  padding-top: 2rem;
+  padding-top: 4rem;
   padding-bottom: 2rem;
   width: 100%;
   box-sizing: border-box;
@@ -40,18 +40,23 @@ form {
 
 .card-header {
   position: absolute;
-  top: -1rem;
+  top: 0.5rem;
   left: 2rem;
   background-color: #ffffff;
-  padding: 0.5rem 1rem; /* más padding horizontal */
+  padding: 0.5rem 1rem;
   font-weight: 600;
   font-size: 1rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: calc(100% - 4rem);
-  border-radius: 0.5rem; /* bordes redondeados */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* sombra suave */
+  border-radius: 0.5rem;
+}
+.card-header span {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 600;   /* igual que el header */
+  font-size: 1rem;    /* mismo tamaño */
+  color: #333;        /* o el color del header */
 }
 
 .card-title {
@@ -71,7 +76,8 @@ form {
   background-color: #f2f3f7;
   border-radius: 0.5rem;
   padding: 1rem;
-  padding-top: 1.5rem; /* espacio extra arriba para el label flotante */
+  padding-top: 1.2rem; /* espacio extra arriba para el label flotante */
+  padding-bottom: 0.2rem;/*sobrescribo el paddig bottom para achicar el tamaño total del input*/ 
   display: inline-flex; /* se ajusta al contenido */
   flex-direction: column;
   box-sizing: border-box;
@@ -103,6 +109,8 @@ form {
   word-wrap: break-word; /* rompe palabras largas */
   overflow-wrap: break-word; /* rompe en el límite del contenedor */
   line-height: 1.4; /* mejor legibilidad */
+  font-size: 0.95rem; /* 👈 achica el texto */
+
 }
 
 /* MEDIA QUERIES PARA RESPONSIVIDAD */

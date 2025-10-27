@@ -348,6 +348,8 @@
   border-top: 1px solid #e5e7eb;
   border-bottom-left-radius: 0.75rem;
   border-bottom-right-radius: 0.75rem;
+  padding: 0.75rem 1.5rem; // 👈 AGREGADO: padding para dar espacio
+
 
   .paginator-controls {
     display: flex;
