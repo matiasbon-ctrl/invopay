@@ -1,12 +1,13 @@
 <form>
-  <app-title-page [title]="'Proveedores'"></app-title-page>
+
+      <app-title-page *ngIf="!isMobile" [isMobile]="isMobile" [title]="'Proveedores'"></app-title-page>
+        <div *ngIf="isMobile" class="mobile-header">
+            <app-title-page [isMobile]="isMobile" [title]="'Proveedores'"></app-title-page>
+        </div>
 
   <div class="card-table-filters">
-    <div class="card-body">
-      <div class="card-filtros">
- 
-      </div>
-    </div>
+
+   
     
     <div *ngIf="!isMobile" class="card-table">     
       <app-table
