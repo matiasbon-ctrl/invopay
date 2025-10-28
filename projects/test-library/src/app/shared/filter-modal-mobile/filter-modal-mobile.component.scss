@@ -50,59 +50,65 @@
   to { transform: translateY(0); }
 }
 
-
-
-
-
 :host ::ng-deep {
 
-
-
-.search {
-  height: 1.75rem;
-  padding: 0 0.75rem;
-  border: none;
-  border-radius: 0.5rem;
-  background-color: rgb(33, 107, 245);
-  color: white;
-  position: relative;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-
-  img {
-    width: 0.875rem;
-    height: 0.875rem;
-    display: block;
+  // Contenedor para las fechas lado a lado
+  .date-row {
+    display: flex;
+    gap: 1.5rem; // Espacio entre los inputs de fecha
+    margin-bottom: 3vh;
+    
+    .date-wrapper {
+      flex: 1;
+      min-width: 0; // permite que los elementos se ajusten
+    }
   }
 
-  &:hover {
-    background-color: rgb(5, 53, 143);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  }
-
-  &::after {
-    content: "BUSCAR";
-    position: absolute;
-    top: -2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: rgba(27, 25, 25, 0.8);
+  .search {
+    height: 1.75rem;
+    padding: 0 0.75rem;
+    border: none;
+    border-radius: 0.5rem;
+    background-color: rgb(33, 107, 245);
     color: white;
-    padding: 0.25rem 0.5rem;
-    border-radius: 0.25rem;
-    font-size: 0.75rem;
-    white-space: nowrap;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.2s ease;
-  }
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-  &:hover::after {
-    opacity: 1;
-  }}
+    img {
+      width: 0.875rem;
+      height: 0.875rem;
+      display: block;
+    }
+
+    &:hover {
+      background-color: rgb(5, 53, 143);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    &::after {
+      content: "BUSCAR";
+      position: absolute;
+      top: -2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgba(27, 25, 25, 0.8);
+      color: white;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.25rem;
+      font-size: 0.75rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+
+    &:hover::after {
+      opacity: 1;
+    }
+  }
     
   .select-wrapper, .date-wrapper {
     min-width: 200px;
@@ -126,7 +132,7 @@
       display: flex;
       align-items: center;
       justify-content: flex-start;
-      height: 1.75rem;
+      height: 2.5rem;
       border: 1.5px solid #e5e7eb;
       border-radius: 0.5rem;
       background-color: white;
@@ -150,18 +156,24 @@
     }
   }
 
-    app-ip-date-input {
-        width: 155px;       
-        min-width: 155px;
-        max-width: 155px;
+  // Estilos específicos para date-wrapper dentro de date-row
+  .date-row .date-wrapper {
+    min-width: 0; // anula el min-width de 200px
+    flex: 1; // ocupa el espacio disponible equitativamente
+  }
+
+  app-ip-date-input {
+    width: 100%;       
+    min-width: 100%;
+    max-width: 100%;
 
     ::ng-deep .form-floating {
-      width: 100%; 
+      width: 90%; 
       display: flex;
       align-items: center;
       border: 1.5px solid #e5e7eb;
       border-radius: 0.5rem;
-      height: 1.75rem;
+      height: 2.3rem; // Altura ajustada para que coincida con los selects
       padding: 0 0.5rem;
 
       .form-control {
@@ -169,6 +181,7 @@
         background: transparent;
         font-size: 0.8125rem;
         color: #1f2937;
+        height: 100%;
       }
 
       label {
@@ -178,57 +191,11 @@
       }
     }
   }
+
+  // Estilos para modal-actions
+  .modal-actions {
+    display: flex;
+    justify-content: flex-end; // Alinea el botón a la derecha
+    margin-top: 2vh;
+  }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
