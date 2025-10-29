@@ -176,6 +176,7 @@
       height: 2.3rem; // Altura ajustada para que coincida con los selects
       padding: 0 0.5rem;
 
+
       .form-control {
         border: none;
         background: transparent;
@@ -189,6 +190,30 @@
         font-weight: 500;
         color: #6b7280;
       }
+       // ⭐ AGREGAR AQUÍ - Estilos específicos para el input date
+    input[type="date"] {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      position: relative;
+      width: 100%;
+      padding-right: 2.5rem;
+      text-align: left;
+      
+      // Usar background porque ::after no funciona en inputs
+      background: #fff url(../../../../assets/new-styles/icons/buttons/calendar-icon.svg) no-repeat right 0.6rem center;
+      background-size: 1rem 1rem;
+      
+      // Ocultar ícono nativo
+      &::-webkit-calendar-picker-indicator {
+        opacity: 0;
+        position: absolute;
+        right: 0;
+        width: 2.5rem;
+        height: 100%;
+        cursor: pointer;
+      }
+    }
     }
   }
 

@@ -7,6 +7,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { RevenuesResponse } from '../models/revenueResponse';
 import { Revenue } from '../models/revenue';
 import { RevenueListState } from '../services/revenueListState';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-revenues-list',
   templateUrl: './revenues-list.component.html',
@@ -17,8 +18,9 @@ export class RevenuesListComponent {
   constructor(
       private readonly revenueService: RevenueService,
       private readonly router: Router ,
-      private readonly stateService: RevenuesListStateService
-    ) { }
+      private readonly stateService: RevenuesListStateService,
+      private translate: TranslateService   
+     ) { }
 
     isMobile: boolean=false;
     showMobileMenuIndex: number|null=null;
@@ -65,6 +67,7 @@ export class RevenuesListComponent {
 
       console.log('RevenueListComponent init ');
       console.log(this.formatDate(new Date()))
+  
 
       this.checkScreenSize()
       this.loadTitleMap();
@@ -288,19 +291,33 @@ export class RevenuesListComponent {
   }
 
   loadTitleMap(){
-    this.titlesMap = new Map<string, string>([
-    ['fecha', 'Fecha'],
-    ['moneda', 'Moneda'],
-    ['montoRecaudado', 'Monto Recaudado'],
-    ['proveedorPago', 'Proveedor Pago'],
-    ['canalPago', 'Canal Pago'],
-    ['consolidada', 'Consolidada'],
-    ['nroPoliza', 'Nro Póliza'],
-    ['producto', 'Producto'],
-    ['montoPrima', 'Monto Prima'],
-    ['broker', 'Broker'],
-  ]);
+          this.translate.get([
+            'NEW_VAR.PAYMENT_DATE',
+            'IP.CURRENCY',
+            'NEW_VAR.COLLECTED_AMOUNT',
+            'NEW_VAR.PAYMENT_PROVIDER',
+            'NEW_VAR.PAYMEN_CHANNEL',
+            'NEW_VAR.CONSOLIDATED',
+            'NEW_VAR.POLICY_NUMBER',
+            'IP.CARD_TABLE.SALES.PRODUCTNAME',
+            'IP.CARD_TABLE.SALES.SALEAMOUNT',
+            'IP.CARD_TABLE.INVOICE.BROKERFULLNAME'
+          ]).subscribe(translations => {
+            this.titlesMap = new Map<string, string>([
+              ['fecha', translations['NEW_VAR.PAYMENT_DATE']],
+              ['moneda', translations['IP.CURRENCY']],
+              ['montoRecaudado', translations['NEW_VAR.COLLECTED_AMOUNT']],
+              ['proveedorPago', translations['NEW_VAR.PAYMENT_PROVIDER']],
+              ['canalPago', translations['NEW_VAR.PAYMEN_CHANNEL']],
+              ['consolidada', translations['NEW_VAR.CONSOLIDATED']],
+              ['nroPoliza', translations['NEW_VAR.POLICY_NUMBER']],
+              ['producto', translations['IP.CARD_TABLE.SALES.PRODUCTNAME']],
+              ['montoPrima', translations['IP.CARD_TABLE.SALES.SALEAMOUNT']],
+              ['broker', translations['IP.CARD_TABLE.INVOICE.BROKERFULLNAME']],
+            ]);
+          });
   }
+  
 
   formatDate(date: string | Date): string {
     if (typeof date === 'string') {

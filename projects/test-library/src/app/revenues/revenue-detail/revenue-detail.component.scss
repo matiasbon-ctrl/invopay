@@ -9,8 +9,9 @@ form {
   flex-direction: column;
   width: 100%;
   margin: 0; /* elimina cualquier margen */
-  margin-bottom: 10px;
   padding: 0; /* sin padding propio para respetar el del padre */
+  margin-bottom: 1vh;
+
 }
 
 .card {
@@ -22,7 +23,6 @@ form {
   box-sizing: border-box;
   position: relative;
   margin-top: 1rem; /* espacio entre el título y la card */
-  margin-bottom: 2rem;
 }
 
 .card-2 {

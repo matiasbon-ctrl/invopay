@@ -64,7 +64,7 @@
         gap: 0.75rem;
         flex-wrap: wrap;
         width: 100%;
-        margin-left: 0;
+        margin-left: auto;
       }
 
       @include md() {
@@ -452,6 +452,7 @@
      justify-content: center;
      border: none;
      padding: 0%;
+     margin-bottom: 0%;
     }
 
   .paginator-controls {
@@ -509,7 +510,11 @@ width: 100%;
   align-items: stretch;
   padding-top: -2vh;
   margin-top: -2vh;
+  @include sm(){
+      margin-bottom: -3vh;
+  }
 }
+
 
 .payment-card-mobile-container{
   background-color: #ffffff;
@@ -517,7 +522,7 @@ width: 100%;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
   width: 100%;
   transition: box-shadow 0.2s ease;
-  margin-bottom: 1vh;
+  margin-bottom: 2vh;
 }
 
 .payment-card-mobile-data {
@@ -774,3 +779,23 @@ width: 100%;
   align-items: center;            // misma altura vertical
   width: 100%;
 }
+
+:host ::ng-deep {
+  app-ip-date-input input[type="date"] {
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    width: 100%;
+    padding-right: 2.5rem !important;
+    
+    // Fondo transparente + tu ícono real
+    background: transparent url('/assets/new-styles/icons/datepicker-icon.svg') no-repeat right 0.6rem center !important;
+    background-size: 1rem 1rem !important;
+    
+    &::-webkit-calendar-picker-indicator {
+      opacity: 0;
+      cursor: pointer;
+    }
+  }
+}
+

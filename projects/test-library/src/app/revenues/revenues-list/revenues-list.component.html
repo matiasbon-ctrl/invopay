@@ -1,11 +1,11 @@
 <form [formGroup]="controlsForm">
-  <app-title-page *ngIf="!isMobile" [isMobile]="isMobile" [title]="'Recaudaciones'"></app-title-page>
+  <app-title-page *ngIf="!isMobile" [isMobile]="isMobile" [title]="'IP.SIDENAV.OPTIONS.PAY_IN' | translate"></app-title-page>
 
         <div *ngIf="isMobile" class="mobile-header">
-            <app-title-page  [isMobile]="isMobile" [title]="'Recaudaciones'"></app-title-page>
+            <app-title-page  [isMobile]="isMobile" [title]="'IP.SIDENAV.OPTIONS.PAY_IN' | translate"></app-title-page>
             <button  class="search-mobile" (click)="onClickFiltredSearchMobile()">
                 <img src="../../../assets/new-styles/icons/buttons/search-icon-white.svg" />
-                Filtrar
+                {{'IP.FILTERS_MODAL.FILTER' | translate}}    
             </button>
         </div>
 
@@ -19,17 +19,17 @@
         <div *ngIf="!isMobile" class="card-filtros__actions">
           
           <div class="select-wrapper">
-            <label class="placeholder">Canal de pago</label>
+            <label class="placeholder">{{'NEW_VAR.PAYMEN_CHANNEL'|translate}}</label>
             <div class="custom-select-container">
               <select formControlName="chanelPayment" class="custom-select">
-                <option  value="">Seleccione una opción</option>
+                <option  value="">{{'IP.SETTLEMENTS.SALE-PAYMENT.PAYMENT_METHOD'|translate}}</option>
                 <option *ngFor="let item of paymentChannels" value="{{item.value}}">{{item.label}}</option>
               </select>
             </div>
           </div>
 
           <div class="date-wrapper">
-            <label  class="placeholder">desde</label>
+            <label  class="placeholder">{{'IP.FILTERS.DATE.FROM' | translate}}</label>
             <app-ip-date-input 
               [control]="controlsForm.controls.dateStart"
               [max]="maxStart"
@@ -38,7 +38,7 @@
           </div>
 
           <div class="date-wrapper">
-            <label class="placeholder">hasta</label>
+            <label class="placeholder">{{'IP.FILTERS.DATE.TO' | translate}}</label>
             <app-ip-date-input
               [control]="controlsForm.controls.dateEnd"
               [max]="maxEnd"
@@ -88,19 +88,19 @@
                         ⋮
                     </button>
                     <ul *ngIf="showMobileMenuIndex === i" class="menu-movil">
-                        <li (click)="onMobileMenuAction('detail', revenue)">Revisar</li>
+                        <li (click)="onMobileMenuAction('detail', revenue)"> {{'IP.ACTIONS_TOOLTIP.SEARCH' | translate}}</li>
                     </ul>
             </div>
             </div>
             <div class="card-body-mobile">
 
             <div class="info-row-mobile">
-                <span class="info-label-mobile">Fecha</span>
+                <span class="info-label-mobile">{{'IP.TABLE.CONSOLIDATED.PAY_IN.DATEPAYIN' | translate}}</span>
                 <span class="info-value-mobile">{{ revenue.fecha }}</span>
             </div>
 
             <div class="info-row-mobile">
-                <span class="info-label-mobile">Canal de pago</span>
+                <span class="info-label-mobile">{{'NEW_VAR.PAYMEN_CHANNEL' | translate}}</span>
                 <span class="info-value-mobile"
                  [title]="revenue.canalPago?.length > 20 ? revenue.canalPago : null">
                     {{ revenue.canalPago | slice:0:20 }}{{ revenue.canalPago.length > 20 ? '...' : '' }}
@@ -108,14 +108,14 @@
             </div>
 
             <div class="info-row-mobile">
-                <span class="info-label-mobile">Proveedor</span>
+                <span class="info-label-mobile">{{'IP.CARD_TABLE.INVOICE.SUPPLIERNAME' | translate}}</span>
                 <span class="info-value-mobile"
                 [title]="revenue.proveedorPago?.length > 20 ? revenue.proveedorPago : null">
                  {{ revenue.proveedorPago | slice:0:20 }}{{ revenue.proveedorPago.length > 20 ? '...' : '' }}
                 </span>
             </div>
             <div class="info-row-mobile">
-                <span class="info-label-mobile">Monto Recaudado</span>
+                <span class="info-label-mobile">{{'IP.TABLE.CONSOLIDATED.PAY_IN.AMOUNT' | translate}}</span>
                 <span class="info-value-mobile"
                 >{{revenue.moneda}} {{ revenue.montoRecaudado }}</span>
             </div>
@@ -153,14 +153,16 @@
   (closed)="isModalOpen = false">
   
   <div class="modal-filters-content">
-    <p style="margin-bottom: 6vh;margin-left: 3vh; color: rgb(110, 109, 106);" class="modal-title">Filtrar de recaudaciones</p>
+    <p style="margin-bottom: 6vh;margin-left: 3vh; color: rgb(110, 109, 106);" class="modal-title">
+     {{'IP.FILTERS_MODAL.FILTER' | translate}} {{'IP.SIDENAV.OPTIONS.PAY_IN' | translate | lowercase}}
+    </p>
 
     <!-- Canal de pago -->
     <div class="select-wrapper" style="margin-bottom: 3vh;">
-      <label class="placeholder">Canal de pago</label>
+      <label class="placeholder">{{'NEW_VAR.PAYMEN_CHANNEL' | translate}}</label>
       <div class="custom-select-container">
         <select [formControl]="controlsForm.controls.chanelPayment" class="custom-select">
-          <option value="">Seleccione una opción</option>
+          <option value="">{{'IP.SETTLEMENTS.SALE-PAYMENT.PAYMENT_METHOD'|translate}}</option>
           <option *ngFor="let item of paymentChannels" [value]="item.value">
             {{item.label}}
           </option>
@@ -171,7 +173,7 @@
     <div class="date-row">
 
     <div class="date-wrapper">
-      <label class="placeholder">Desde</label>
+      <label class="placeholder">{{'IP.FILTERS.DATE.FROM' | translate}}</label>
       <app-ip-date-input 
         [control]="controlsForm.controls.dateStart"
         [max]="maxStart"
@@ -181,7 +183,7 @@
 
     <!-- Fecha hasta -->
     <div class="date-wrapper">
-      <label class="placeholder">Hasta</label>
+      <label class="placeholder">{{'IP.FILTERS.DATE.TO' | translate}}</label>
       <app-ip-date-input
         [control]="controlsForm.controls.dateEnd"
         [max]="maxEnd"

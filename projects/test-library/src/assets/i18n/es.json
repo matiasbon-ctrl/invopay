@@ -1,4 +1,18 @@
 {
+  "NEW_VAR":{
+      "INF_GENERAL":"Información general",
+      "PAYMEN_CHANNEL": "Canal de pago",
+
+      "PAYMENT_DATE": "Fecha",
+      "COLLECTED_AMOUNT": "Monto Recaudado",
+      "PAYMENT_PROVIDER": "Proveedor Pago",
+      "CONSOLIDATED": "Consolidada",
+      "POLICY_NUMBER": "Nro Póliza"
+
+
+  },
+
+
   "IP": {
     "CURRENCY": "Moneda",
     "CURRENCY_TYPES": "Tipos de cambio utilizados:",

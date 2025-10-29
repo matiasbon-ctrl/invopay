@@ -140,6 +140,7 @@ width: 100%;
   display: flex;
   flex-direction: column;
   align-items: stretch;
+  
 }
 
 .payment-card-mobile-container{
@@ -152,7 +153,7 @@ width: 100%;
 }
 
 .payment-card-mobile-data {
-  display: block;              // asegura que no se comporte como inline o flex item raro
+  display: block;              
   width: 100% !important;      // ocupa todo el ancho del padre
   max-width: 100% !important;  // evita que se pase del padre
   flex: 1 1 auto;              // si está dentro de un flex, se adapta

@@ -60,20 +60,19 @@
         align-items: flex-end;
         gap: 0.875rem;
         flex-wrap: wrap;
-        width: 100%;
-        margin-left: 0;
+        margin-left: auto;
       @include sm() {
         gap: 0.75rem;
         flex-wrap: wrap;
         width: 100%;
-        margin-left: 0;
+        margin-left: auto;
       }
 
       @include md() {
         gap: 0.875rem;
         flex-wrap: wrap;
         width: 100%;
-        margin-left: 0;
+        margin-left: auto;
       }
 
       // Estilos para el select wrapper (igual que date-wrapper)
@@ -608,6 +607,9 @@ width: 100%;
   align-items: stretch;
   padding-top: -2vh;
   margin-top: -2vh;
+    @include sm(){
+      margin-bottom: -3vh;
+  }
 }
 
 .payment-card-mobile-container{
@@ -742,7 +744,7 @@ width: 100%;
   background: #f3f3f3;
 }
 */
-  .icon-movil-container {
+.icon-movil-container {
   position: relative;
 }
 
@@ -873,3 +875,23 @@ width: 100%;
   align-items: center;            // misma altura vertical
   width: 100%;
 }
+
+:host ::ng-deep {
+  app-ip-date-input input[type="date"] {
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    width: 100%;
+    padding-right: 2.5rem !important;
+    
+    // Fondo transparente + tu ícono real
+    background: transparent url('/assets/new-styles/icons/datepicker-icon.svg') no-repeat right 0.6rem center !important;
+    background-size: 1rem 1rem !important;
+    
+    &::-webkit-calendar-picker-indicator {
+      opacity: 0;
+      cursor: pointer;
+    }
+  }
+}
+

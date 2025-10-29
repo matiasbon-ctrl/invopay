@@ -1,4 +1,9 @@
 {
+    "NEW_VAR":{
+    "INF_GENERAL":"Informações Gerais",
+    "PAYMEN_CHANNEL": "Canal de pagamento"
+  },
+
   "IP": {
     "SALES": {
       "IMPORT": {
