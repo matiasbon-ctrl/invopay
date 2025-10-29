@@ -58,7 +58,7 @@
       align-items: flex-end;
       gap: 1rem;
       margin-left: auto;
-      flex-wrap: nowrap;
+      flex-wrap: wrap;
 
       @include sm() {
         gap: 0.75rem;
@@ -70,8 +70,6 @@
       @include md() {
         gap: 0.875rem;
         flex-wrap: wrap;
-        width: 100%;
-        margin-left: 0;
       }
 
       // Estilos para el select wrapper (igual que date-wrapper)
