@@ -2,31 +2,33 @@
   "NEW_VAR":{
       "INF_GENERAL":"Información general",
       "PAYMEN_CHANNEL": "Canal de pago",
-
       "PAYMENT_DATE": "Fecha",
       "COLLECTED_AMOUNT": "Monto Recaudado",
       "PAYMENT_PROVIDER": "Proveedor Pago",
       "CONSOLIDATED": "Consolidada",
       "POLICY_NUMBER": "Nro Póliza",
+      "POLICY_NUMER_EXTEND" :"Número de póliza",
       "POLICY":"Póliza",
-
+      "POLICY_VALUE":"Valor de póliza",
       "DETAIL_RECAUDATION":"Detalles de la recaudacion",
       "TRANSACCION_DATA" :"Datos de la transacción",
       "CONSILIATION_DATA":"Datos de conciliación",
       "PAYMENT_VALUE":"Valor del pago",
-
       "POLICY_DATA":"Datos de póliza",
       "POLICY_AMOUNT":"Monto poliza",
       "PREMIUM_AMOUNT":"Monto prima",
+      "PAYMENT_PLAN":"Plan de pago",
       "PREMIUM_PLAN_PAYMENT":"Plan de pago de la prima",
       "INSTALLMENT_NUMBER":"Cuota N°",
       "SELECT_PRODUCT": "Seleccione una producto",
-      "CLIENT":"Cliente"
-
+      "CLIENT":"Cliente",
+      "PERCENTAJE_BROKER":"Comisión Broker",
+      "AMOUNT_PAY": "Cantidad de pagos",
+      "CLIENT_INF":"Información del cliente"
+      
 
 
   },
-
 
   "IP": {
     "CURRENCY": "Moneda",

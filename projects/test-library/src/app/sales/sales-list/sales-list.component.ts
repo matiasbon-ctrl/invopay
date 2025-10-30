@@ -9,6 +9,7 @@ import { formatDate } from '@angular/common';
 import { SaleListState } from '../services/saleListState';
 import { SalesListStateService } from '../services/sales-list-state.service';
 import { state } from '@angular/animations';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-sales-list',
@@ -27,7 +28,8 @@ export class SalesListComponent implements OnInit , OnDestroy {
   constructor(
      private readonly salesService: SalesService,
      private readonly router: Router ,
-     private readonly stateService: SalesListStateService
+     private readonly stateService: SalesListStateService,
+     private readonly translate: TranslateService   
     ) { }
 
 
@@ -70,8 +72,8 @@ export class SalesListComponent implements OnInit , OnDestroy {
 
 
   ngOnInit(): void {
-      this.checkScreenSize()
       this.loadTitleMap();
+      this.checkScreenSize()
       this.loadControlsSubscriptions()
       this.loadSales()
   }
@@ -352,17 +354,38 @@ export class SalesListComponent implements OnInit , OnDestroy {
   }
 
 
-  loadTitleMap(){
+  loadTitleMa2p(){
       this.titlesMap = new Map<string,string>([
-      ['fila', 'Fila'],
-      ['fecha', 'Fecha'],
-      ['producto', 'Producto'],
-      ['broker', 'Broker'],
-      ['cliente', 'Cliente'],
-      ['montoPoliza', 'Monto Póliza'],
-      ['', 'Acciones']// hara falta usar translate
+      ['fila', 'IP.SETTLEMENTS.DETAILS.ROW'],
+      ['fecha', 'IP.TABLE.PAYMENTS-DONE.CARD.DATE'],
+      ['producto', 'IP.CARD_TABLE.SALES.PRODUCTNAME'],
+      ['broker', 'IP.NEW-INVOICE.FORM.BROKER'],
+      ['cliente', 'NEW_VAR.CLIENT'],
+      ['montoPoliza', 'NEW_VAR.POLICY_AMOUNT'],
     ]);
   }
+  
+  loadTitleMap() {
+          const subsTitles = this.translate.get([
+            'IP.SETTLEMENTS.DETAILS.ROW',
+            'IP.TABLE.PAYMENTS-DONE.CARD.DATE',
+            'IP.CARD_TABLE.SALES.PRODUCTNAME',
+            'IP.NEW-INVOICE.FORM.BROKER',
+            'NEW_VAR.CLIENT',
+            'NEW_VAR.POLICY_AMOUNT'
+          ]).subscribe(translations => {
+            this.titlesMap = new Map<string, string>([
+              ['fila', translations['IP.SETTLEMENTS.DETAILS.ROW']],
+              ['fecha', translations['IP.TABLE.PAYMENTS-DONE.CARD.DATE']],
+              ['producto', translations['IP.CARD_TABLE.SALES.PRODUCTNAME']],
+              ['broker', translations['IP.NEW-INVOICE.FORM.BROKER']],
+              ['cliente', translations['NEW_VAR.CLIENT']],
+              ['montoPoliza', translations['NEW_VAR.POLICY_AMOUNT']],
+            ]);
+          });
+          this.subscriptions.add(subsTitles);
+    }
+
 
   formatDate(date: string | Date): string {
     if (typeof date === 'string') {
