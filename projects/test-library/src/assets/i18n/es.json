@@ -19,7 +19,10 @@
       "POLICY_AMOUNT":"Monto poliza",
       "PREMIUM_AMOUNT":"Monto prima",
       "PREMIUM_PLAN_PAYMENT":"Plan de pago de la prima",
-      "INSTALLMENT_NUMBER":"Cuota N°"
+      "INSTALLMENT_NUMBER":"Cuota N°",
+      "SELECT_PRODUCT": "Seleccione una producto",
+      "CLIENT":"Cliente"
+
 
 
   },
