@@ -7,7 +7,19 @@
       "COLLECTED_AMOUNT": "Monto Recaudado",
       "PAYMENT_PROVIDER": "Proveedor Pago",
       "CONSOLIDATED": "Consolidada",
-      "POLICY_NUMBER": "Nro Póliza"
+      "POLICY_NUMBER": "Nro Póliza",
+      "POLICY":"Póliza",
+
+      "DETAIL_RECAUDATION":"Detalles de la recaudacion",
+      "TRANSACCION_DATA" :"Datos de la transacción",
+      "CONSILIATION_DATA":"Datos de conciliación",
+      "PAYMENT_VALUE":"Valor del pago",
+
+      "POLICY_DATA":"Datos de póliza",
+      "POLICY_AMOUNT":"Monto poliza",
+      "PREMIUM_AMOUNT":"Monto prima",
+      "PREMIUM_PLAN_PAYMENT":"Plan de pago de la prima",
+      "INSTALLMENT_NUMBER":"Cuota N°"
 
 
   },

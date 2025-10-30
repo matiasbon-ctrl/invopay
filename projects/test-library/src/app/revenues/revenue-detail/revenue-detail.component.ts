@@ -6,6 +6,7 @@ import { RevenueDetail } from '../models/revenueDetail';
 import { formatDate } from '@angular/common';
 import { RevenueListState } from '../services/revenueListState';
 import { RevenuesListStateService } from '../services/revenues-list-state.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-revenue-detail',
@@ -28,17 +29,36 @@ export class RevenueDetailComponent {
           'amount',
         ];
      titlesMap: Map<string, string> = new Map([
-        ['installmentNumber', 'Cuota Nro'],
-        ['amount', 'Valor Pago'],
-        ['dueDate', 'Vencimiento'],
+       ['installmentNumber', 'NEW_VAR.INSTALLMENT_NUMBER'],  
+       ['amount', 'NEW_VAR.PAYMENT_VALUE'],                   // YA CREADA: "PAYMENT_VALUE": "Valor Pago"
+       ['dueDate', 'IP.BILL_DETAILS.EXPIRY_DATE'],           // YA EXISTE: "EXPIRY_DATE": "Fecha de vencimiento"
       ]);
   
-    constructor(private route: ActivatedRoute,private readonly stateRevenueService:RevenuesListStateService,private readonly service:RevenueService,private readonly router: Router) {}
+    constructor(private route: ActivatedRoute,
+      private readonly stateRevenueService:RevenuesListStateService,
+      private readonly service:RevenueService,
+      private readonly router: Router,
+      private readonly translate: TranslateService   
+      ) {}
   
       ngOnInit(): void {
           this.checkScreenSize();
+          this.loadTitleMap()
           this.loadRevenueDetail();
       }
+      loadTitleMap(){
+          this.translate.get([
+            'NEW_VAR.INSTALLMENT_NUMBER',
+            'NEW_VAR.PAYMENT_VALUE',
+            'IP.BILL_DETAILS.EXPIRY_DATE'
+          ]).subscribe(translations => {
+            this.titlesMap = new Map<string, string>([
+              ['installmentNumber', translations['NEW_VAR.INSTALLMENT_NUMBER']],
+              ['amount', translations['NEW_VAR.PAYMENT_VALUE']],
+              ['dueDate', translations['IP.BILL_DETAILS.EXPIRY_DATE']]
+            ]);
+          });
+  }
   
   
   loadRevenueDetail() {
@@ -95,7 +115,7 @@ export class RevenueDetailComponent {
                           : null 
                       };
       
-          this.title = 'Detalles de la recaudacion ';
+          this.title = ' ';
         },
         error: err => {
           console.error('Error cargando detalle', err);
