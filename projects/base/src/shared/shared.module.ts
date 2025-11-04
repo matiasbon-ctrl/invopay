@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -55,7 +55,7 @@ import { TruncatePipe } from './Utils/truncate.pipe';
     ComponentsModule
   ],
   providers: [
-    TransformDataTablePipe,
+    DatePipe,
     AmountFormatPipe,
     MatDialogService,
     TruncatePipe,
@@ -80,6 +80,7 @@ import { TruncatePipe } from './Utils/truncate.pipe';
     TruncatePipe,
     //IpDragScrollComponent,
     InnerLoaderComponent,
+    DatePipe
     //IpFiltersTableInvoicesComponent,
     //IpSelectInputComponent
   ],

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { Template1Component } from 'base';
 import { IpLoginComponent } from './components/ip-login/ip-login.component';
 import { AuthGuard } from './guards/auth.guard';
 

@@ -1,3 +1,5 @@
+import { OverlayModule } from '@angular/cdk/overlay';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -22,7 +24,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatTooltipModule } from '@angular/material/tooltip';
+import { MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER, MatTooltipModule } from '@angular/material/tooltip';
 import { NgChartsModule } from 'ng2-charts';
 
 import { ButtonModule } from 'primeng/button';
@@ -36,6 +38,9 @@ import { TagModule } from 'primeng/tag';
 @NgModule({
   declarations: [],
   imports: [CommonModule],
+  providers: [
+    MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER
+  ],
   exports: [
     MatSidenavModule,
     MatButtonModule,
@@ -71,6 +76,8 @@ import { TagModule } from 'primeng/tag';
     MatChipsModule,
     CardModule,
     NgChartsModule,
+    OverlayModule,
+    ScrollingModule
   ],
 })
 export class MaterialModule {}
