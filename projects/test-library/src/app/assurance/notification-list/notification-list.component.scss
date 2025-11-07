@@ -780,61 +780,22 @@ width: 100%;
   width: 100%;
 }
 
-app-ip-date-input {
-    width: 100%;       
-    min-width: 100%;
-    max-width: 100%;
-
-    ::ng-deep .form-floating {
-      width: 92%; 
-      display: flex;
-      align-items: center;
-      border: 1.5px solid #e5e7eb;
-      border-radius: 0.5rem;
-      height: 2.3rem; // Altura ajustada para que coincida con los selects
-      padding: 0 0.5rem;
-
-
-      .form-control {
-        border: none;
-        background: transparent;
-        font-size: 0.8125rem;
-        color: #1f2937;
-        height: 100%;
-      }
-
-      label {
-        font-size: 0.75rem;
-        font-weight: 500;
-        color: #6b7280;
-      }
-      input[type="date"] {
-      appearance: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      position: relative;
-      width: 100%;
-      padding-right: 2.5rem;
-      text-align: left;
-      
+:host ::ng-deep {
+  app-ip-date-input input[type="date"] {
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    width: 100%;
+    padding-right: 2.5rem !important;
+    
+    // Fondo transparente + tu ícono real
     background: transparent url('/assets/new-styles/icons/datepicker-icon.svg') no-repeat right 0.6rem center !important;
     background-size: 1rem 1rem !important;
-      
-      // Ocultar ícono nativo
-      &::-webkit-calendar-picker-indicator {
-        opacity: 0;
-        position: absolute;
-        right: 0;
-        width: 2.5rem;
-        height: 100%;
-        cursor: pointer;
-      }
+    
+    &::-webkit-calendar-picker-indicator {
+      opacity: 0;
+      cursor: pointer;
     }
   }
 }
-
-
-
-
-
 

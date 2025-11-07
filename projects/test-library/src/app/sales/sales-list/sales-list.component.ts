@@ -17,6 +17,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./sales-list.component.scss']
 })
 export class SalesListComponent implements OnInit , OnDestroy {
+selectedTab: string='all';
    onClickFiltredSearchMobile() {
     if (this.isMobile) {
       this.isModalOpen = true

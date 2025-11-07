@@ -24,7 +24,25 @@
       "CLIENT":"Cliente",
       "PERCENTAJE_BROKER":"Comisión Broker",
       "AMOUNT_PAY": "Cantidad de pagos",
-      "CLIENT_INF":"Información del cliente"
+      "CLIENT_INF":"Información del cliente",
+
+      "ASSURANCE_NOTIF":"Notificaciones de la aseguradora",
+
+      "RESPONSED": "Respondinda",
+      "REPLY":"Responder",
+      "ENTITY":"Entidad",
+      "SELECT_SUPPLIER_OR_BROKER":"Seleccione proveedor o corredor",
+      "CONSULT":"Consulta",
+
+      "PENDING_SALES":"Ventas a cobrar pendientes",
+      "PENDING_EXPIRY_SALES":"Ventas a cobrar vencidas",
+
+      "PENDING_SALES_TAB":"Cobro pendiente",
+      "EXPIRY_SALES_TAB": "Cobro Vencido",
+      "ALL_SALES_TAB":"Todas"
+
+      
+
       
 
 

@@ -4,6 +4,7 @@ import { TableEvent } from 'projects/base/src/shared/components/table/Itable';
 import { Subscription } from 'rxjs';
 import { SupplierService } from './services/supplier.service';
 import { PaymentMethod, PaymentMethodResponse } from './models/paymenMethod';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-supplier-list',
@@ -26,17 +27,11 @@ ajustarTamano($event: Event) {
 
   isMobile:boolean= false;
   private readonly subscriptions = new Subscription();
-  titlesMap: Map<string, string>=  new Map<string, string>([
-    ['logo', 'Logo'],
-    ['name', 'Nombre'],
-    ['chanelPaymment', 'Canal'],
-    ['active', 'Activo'],
-    ['description', 'Descripción']
-
-  ]);
+  titlesMap: Map<string, string>=  new Map<string, string>([]);
   constructor(
-     private readonly supplierService: SupplierService
-    ,private readonly router: Router ,
+     private readonly supplierService: SupplierService,
+     private readonly router: Router ,
+     private readonly translate : TranslateService
     ) { }
 
 
@@ -51,10 +46,29 @@ ajustarTamano($event: Event) {
   ngOnInit(): void {
       console.log('RevenueListComponent init ');
       console.log(this.formatDate(new Date()))
+      this.loadTitleMap()
       this.checkScreenSize()
       this.loadSuppliers()
       
   }
+    loadTitleMap() {
+          const subsTitles = this.translate.get([
+            'IP.NEW-PROVIDER.LOGO',
+            'IP.RENDITION-DETAILS.NAME',
+            'NEW_VAR.PAYMEN_CHANNEL',
+            'IP.ASSIGN-PROJECTS.ACTIVE',
+            'IP.COST_CENTER.DESCRIPTION',
+          ]).subscribe(translations => {
+            this.titlesMap = new Map<string, string>([
+              ['logo', translations['IP.NEW-PROVIDER.LOGO']],
+              ['name', translations['IP.RENDITION-DETAILS.NAME']],
+              ['chanelPaymment', translations['NEW_VAR.PAYMEN_CHANNEL']],
+              ['active', translations['IP.ASSIGN-PROJECTS.ACTIVE']],
+              ['description', translations['IP.COST_CENTER.DESCRIPTION']],
+            ]);
+          });
+          this.subscriptions.add(subsTitles);
+    }
 
   isValidDate(date: Date|string|null): boolean {
     return date instanceof Date && !isNaN(date.getTime());
@@ -91,13 +105,7 @@ ajustarTamano($event: Event) {
 
   loadTable() {
         this.tableDto = [...this.suppliers.map((item, index) => ({
-          logo:   index === 0
-                ? 'https://cdn.brandfetch.io/id4J-eZGRh/w/400/h/400/theme/dark/icon.jpeg?c=1bxid64Mup7aczewSAYMX&t=1753066547229'
-                : index === 1
-                ? 'https://seeklogo.com/images/B/banco-de-la-nacion-argentina-logo-F9D4809C60-seeklogo.com.png'
-                : index===2
-                ? 'https://www.galicia.ar/content/dam/galicia/banco-galicia/personas/promociones/combustible/logo-galicia.jpg'
-                : item.logoUrl,
+          logo:item.logoUrl,
           name: item.name,
           chanelPaymment:item.paymentChannels,
           active: item.isActive? 'SI':'NO',

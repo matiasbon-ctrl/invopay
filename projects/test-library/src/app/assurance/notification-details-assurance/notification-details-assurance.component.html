@@ -1,0 +1,142 @@
+ <div 
+      *ngIf="isOpen"
+      class="modal-backdrop"
+      (click)="onBackdropClick()"
+    >
+      <div class="backdrop"></div>
+      
+      <div 
+        class="modal-container"
+        (click)="onModalClick($event)"
+      >
+        <!-- HEADER -->
+        <div class="modal-header">
+          <div class="modal-title-container">
+            <span class="modal-title">{{ title }}</span>
+            <span class="notification-id">#{{ notificationData?.id }}</span>
+          </div>
+          <button 
+            class="close-button"
+            (click)="onClose()"
+            type="button"
+          >
+            ×
+          </button>
+        </div>
+
+        <!-- BODY -->
+        <div class="modal-body">
+          
+          <!-- CARD: INFORMACIÓN GENERAL -->
+          <div class="card-container">
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">Información General</span>
+              </div>
+              <div class="card-body">
+                <div class="inner-card">
+                  <label>Fecha</label>
+                  <span>{{ notificationData?.fecha }}</span>
+                </div>
+                <div class="inner-card">
+                  <label>Hora</label>
+                  <span>{{ notificationData?.hora }}</span>
+                </div>
+                
+                <div class="inner-card">
+                  <label>Entidad</label>
+                  <span>{{ notificationData?.entidad }}</span>
+                </div>
+                
+                <div class="inner-card">
+                  <label>Usuario/Corredor</label>
+                  <span>{{ notificationData?.nombre }}</span>
+                </div>
+                
+                <div class="inner-card">
+                  <label>Estado</label>
+                  <span [class]="notificationData?.respondida === 'Si' ? 'status-answered' : 'status-pending'">
+                    {{ notificationData?.respondida === 'Si' ? 'Respondida' : 'Pendiente' }}
+                  </span>
+                </div>
+                
+                <div class="inner-card full-width">
+                  <label>Consulta</label>
+                  <span class="consulta-text">{{ notification?.consulta }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CARD: RESPUESTAS -->
+          <div class="card-container" *ngIf="notificationData?.respuestas && notification.respuestas.length > 0">
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">
+                  Respuestas ({{ notificationData.respuestas.length }})
+                </span>
+              </div>
+              <div class="card-body">
+                <div 
+                  *ngFor="let respuesta of notificationData.respuestas; let i = index" 
+                  class="respuesta-item"
+                >
+                  <div class="respuesta-number">#{{ i + 1 }}</div>
+                  <div class="respuesta-content">
+                    <div class="respuesta-meta-row">
+                        <label>Respondido por: </label>
+                        <span>{{ respuesta.respondidoPor }}</span>
+                    </div>
+                    <div class="respuesta-meta-row">
+                        <label>Fecha: </label>
+                        <span>{{ respuesta.fecha }}</span>
+                    </div>
+                          <div class="respuesta-meta-row">
+                        <label>Hora: </label>
+                        <span>{{ respuesta.hora}}</span>
+                    </div>
+                   <div class="respuesta-meta-row">
+                      <label>Respuesta:</label>
+                    <div class="inner-card full-width">
+                      <span>{{respuesta.texto}}</span>
+                    </div>
+                    <div class="respuesta-meta-row">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SIN RESPUESTAS -->
+          <div class="card-container" *ngIf="!notification?.respuestas || notification.respuestas.length === 0">
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">Respuestas</span>
+              </div>
+              <div class="card-body">
+                <div class="no-respuestas">
+                  <span class="empty-icon">📭</span>
+                  <p>Esta notificación aún no tiene respuestas</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- FOOTER -->
+        <div class="modal-footer">
+          <button class="btn-secondary" (click)="onClose()">
+            Cerrar
+          </button>
+          <button class="btn-primary" (click)="onResponder()">
+            Responder
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <app-modal-response
+  [isOpen]="isResponseModalOpen"
+  (close)="closeResponseModal()"
+  (submit)="onResponseSubmit($event)">

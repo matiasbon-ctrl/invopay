@@ -1,32 +1,39 @@
 import { Component, HostListener } from '@angular/core';
-import { RevenueService } from '../services/revenue.service';
+import { FormControl, FormGroup } from '@angular/forms';
 import { map, Subscription } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
-import { RevenuesListStateService } from '../services/revenues-list-state.service';
-import { FormGroup, FormControl } from '@angular/forms';
-import { RevenuesResponse } from '../models/revenueResponse';
-import { Revenue } from '../models/revenue';
-import { RevenueListState } from '../services/revenueListState';
+import { AssuranceNotificationService } from '../services/assurance-notification.service';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms'; // ← Agregar FormsModule
+
 @Component({
-  selector: 'app-revenues-list',
-  templateUrl: './revenues-list.component.html',
-  styleUrls: ['./revenues-list.component.scss']
+  selector: 'app-notification-list',
+  templateUrl: './notification-list.component.html',
+  styleUrls: ['./notification-list.component.scss']
 })
-export class RevenuesListComponent {
+export class NotificationListComponent {
+selectedNotification: any;
 
-
-
-  constructor(
-      private readonly revenueService: RevenueService,
+saveModalActionsData() {
+throw new Error('Method not implemented.');
+}
+isModalActionsOpen: boolean=false;
+  modalActionData = {
+    entity: '',
+    costCenter: '',
+    responded: ''
+  };
+  
+  
+  closeModalActions() {
+    this.isModalActionsOpen=false
+  }
+ constructor(
+      private readonly notificationService: AssuranceNotificationService,
       private readonly router: Router ,
-      private readonly stateService: RevenuesListStateService,
-      private readonly translate: TranslateService,
-      private readonly route : ActivatedRoute
-      
+      private translate: TranslateService   
      ) { }
 
-    nRowsParameter:number = 20;
     isMobile: boolean=false;
     showMobileMenuIndex: number|null=null;
     isModalOpen = false; 
@@ -41,16 +48,16 @@ export class RevenuesListComponent {
     chanelPayment: new FormControl<string>('')
     });
 
-  revenueData: RevenuesResponse | null = null;
-  revenues: Revenue[] = [];
-  tableRevDto: any[] = [];
+  revenueData: any | null = null;
+  revenues: any[] = [];
+  tableDto: any[] = [];
   currentPages=1
 
 
   filtredData:any[]=[];
   itemsPerpage:number = 1;
-  columnsHeaders = ['fecha','moneda','montoRecaudado','proveedorPago','canalPago','consolidada','nroPoliza','producto','montoPrima','broker'];
-  actions = ['detail'];
+  columnsHeaders = ['fecha','entidad','nombre','consulta','respondida'];
+  actions = ['detail','reply'];
   titlesMap: Map<string,string>|undefined;
 
   currentStart:string=''
@@ -60,31 +67,42 @@ export class RevenuesListComponent {
   currentEnd:string=''
   currentPayChannel =''
 
-
   paymentChannels = [
   { label: 'Transferencia', value: 'transferencia' },
   { label: 'Efectivo', value: 'efectivo' },
   { label: 'Tarjeta', value: 'tarjeta' },
-  { label: 'Boleto', value: 'boleto'},
-  { label: 'Cheque', value: 'cheque'}
+  ];
+     states = [
+  { label: 'Si', value: 'Si' },
+  { label: 'No', value: 'No' },
   ];
 
 
   ngOnInit(): void {
 
-      console.log('RevenueListComponent init ');
+      console.log('NotifListComponent init ');
       console.log(this.formatDate(new Date()))
-  
-      this.nRowsParameter= this.route.snapshot.data['rowsTable'] || 20
+      this.loadAuxArrays()
       this.checkScreenSize()
       this.loadTitleMap();
       this.loadControlsSubscriptions()
-      this.loadRevenues()
-
-      
+      this.loadNotif()
+  }
+  loadAuxArrays() {
+      this.columnsHeaders = ['fecha','entidad','nombre','consulta','respondida'];
+      this.actions = ['detail','comment'];
+      this.paymentChannels = [
+          { label: 'Transferencia', value: 'transferencia' },
+          { label: 'Efectivo', value: 'efectivo' },
+          { label: 'Tarjeta', value: 'tarjeta' },
+          ];
+      this.states = [
+          { label: 'Si', value: 'Si' },
+          { label: 'No', value: 'No' },
+          ];
   }
 
-
+      /*
   loadPreviusState(stateSaved : RevenueListState){
         this.itemsPerpage=stateSaved.itemsXPage
         this.controlsForm.controls.rowPaginator.setValue(this.itemsPerpage)
@@ -101,6 +119,7 @@ export class RevenuesListComponent {
               window.scrollTo(0, stateSaved.scrollPosition);
               }, 100);
   }
+              */
 
   loadControlsSubscriptions() {
       const rowPaginatorSubscription = this.controlsForm.controls.rowPaginator.valueChanges.subscribe({
@@ -125,6 +144,7 @@ export class RevenuesListComponent {
     this.subscriptions.add(channelPaymentSubscription)
 
   }
+  /*
   onEndDateChange(endDate: any) {
 
         const target = endDate.target as HTMLInputElement;
@@ -173,27 +193,28 @@ export class RevenuesListComponent {
           this.controlsForm.controls.dateEnd.setValue('')
         }  
     }
-
+*/
 
   onApplyFilter(page:number) {
     console.log("apply filter page "+page )
 
       if (!this.currentStart || !this.currentEnd) return;
-
+       /*TODO  implementar filtros
         const from = new Date(this.currentStart);
         const to = new Date(this.currentEnd);
         const chanelPayment = this.currentPayChannel;
         to.setHours(23, 59, 59, 999);
-
-        this.revenueService.getRevenues().pipe(
+        */
+        this.notificationService.getNotifications().pipe(
           map(response => {
             this.revenueData = response;
-            return this.revenueData.content.filter(x => {
+            return this.revenueData
+            /*return this.revenueData.content.filter(x => {
               const saleDate = new Date(x.revenueDate);
               const matchesDate = saleDate >= from && saleDate <= to;
               const matchesChannel = !this.currentPayChannel || x.paymentChannel.toLocaleLowerCase() === this.currentPayChannel.toLocaleLowerCase();
               return matchesDate && matchesChannel;
-            });
+            });*/
           })
         ).subscribe(filtered => {
           this.revenues = filtered;
@@ -213,38 +234,78 @@ export class RevenuesListComponent {
   onTableAction(event: { event: string; dataField?: any }) {
     console.log('Action', event);
     console.log('Fila afectada:', event.dataField);
-    const id = event.dataField?.realSale.id
+    const id = event.dataField?.id
     console.log(id)
     if (event.event === 'detail') {
-        const state: RevenueListState={
-        scrollPosition: window.scrollY,
-        startFilterValue: this.currentStart,
-        endFilterValue: this.currentEnd,
-        currentPage: this.currentPages,
-        itemsXPage: this.itemsPerpage,
-        chanelPaymentFilterValue: this.currentPayChannel,
-        enabled:false
+        //TODO : abrir modal detalles
+        console.log("detail aciton")
+        this.selectedNotification=event.dataField?.realItem
+        this.isModalActionsOpen=true
       }
-      this.stateService.saveState(state)
-          this.router.navigate(['revenue-detail',id]);
+    if(event.event==="comment"){
+      console.log("reply action")
+
     }
+        
   }
   onSelectedItems(items: any[]) {
     console.log('Selected', items);
   }
 
-  loadRevenues(): void {
-    var getRevenuesSub= this.revenueService.getRevenues().subscribe({
-      next: (response: RevenuesResponse) => {
-        this.revenueData = response;
+  loadNotif(): void {
+    var getRevenuesSub= this.notificationService.getNotifications().subscribe({
+      next: (response: any) => {
+       // this.revenueData = response;
+         const registros: any = {
+          content: [
+            {
+              id:1,
+              fecha: '2025-10-13T10:23:05.6632507',
+              entidad: 'Banco Nación',
+              nombre: 'Matías Bon',
+              consulta: 'Consulta de saldo',
+              estado: 'si',
+              respuestas: 
+                [{
+                  fecha:'2025-10-13T10:23:05.6632507',
+                  respondidoPor:"YO",
+                  texto:"asdasdasd"
+                  },
+                  {
+                  fecha:'2025-10-13T10:23:05.6632507',
+                  respondidoPor:"YO",
+                  texto:"asdasdasd"
+                  },
+                  {
+                  fecha:'2025-10-13T10:23:05.6632507',
+                  respondidoPor:"YO",
+                  texto:"asdasdassssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssd"
+                  }
+
+                ]
+              
+
+            },
+            {
+              id:2,
+              fecha: '2025-10-13T10:23:05.6632507',
+              entidad: 'Banco Nación',
+              nombre: 'Matías Bon',
+              consulta: 'Consulta de saldo',
+              estado: 'no'
+            }
+          ]
+        };
+        this.revenueData=registros
         this.revenues= this.revenueData.content
-        const stateSaved = this.stateService.getState()
-        if(stateSaved  && stateSaved.enabled){
-          this.loadPreviusState(stateSaved)
-        }
-        else{  
-        this.stateService.clearState()
-        this.itemsPerpage=this.nRowsParameter;
+       
+       // const stateSaved = this.stateService.getState()
+       // if(stateSaved  && stateSaved.enabled){
+       //   this.loadPreviusState(stateSaved)
+       // }
+       // else{  
+       // this.stateService.clearState()
+        this.itemsPerpage=20;
         this.controlsForm.controls.rowPaginator.setValue(this.itemsPerpage)
         var oneMountAgo = new Date();
         oneMountAgo.setMonth(new Date().getMonth()-1)
@@ -252,7 +313,7 @@ export class RevenuesListComponent {
         this.currentEnd = this.formatDate(new Date)
         this.controlsForm.controls.dateStart.setValue(this.currentStart)
         this.controlsForm.controls.dateEnd.setValue(this.currentEnd)
-        this.loadTable(1)}
+        this.loadTable(1)
       }
       ,
       error: (error) => {
@@ -274,22 +335,18 @@ export class RevenuesListComponent {
         const filteredRevenues = [...this.revenues.slice(startIndex, endIndex)]
         console.log(this.revenues)
         console.log(filteredRevenues)
-        this.tableRevDto = [...filteredRevenues.map((item, index) => ({
+        this.tableDto = [...filteredRevenues.map((item, index) => ({
           id: item.id,
-          fecha: this.formatDate2(item.revenueDate),
-          moneda:item.currency,
-          montoRecaudado: this.formatNumberToArg(item.revenueAmount),
-          proveedorPago:item.paymentProvider,
-          canalPago:item.paymentChannel,
-          consolidada: item.isConsolidated ? 'SI':'NO',
-          nroPoliza: item.policyNumber,
-          producto: item.productName,
-          montoPrima: item.premiumAmount? this.formatNumberToArg(item.premiumAmount):'-',
-          broker:item.brokerName,
-          realSale: item
+          fecha: item.fecha,
+          entidad:item.entidad,
+          nombre: item.nombre,
+          consulta:item.consulta,
+          respondida:item.estado,
+          realItem:item
+
         }))];
 
-        console.log(this.tableRevDto)
+        console.log(this.tableDto)
   }
 
   onPageChange(pageNumber: number): void {
@@ -299,28 +356,18 @@ export class RevenuesListComponent {
 
   loadTitleMap(){
           this.translate.get([
-            'NEW_VAR.PAYMENT_DATE',
-            'IP.CURRENCY',
-            'NEW_VAR.COLLECTED_AMOUNT',
-            'NEW_VAR.PAYMENT_PROVIDER',
-            'NEW_VAR.PAYMEN_CHANNEL',
-            'NEW_VAR.CONSOLIDATED',
-            'NEW_VAR.POLICY_NUMBER',
-            'IP.CARD_TABLE.SALES.PRODUCTNAME',
-            'IP.CARD_TABLE.SALES.SALEAMOUNT',
-            'IP.CARD_TABLE.INVOICE.BROKERFULLNAME'
+            'IP.NEW-RENDITION.DATE',
+            'NEW_VAR.ENTITY',
+            'IP.COST_CENTER.NAME',
+            'NEW_VAR.CONSULT',
+            'NEW_VAR.RESPONSED',
           ]).subscribe(translations => {
             this.titlesMap = new Map<string, string>([
-              ['fecha', translations['NEW_VAR.PAYMENT_DATE']],
-              ['moneda', translations['IP.CURRENCY']],
-              ['montoRecaudado', translations['NEW_VAR.COLLECTED_AMOUNT']],
-              ['proveedorPago', translations['NEW_VAR.PAYMENT_PROVIDER']],
-              ['canalPago', translations['NEW_VAR.PAYMEN_CHANNEL']],
-              ['consolidada', translations['NEW_VAR.CONSOLIDATED']],
-              ['nroPoliza', translations['NEW_VAR.POLICY_NUMBER']],
-              ['producto', translations['IP.CARD_TABLE.SALES.PRODUCTNAME']],
-              ['montoPrima', translations['IP.CARD_TABLE.SALES.SALEAMOUNT']],
-              ['broker', translations['IP.CARD_TABLE.INVOICE.BROKERFULLNAME']],
+              ['fecha', translations['IP.NEW-RENDITION.DATE']],
+              ['entidad', translations['NEW_VAR.ENTITY']],
+              ['nombre', translations['IP.COST_CENTER.NAME']],
+              ['consulta', translations['NEW_VAR.CONSULT']],
+              ['respondida', translations['NEW_VAR.RESPONSED']],
             ]);
           });
   }
@@ -402,10 +449,4 @@ export class RevenuesListComponent {
     
 
 
-
 }
-
-
-
-
-

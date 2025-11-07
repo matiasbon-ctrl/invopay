@@ -1,0 +1,28 @@
+<div *ngIf="isOpen" class="modal-backdrop" (click)="onBackdropClick()">
+<div class="modal-container" (click)="$event.stopPropagation()">
+<header class="modal-header">
+<h3>{{ title }}</h3>
+<button class="close-btn" (click)="onClose()" aria-label="Cerrar">✕</button>
+</header>
+
+
+<main class="modal-body">
+<textarea
+#txt
+
+placeholder="Escribí tu respuesta..."
+rows="6"
+autofocus
+></textarea>
+<div class="meta">
+<span class="chars">{{ responseText.length }} / {{ maxLength }}</span>
+</div>
+</main>
+
+
+<footer class="modal-footer">
+<button class="btn btn-secondary" (click)="onClose()">Cancelar</button>
+<button class="btn btn-primary" [disabled]="!canSubmit()" (click)="onSubmit()">Enviar</button>
+</footer>
+</div>
+</div>

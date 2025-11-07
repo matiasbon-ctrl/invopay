@@ -1,10 +1,8 @@
 <form>
-
-      <app-title-page *ngIf="!isMobile" [isMobile]="isMobile" [title]="'Proveedores'"></app-title-page>
+      <app-title-page *ngIf="!isMobile" [isMobile]="isMobile" [title]="'IP.LOGIN.SUPPLIER'|translate"></app-title-page>
         <div *ngIf="isMobile" class="mobile-header">
-            <app-title-page [isMobile]="isMobile" [title]="'Proveedores'"></app-title-page>
+            <app-title-page [isMobile]="isMobile" [title]="'IP.LOGIN.SUPPLIER'|translate"></app-title-page>
         </div>
-
   <div class="card-table-filters">
 
    
@@ -51,23 +49,23 @@
 
                     <div class="card-body-mobile">
                        <div class="info-row-mobile">
-                            <span class="info-label-mobile">Nombre</span>
+                            <span class="info-label-mobile">{{'IP.RENDITION-DETAILS.NAME'|translate}}</span>
                             <span class="info-value-mobile">{{ item.name }}</span>
                         </div>
                  
                         <div class="info-row-mobile">
-                            <span class="info-label-mobile">Activo</span>
+                            <span class="info-label-mobile">{{'IP.ASSIGN-PROJECTS.ACTIVE'|translate}}</span>
                             <span class="info-value-mobile">{{ item.active }}</span>
                         </div>
 
                         <div class="info-row-mobile">
-                            <span class="info-label-mobile">Canales</span>
+                            <span class="info-label-mobile">{{'NEW_VAR.PAYMEN_CHANNEL'|translate}}</span>
                             <span class="info-value-mobile"  
                              [title]="item.chanelPaymment?.length > 3 ? item.chanelPaymment : null">
                             {{ item.chanelPaymment | slice:0:3 }}{{ item.chanelPaymment.length > 3? '...' : '' }}</span>
                         </div>
                              <div class="info-row-mobile">
-                            <span class="info-label-mobile">Descripcion</span>
+                            <span class="info-label-mobile">{{'IP.COST_CENTER.DESCRIPTION'|translate}}</span>
                             <span class="info-value-mobile" 
                              [title]="item.description?.length > 20 ? item.description : null">
                             {{ item.description | slice:0:20 }}{{ item.description.length > 20 ? '...' : '' }}</span>

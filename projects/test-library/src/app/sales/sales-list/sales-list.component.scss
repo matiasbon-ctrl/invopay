@@ -27,9 +27,7 @@
       padding: 0.5rem 1rem;
     }
 
-    @include md() {
-      padding: 0.625rem 1.25rem;
-    }
+
   }
 
   .card-filtros {
@@ -68,12 +66,7 @@
         margin-left: auto;
       }
 
-      @include md() {
-        gap: 0.875rem;
-        flex-wrap: wrap;
-        width: 100%;
-        margin-left: auto;
-      }
+
 
       // Estilos para el select wrapper (igual que date-wrapper)
       .select-wrapper {
@@ -82,13 +75,8 @@
         flex-direction: column;
         position: relative;
 
-
         @include sm() {
           min-width: 100%;
-        }
-
-        @include md() {
-          min-width: 180px;
         }
 
         @include lg() {
@@ -127,9 +115,6 @@
             height: 1.625rem;
           }
 
-          @include md() {
-            height: 1.6875rem;
-          }
 
           &:focus-within {
             box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
@@ -160,10 +145,7 @@
               font-size: 0.75rem;
             }
 
-            @include md() {
-              height: 1.6875rem;
-              font-size: 0.78125rem;
-            }
+
 
             &:focus {
               box-shadow: none;
@@ -177,15 +159,13 @@
       }
 
       app-ip-date-input {
-        min-width: 200px;
+          min-width: 200px; // 🔹 ya igual que los selects
+          width: 200px;     // 🔹 agregar esta línea para forzar mismo tamaño
 
         @include sm() {
           min-width: 100%;
         }
 
-        @include md() {
-          min-width: 180px;
-        }
 
         @include lg() {
           min-width: 200px;
@@ -208,9 +188,7 @@
               height: 1.625rem;
             }
 
-            @include md() {
-              height: 1.6875rem;
-            }
+
 
             &:focus-within {
               box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
@@ -237,11 +215,6 @@
               font-size: 0.75rem;
             }
 
-            @include md() {
-               height: 1.8rem!important;
-               min-height: 1.6875rem !important;
-               font-size: 0.78125rem;
-            }
 
             &:focus {
               box-shadow: none;
@@ -397,10 +370,7 @@
     padding: 0 0.625rem;
   }
 
-  @include md() {
-    height: 1.6875rem;
-    padding: 0 0.6875rem;
-  }
+
 
   img {
     width: 0.875rem;
@@ -502,9 +472,6 @@
           min-width: 100%;
         }
 
-        @include md() {
-          min-width: 180px;
-        }
 
         @include lg() {
           min-width: 200px;
@@ -545,9 +512,7 @@
             height: 1.625rem;
           }
 
-          @include md() {
-            height: 1.6875rem;
-          }
+
 
           &:focus-within {
             box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
@@ -578,10 +543,6 @@
               font-size: 0.75rem;
             }
 
-            @include md() {
-              height: 1.6875rem;
-              font-size: 0.78125rem;
-            }
 
             &:focus {
               box-shadow: none;
@@ -876,22 +837,192 @@ width: 100%;
   width: 100%;
 }
 
-:host ::ng-deep {
-  app-ip-date-input input[type="date"] {
-    appearance: none !important;
-    -webkit-appearance: none !important;
-    -moz-appearance: none !important;
-    width: 100%;
-    padding-right: 2.5rem !important;
-    
-    // Fondo transparente + tu ícono real
+app-ip-date-input {
+    width: 100%;       
+    min-width: 100%;
+    max-width: 100%;
+
+    ::ng-deep .form-floating {
+      width: 92%; 
+      display: flex;
+      align-items: center;
+      border: 1.5px solid #e5e7eb;
+      border-radius: 0.5rem;
+      height: 2.3rem; // Altura ajustada para que coincida con los selects
+      padding: 0 0.5rem;
+
+
+      .form-control {
+        border: none;
+        background: transparent;
+        font-size: 0.8125rem;
+        color: #1f2937;
+        height: 100%;
+      }
+
+      label {
+        font-size: 0.75rem;
+        font-weight: 500;
+        color: #6b7280;
+      }
+       // ⭐ AGREGAR AQUÍ - Estilos específicos para el input date
+    input[type="date"] {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      position: relative;
+      width: 100%;
+      padding-right: 2.5rem;
+      text-align: left;
+      
     background: transparent url('/assets/new-styles/icons/datepicker-icon.svg') no-repeat right 0.6rem center !important;
     background-size: 1rem 1rem !important;
-    
-    &::-webkit-calendar-picker-indicator {
-      opacity: 0;
-      cursor: pointer;
+      
+      // Ocultar ícono nativo
+      &::-webkit-calendar-picker-indicator {
+        opacity: 0;
+        position: absolute;
+        right: 0;
+        width: 2.5rem;
+        height: 100%;
+        cursor: pointer;
+      }
     }
   }
 }
+
+
+
+
+
+.card-row-tab {
+  display: flex;
+  width: 100%;
+  gap: 0.5rem;
+  padding-left: 0.5rem;
+  justify-content: flex-start; // 👈 mantiene todo alineado a la izquierda
+  flex-wrap: nowrap; // 👈 no bajan de línea
+
+  .card-tab {
+    flex: 0 0 auto; // 👈 ancho según contenido
+    padding: 6px 12px;
+    text-align: center;
+    cursor: pointer;
+    background-color: transparent;
+    color: #1976d2;
+    font-weight: 500;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    border-bottom: 3px solid transparent;
+    position: relative;
+
+    span {
+      display: inline-block;
+      white-space: nowrap; // 👈 mantiene el texto en una línea
+    }
+
+    &:hover:not(.active) {
+      background-color: #ededf1;
+    }
+
+    &.active {
+      color: #1976d2;
+      border-bottom: 3px solid #1976d2;
+      background-color: transparent;
+      font-weight: 600;
+    }
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .card-row-tab {
+    .card-row-tab {
+  display: flex;
+  width: 100%;
+  gap: 0.5rem;
+  padding-left: 0.5rem;
+  justify-content: flex-start; // 👈 mantiene todo alineado a la izquierda
+  flex-wrap: nowrap; // 👈 no bajan de línea
+
+  .card-tab {
+    flex: 0 0 auto; // 👈 ancho según contenido
+    padding: 6px 12px;
+    text-align: center;
+    cursor: pointer;
+    background-color: transparent;
+    color: #1976d2;
+    font-weight: 500;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    border-bottom: 3px solid transparent;
+    position: relative;
+
+    span {
+      display: inline-block;
+      white-space: nowrap; // 👈 mantiene el texto en una línea
+    }
+
+    &:hover:not(.active) {
+      background-color: #ededf1;
+    }
+
+    &.active {
+      color: #1976d2;
+      border-bottom: 3px solid #1976d2;
+      background-color: transparent;
+      font-weight: 600;
+    }
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .card-row-tab {
+    flex-wrap: wrap; // 👈 si el espacio no alcanza, recién ahí baja
+    .card-tab {
+      flex: 0 1 45%;
+      max-width: 35%;
+      text-align: center;
+      font-size: 13px;
+    }
+  }
+}
+    .card-tab {
+      flex: 0 1 45%;
+      max-width: 45%;
+      text-align: center;
+      font-size: 13px;
+    }
+  }
+}
+
+
+.card-filtros__actions {
+  display: flex;
+  align-items: flex-end; // ✅ al fondo de la fila
+  justify-content: flex-end; // ✅ pegados a la derecha
+  flex-wrap: nowrap; // evita que el botón baje
+  gap: 0.875rem;
+
+  // Contenedor para los inputs
+  .filters-container {
+    display: flex;
+    flex-wrap: wrap; // 👈 los inputs sí pueden bajar
+    justify-content: flex-start; // 👈 alinea todo a la izquierda
+    align-items: flex-end; // 👈 alinea verticalmente abajo
+    gap: 0.875rem;
+    flex: 1; // 👈 ocupa todo el espacio antes del botón
+    min-width: 0;
+  }
+
+  // Botón search siempre visible al final
+  .search {
+    flex-shrink: 0; // 👈 nunca se achica ni baja
+  }
+}
+
+
+
+
 

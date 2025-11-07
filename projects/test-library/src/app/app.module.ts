@@ -19,13 +19,16 @@ import { InvopayModule } from './invopay/invopay.module';
 import { HomeComponent } from './invopay/views/home/home.component';
 import { LayoutComponent } from './layout/layout/layout.component';
 import { FilterModalMobileComponent } from './shared/filter-modal-mobile/filter-modal-mobile.component';
-
+import { NotificationListComponent } from './assurance/notification-list/notification-list.component';
+import { NotificationDetailsAssuranceComponent } from './assurance/notification-details-assurance/notification-details-assurance.component';
+import { ModalResponseComponent } from './shared/modal-response/modal-response.component';
+import { PendingSalesComponent } from './revenues/pending-sales/pending-sales.component';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent,SalesListComponent, SalesDetailsComponent, TitlePageComponent, RevenuesListComponent, RevenueDetailComponent, SupplierListComponent, LayoutComponent, FilterModalMobileComponent],
+  declarations: [AppComponent, HomeComponent,SalesListComponent, SalesDetailsComponent, TitlePageComponent, RevenuesListComponent, RevenueDetailComponent, SupplierListComponent, LayoutComponent, FilterModalMobileComponent, NotificationListComponent, NotificationDetailsAssuranceComponent, ModalResponseComponent, PendingSalesComponent],
   imports: [
 
     ComponentsModule,

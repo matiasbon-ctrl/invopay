@@ -84,7 +84,7 @@ export class RevenueDetailComponent {
                             amount: this.formatNumberToArg( this.revenue.transactionData.amount),
                             paymentProvider: this.revenue.transactionData.paymentProvider,
                             paymentChannel: this.revenue.transactionData.paymentChannel,
-                            transactionObservations: this.revenue.transactionData.transactionObservations
+                            transactionObservations: this.revenue.transactionData.transactionObservations ?? ''
                           }:null,
 
                         conciliationData: this.revenue?.conciliationData

@@ -1,5 +1,6 @@
 // Modelo de venta individual
 export interface Sale {
+  isPaid: unknown;
   id: number;
   amount: number;
   saleDate: string;

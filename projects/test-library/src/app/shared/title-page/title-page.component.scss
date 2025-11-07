@@ -18,7 +18,7 @@
   box-shadow: 0px 5px 15px 0px hsla(0, 0%, 0%, 0.07);
   border-radius: 0.7rem;
   justify-content: space-between;
-  height: 5rem;
+  height: 4rem;
   padding: 1rem 2.5rem;
 
   &__title {
@@ -83,6 +83,6 @@
   .back {
     width: 1.25rem;
     height: 1.25rem;
-    filter: invert(0%); /* ajusta según color que quieras */
+    filter: invert(0%);
   }
 }

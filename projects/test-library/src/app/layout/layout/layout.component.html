@@ -37,7 +37,7 @@
                  src="../assets/new-styles/icons/sidebar/home-icon.svg"
                  alt="" />
           </i>
-          <span *ngIf="!collapsed || isMobile">Inicio</span>
+          <span *ngIf="!collapsed || isMobile">{{'IP.FILTERS_MODAL.START'|translate}}</span>
         </li>
         
         <li routerLinkActive="active"
@@ -48,7 +48,7 @@
                  src="../assets/icons/payments.svg"
                  alt="" />
           </i>     
-          <span *ngIf="!collapsed || isMobile">Ventas</span>
+          <span *ngIf="!collapsed || isMobile">{{'IP.SIDENAV.OPTIONS.SALES'|translate}}</span>
         </li>
         
         <li routerLinkActive="active"
@@ -59,7 +59,7 @@
                  src="../assets/icons/pay_in.svg"
                  alt="" />
           </i>           
-          <span *ngIf="!collapsed || isMobile">Recaudaciones</span>
+          <span *ngIf="!collapsed || isMobile">{{'IP.SIDENAV.OPTIONS.PAY_IN'|translate}}</span>
         </li>
         
         <li routerLinkActive="active"
@@ -70,8 +70,35 @@
                  src="../assets/new-styles/icons/sidebar/invoices-icon.svg"
                  alt=""/>
           </i>           
-          <span *ngIf="!collapsed || isMobile">Proveedores</span>
+          <span *ngIf="!collapsed || isMobile">{{'IP.LOGIN.SUPPLIER'|translate}}</span>
         </li>
+      
+        <li routerLinkActive="active"
+            [routerLink]="['assurance/pending-sales-list']"
+            (click)="onNavLinkClick()">
+          <i class="icon">
+            <img class="back"
+                 src="../assets/new-styles/icons/sidebar/invoices-icon.svg"
+                 alt=""/>
+          </i>           
+          <span *ngIf="!collapsed || isMobile">Ventas a cobrar pendientes</span>
+
+        </li>
+        <li routerLinkActive="active"
+            [routerLink]="['assurance/expiry-sales-list']"
+            (click)="onNavLinkClick()">
+          <i class="icon">
+            <img class="back"
+                 src="../assets/new-styles/icons/sidebar/invoices-icon.svg"
+                 alt=""/>
+          </i>           
+          <span *ngIf="!collapsed || isMobile">Ventas a cobrar vencidas</span>
+        </li>
+
+        
+
+
+        
       </ul>
     </aside>
 
