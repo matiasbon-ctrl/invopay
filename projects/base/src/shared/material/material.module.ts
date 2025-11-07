@@ -24,7 +24,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER, MatTooltipModule } from '@angular/material/tooltip';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { NgChartsModule } from 'ng2-charts';
 
 import { ButtonModule } from 'primeng/button';
@@ -38,9 +38,6 @@ import { TagModule } from 'primeng/tag';
 @NgModule({
   declarations: [],
   imports: [CommonModule],
-  providers: [
-    MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER
-  ],
   exports: [
     MatSidenavModule,
     MatButtonModule,
@@ -80,4 +77,4 @@ import { TagModule } from 'primeng/tag';
     ScrollingModule
   ],
 })
-export class MaterialModule {}
+export class MaterialModule { }

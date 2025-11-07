@@ -18,15 +18,20 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { SharedModule } from '../shared/shared.module';
 import { InvopayRoutingModule } from './invopay-routing.module';
 import { DecryptionInterceptor } from './services/decryption.interceptor';
 import { DecryptionService } from './services/decryption.service';
 import { TokenInterceptor } from './services/token.interceptor';
+import { HomeComponent } from './views/home/home.component';
+import { Template1Component } from './views/template1/template1.component';
 
 
 @NgModule({
     declarations: [
-        IpLoginComponent
+        IpLoginComponent,
+        HomeComponent,
+        Template1Component
     ],
     imports: [
         CommonModule,
@@ -42,6 +47,7 @@ import { TokenInterceptor } from './services/token.interceptor';
         MatProgressSpinnerModule,
         MatDialogModule,
         RouterModule,
+        SharedModule
     ],
     providers: [
         IpAuthService,
@@ -58,6 +64,7 @@ import { TokenInterceptor } from './services/token.interceptor';
             useClass: TokenInterceptor,
             multi: true,
         },
+        SharedModule
     ],
     exports: [
         IpLoginComponent

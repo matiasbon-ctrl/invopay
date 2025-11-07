@@ -16,7 +16,9 @@
     "@ngx-translate/http-loader": "^8.0.0",
     "chart.js": "^4.4.0",
     "ng2-charts": "^5.0.4",
-    "primeng": "^16.0.2"
+    "primeng": "^16.0.2",
+    "ngx-mat-select-search": "^8.0.0",
+    "ngx-touch-keyboard": "^2.5.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"
