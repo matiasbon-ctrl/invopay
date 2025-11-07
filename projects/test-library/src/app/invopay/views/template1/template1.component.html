@@ -7,10 +7,6 @@
         />
     </header>
     <main *ngIf="!!revenues">
-        <app-ip-select-input
-            [label]="'IP.REVENUES.FILTER.STATUS.LABEL' | translate"
-            [options]="statusOptions"
-            />
         <app-table 
             [data]="revenues" 
             [propertyOrder]="propertyOrder" 

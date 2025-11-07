@@ -16,7 +16,10 @@ const routes: Routes = [
     component: IpLoginComponent,
     canActivate: [AuthGuard]
   },
-  { path: 'revenues', component: Template1Component },
+  {
+    path: 'revenues',
+    component: Template1Component
+  },
 ];
 
 @NgModule({

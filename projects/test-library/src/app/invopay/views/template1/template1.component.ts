@@ -13,13 +13,6 @@ import IpSelectInputOption from '../../interface/ip-select-input-option';
 })
 export class Template1Component {
 
-  statusOptions: IpSelectInputOption[] = [
-    { label: 'ALL', value: 'all' },
-    { label: 'PAID', value: 'paid' },
-    { label: 'PENDING', value: 'pending' },
-    { label: 'FAILED', value: 'failed' },
-  ];
-
   revenues: RevenueTableRow[] | null = null;
 
   propertyOrder: string[] = [];
