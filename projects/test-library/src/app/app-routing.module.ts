@@ -1,9 +1,7 @@
 import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { BaseComponent } from 'base';
 import { HomeComponent } from './invopay/views/home/home.component';
 import { SupplierListComponent } from './suppliers/supplier-list/supplier-list.component';
-import { LayoutComponent } from './layout/layout/layout.component';
 import { AuthPrivateGuard } from './guards/auth-private.guard';
 import { PendingSalesComponent } from './revenues/pending-sales/pending-sales.component';
 import { SalesListComponent } from './sales/sales-list/sales-list.component';
