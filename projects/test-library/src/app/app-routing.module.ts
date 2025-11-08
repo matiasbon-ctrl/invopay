@@ -17,15 +17,6 @@ const routes: Routes = [
     component: HomeComponent,
   },
   {
-    path: 'library',
-    children: [
-      {
-        path: 'base',
-        component: BaseComponent,
-      },
-    ],
-  },
-  {
     path: 'invopay',
     loadChildren: () =>
       import('./invopay/invopay.module').then((m) => m.InvopayModule),
