@@ -68,108 +68,19 @@
 
 
 
-      // Estilos para el select wrapper (igual que date-wrapper)
-      .select-wrapper {
-        min-width: 200px;
-        display: flex;
-        flex-direction: column;
-        position: relative;
 
-        @include sm() {
-          min-width: 100%;
-        }
-
-        @include lg() {
-          min-width: 200px;
-        }
-
-        .placeholder {
-            position: absolute;
-            top: -0.9rem;
-            left: 0.55rem;
-            background-color: white;
-            padding: 0 0.25rem;
-            font-weight: 200;
-            font-size: 12px;
-            color: #333;
-            z-index: 1;
-            @include sm() {
-              font-size: 10px;
-              top: -0.4rem;
-            }
-        }
-
-        .custom-select-container {
-          display: flex;
-          justify-content: flex-end;
-          align-items: center;
-          position: relative;
-          margin-bottom: 0;
-          height: 2.3rem;
-          border: 1.5px solid #e5e7eb;
-          border-radius: 0.5rem;
-          transition: all 0.3s ease;
-          background-color: white;
-
-          @include sm() {
-            height: 1.625rem;
-          }
-
-
-          &:focus-within {
-            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
-          }
-
-          &:hover:not(:focus-within) {
-            border-color: #d1d5db;
-          }
-
-          .custom-select {
-            width: 100%;
-            height: 2.3rem;
-            border: none;
-            background: transparent;
-            font-size: 0.8125rem;
-            font-weight: 500;
-            color: #1f2937;
-            padding: 0 2rem 0 0.75rem;
-            outline: none;
-            cursor: pointer;
-            appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 0.5rem center;
-
-            @include sm() {
-              height: 1.625rem;
-              font-size: 0.75rem;
-            }
-
-
-
-            &:focus {
-              box-shadow: none;
-            }
-
-            option {
-              padding: 0.5rem;
-            }
-          }
-        }
-      }
 
       app-ip-date-input {
-          min-width: 200px; // 🔹 ya igual que los selects
-          width: 200px;     // 🔹 agregar esta línea para forzar mismo tamaño
+           min-width: 200px;  // mismo valor que tus selects
+           width: 200px;      // fuerza que sea igual
+           max-width: 200px;  // opcional, para evitar que se agrande
 
         @include sm() {
           min-width: 100%;
         }
 
 
-        @include lg() {
-          min-width: 200px;
-        }
+
 
         ::ng-deep {
           .form-floating {
@@ -190,13 +101,7 @@
 
 
 
-            &:focus-within {
-              box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
-            }
 
-            &:hover:not(:focus-within) {
-              border-color: #d1d5db;
-            }
           }
 
           .form-control {
@@ -370,6 +275,16 @@
     gap: 0.875rem;
     flex: 1; // 👈 ocupa todo el espacio antes del botón
     min-width: 0;
+     .select-wrapper {
+    min-width: 200px !important;
+    width: 200px;
+    max-width: 200px;
+  }
+   .date-wrapper {
+    min-width: 200px;
+    width: 200px;
+    max-width: 200px;
+  }
   }
 
 .search {
@@ -493,7 +408,7 @@
 
  // Estilos para el select wrapper 
       .select-wrapper {
-        min-width: 200px;
+        min-width: 150px;
         display: flex;
         flex-direction: column;
         position: relative;
@@ -502,10 +417,6 @@
           min-width: 100%;
         }
 
-
-        @include lg() {
-          min-width: 200px;
-        }
 
         .placeholder {
             position: absolute;
@@ -881,12 +792,21 @@ app-ip-date-input {
       height: 2.3rem; // Altura ajustada para que coincida con los selects
       padding: 0 0.5rem;
 
+       &:focus-within {
+        box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+      }
+
+      &:hover:not(:focus-within) {
+        border-color: #d1d5db;
+      }
+
 
       .form-control {
         border: none;
         background: transparent;
         font-size: 0.8125rem;
-        color: #1f2937;
+        font-weight: 500;
+        color: #1f2937;         
         height: 100%;
       }
 
@@ -919,7 +839,13 @@ app-ip-date-input {
       }
     }
   }
+  
+    .form-floating > .form-control:focus ~ label,
+    .form-floating > .form-control:not(:placeholder-shown) ~ label {
+      transform: scale(0.85) translateY(-0.5rem) translateX(0.25rem) !important;
+    }
 }
+
 
 .card-row-tab {
   display: flex;
@@ -1022,33 +948,3 @@ app-ip-date-input {
     }
   }
 }
-
-
-.card-filtros__actions {
-  display: flex;
-  align-items: flex-end; // ✅ al fondo de la fila
-  justify-content: flex-end; // ✅ pegados a la derecha
-  flex-wrap: nowrap; // evita que el botón baje
-  gap: 0.875rem;
-
-  // Contenedor para los inputs
-  .filters-container {
-    display: flex;
-    flex-wrap: wrap; // 👈 los inputs sí pueden bajar
-    justify-content: flex-start; // 👈 alinea todo a la izquierda
-    align-items: flex-end; // 👈 alinea verticalmente abajo
-    gap: 0.875rem;
-    flex: 1; // 👈 ocupa todo el espacio antes del botón
-    min-width: 0;
-  }
-
-  // Botón search siempre visible al final
-  .search {
-    flex-shrink: 0; // 👈 nunca se achica ni baja
-  }
-}
-
-
-
-
-

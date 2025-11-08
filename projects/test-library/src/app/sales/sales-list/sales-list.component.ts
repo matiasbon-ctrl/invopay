@@ -297,7 +297,7 @@ selectedTab: string='all';
         console.log(this.sales)
         console.log(filteredSales)
         this.tableSalesDto = [...filteredSales.map((item, index) => ({
-          id: item.id,
+          id:  item.id,
           fila: startIndex+index + 1, 
           fecha: this.formatDate2(item.saleDate),
           producto: item.productName,
