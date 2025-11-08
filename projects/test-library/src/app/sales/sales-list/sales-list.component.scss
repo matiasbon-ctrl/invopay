@@ -279,12 +279,24 @@
     min-width: 200px !important;
     width: 200px;
     max-width: 200px;
-  }
+    }
    .date-wrapper {
     min-width: 200px;
     width: 200px;
     max-width: 200px;
-  }
+    }
+    // 👈 AGREGAR ESTO AQUÍ, AL MISMO NIVEL
+  @media (max-width: 1200px) {
+    .select-wrapper,
+    .date-wrapper {
+
+      flex: 0 0 calc(40% - 0.4375rem);  // 👈 45% en vez de 50%
+      min-width: unset;
+      width: auto;
+      max-width: calc(40% - 0.4375rem);
+    }
+    }
+  
   }
 
 .search {
