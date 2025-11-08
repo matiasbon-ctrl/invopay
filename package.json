@@ -7,7 +7,6 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "build:base": "ng build base",
     "build:test-library": "ng build test-library --configuration production",
     "vercel-build": "npm run build:base && npm run build:test-library"
   },
