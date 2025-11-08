@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "build:test-library": "ng build test-library --configuration production",
-    "vercel-build": "npm run build:base && npm run build:test-library"
+    "vercel-build": "npm run build:test-library"
   },
   "private": true,
   "dependencies": {
