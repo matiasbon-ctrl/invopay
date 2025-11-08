@@ -1,14 +1,12 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { CommonModule } from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { CommonModule, DatePipe } from '@angular/common';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SharedModule } from 'projects/base/src/shared/shared.module';
-import { BaseModule } from 'projects/base/src/lib/base.module';
-import { ComponentsModule } from 'projects/base/src/lib/components/components.module';
 import { SalesListComponent } from './sales/sales-list/sales-list.component';
 import { SalesDetailsComponent } from './sales/sales-details/sales-details.component';
 import { TitlePageComponent } from './shared/title-page/title-page.component';
@@ -23,6 +21,11 @@ import { NotificationListComponent } from './assurance/notification-list/notific
 import { NotificationDetailsAssuranceComponent } from './assurance/notification-details-assurance/notification-details-assurance.component';
 import { ModalResponseComponent } from './shared/modal-response/modal-response.component';
 import { PendingSalesComponent } from './revenues/pending-sales/pending-sales.component';
+import { TokenInterceptor } from './invopay/services/token.interceptor';
+import { DecryptionInterceptor } from './shared/interceptors/decryption.interceptor';
+import { DecryptionService } from './shared/services/decryption.service';
+import { SharedModule } from './shared/shared.module';
+
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -31,13 +34,12 @@ export function HttpLoaderFactory(http: HttpClient) {
   declarations: [AppComponent, HomeComponent,SalesListComponent, SalesDetailsComponent, TitlePageComponent, RevenuesListComponent, RevenueDetailComponent, SupplierListComponent, LayoutComponent, FilterModalMobileComponent, NotificationListComponent, NotificationDetailsAssuranceComponent, ModalResponseComponent, PendingSalesComponent],
   imports: [
 
-    ComponentsModule,
-    BaseModule,
     SharedModule,
     BrowserModule,
     AppRoutingModule,
     CommonModule,
     HttpClientModule,
+    BrowserAnimationsModule,
     TranslateModule.forRoot({
         defaultLanguage: 'es',
         loader: {
@@ -46,9 +48,21 @@ export function HttpLoaderFactory(http: HttpClient) {
             deps: [HttpClient],
         },
     }),
-    InvopayModule
-],
-  providers: [],
+  ],
+  providers: [
+    DatePipe,
+    DecryptionService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: DecryptionInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    }
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

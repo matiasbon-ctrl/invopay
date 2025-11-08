@@ -15,8 +15,6 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class RevenuesListComponent {
 
-
-
   constructor(
       private readonly revenueService: RevenueService,
       private readonly router: Router ,
@@ -35,9 +33,9 @@ export class RevenuesListComponent {
 
 
   controlsForm = new FormGroup({
-    rowPaginator: new FormControl<number>(50),
-    dateEnd : new FormControl<string>(''),
-    dateStart: new FormControl<string>(''),
+    rowPaginator: new FormControl<number>(20),
+    dateEnd: new FormControl<string>('', { nonNullable: true }),      // ← Agrega nonNullable
+    dateStart: new FormControl<string>('', { nonNullable: true }),    // ← Agrega nonNullable
     chanelPayment: new FormControl<string>('')
     });
 
@@ -71,6 +69,10 @@ export class RevenuesListComponent {
 
 
   ngOnInit(): void {
+
+   console.log('isMobile:', this.isMobile);
+  console.log('RevenueListComponent init');
+  console.log('controlsForm:', this.controlsForm);
 
       console.log('RevenueListComponent init ');
       console.log(this.formatDate(new Date()))
@@ -106,9 +108,13 @@ export class RevenuesListComponent {
       const rowPaginatorSubscription = this.controlsForm.controls.rowPaginator.valueChanges.subscribe({
         next: (n) => {
           if(n){
+
             this.itemsPerpage = Number(n);
             this.loadTable(1); 
             this.currentPages = 1;
+            console.log("items por pagina",this.itemsPerpage)
+            console.log("paginas",this.currentPages)
+
           }
         }   
       });
@@ -399,9 +405,7 @@ export class RevenuesListComponent {
     }
   }
 
-    
-
-
+  
 
 }
 

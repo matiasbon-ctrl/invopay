@@ -55,7 +55,7 @@ import { TruncatePipe } from './Utils/truncate.pipe';
     ComponentsModule
   ],
   providers: [
-    TransformDataTablePipe,
+    DatePipe,
     AmountFormatPipe,
     MatDialogService,
     TruncatePipe,
@@ -81,6 +81,7 @@ import { TruncatePipe } from './Utils/truncate.pipe';
     TruncatePipe,
     //IpDragScrollComponent,
     InnerLoaderComponent,
+    DatePipe
     //IpFiltersTableInvoicesComponent,
     //IpSelectInputComponent
   ],

@@ -352,7 +352,27 @@
   }
 }
 
-.card-filtros__actions .search {
+.card-filtros__actions {
+
+  display: flex;
+  align-items: flex-end; // ✅ al fondo de la fila
+  justify-content: flex-end; // ✅ pegados a la derecha
+  flex-wrap: nowrap; // evita que el botón baje
+  gap: 0.875rem;
+
+  
+  // Contenedor para los inputs
+  .filters-container {
+    display: flex;
+    flex-wrap: wrap; // 👈 los inputs sí pueden bajar
+    justify-content: flex-start; // 👈 alinea todo a la izquierda
+    align-items: flex-end; // 👈 alinea verticalmente abajo
+    gap: 0.875rem;
+    flex: 1; // 👈 ocupa todo el espacio antes del botón
+    min-width: 0;
+  }
+
+.search {
   height: 2.3rem;
   padding: 0 0.75rem;
   border: none;
@@ -364,6 +384,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0; // 👈 nunca se achica ni baja
+
 
   @include sm() {
     height: 1.625rem;
@@ -408,6 +430,7 @@
   &:hover::after {
     opacity: 1;
   }
+  }
 }
 .card-paginator {
   display: flex;
@@ -423,12 +446,13 @@
      justify-content: center;
      border: none;
      padding: 0%;
+     margin-bottom: 0%;
     }
+
   .paginator-controls {
     display: flex;
-    align-items: center; // 🔹 centra verticalmente el select y el paginador
-    gap: 0.75rem;
-    
+    align-items: flex-end; 
+    margin-bottom: 1rem;
 
     select {
       width: 3rem;
@@ -444,6 +468,8 @@
       cursor: pointer;
       padding: 0;
       line-height: 1.75rem;
+      margin-bottom: 1rem;
+    
 
       &:hover {
         border-color: #3b82f6;
@@ -456,10 +482,14 @@
       }
       @include sm() {
         display: none; // ocupa todo el ancho en móvil
-      }
+        }
+
+
     }
+
   }
 }
+
 
  // Estilos para el select wrapper 
       .select-wrapper {
@@ -890,10 +920,6 @@ app-ip-date-input {
     }
   }
 }
-
-
-
-
 
 .card-row-tab {
   display: flex;

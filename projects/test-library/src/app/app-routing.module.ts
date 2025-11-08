@@ -1,20 +1,30 @@
 import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BaseComponent } from 'base';
-import { SalesListComponent } from './sales/sales-list/sales-list.component';
-import { SalesDetailsComponent } from './sales/sales-details/sales-details.component';
-import { RevenuesListComponent } from './revenues/revenues-list/revenues-list.component';
-import { RevenueDetailComponent } from './revenues/revenue-detail/revenue-detail.component';
 import { HomeComponent } from './invopay/views/home/home.component';
 import { SupplierListComponent } from './suppliers/supplier-list/supplier-list.component';
 import { LayoutComponent } from './layout/layout/layout.component';
 import { AuthPrivateGuard } from './guards/auth-private.guard';
-import { AssuranceNotificationService } from './assurance/services/assurance-notification.service';
-import { NotificationListComponent as AssuranceNotificationListComponent }from './assurance/notification-list/notification-list.component';
 import { PendingSalesComponent } from './revenues/pending-sales/pending-sales.component';
+import { SalesListComponent } from './sales/sales-list/sales-list.component';
+import { SalesDetailsComponent } from './sales/sales-details/sales-details.component';
+import { RevenueDetailComponent } from './revenues/revenue-detail/revenue-detail.component';
+import { RevenuesListComponent } from './revenues/revenues-list/revenues-list.component';
 
 const routes: Routes = [
-  // 🔹 Login y módulo invopay
+  {
+    path: 'home',
+    component: HomeComponent,
+  },
+  {
+    path: 'library',
+    children: [
+      {
+        path: 'base',
+        component: BaseComponent,
+      },
+    ],
+  },
   {
     path: 'invopay',
     loadChildren: () =>

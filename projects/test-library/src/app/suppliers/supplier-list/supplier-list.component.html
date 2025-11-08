@@ -5,8 +5,6 @@
         </div>
   <div class="card-table-filters">
 
-   
-    
     <div *ngIf="!isMobile" class="card-table">     
       <app-table
         [keyTranslate]="'IP.ADMIN_TABLE'"
@@ -16,7 +14,6 @@
         [tableStyle]="'invopay'"
         [isForSelectItem]="false"
         [scroll]="true"
-        [imageColumns]="['logo']" 
         [titlesFile]="this.titlesMap"
         (action)="onTableAction($event)"
         (selectedItemsChange)="onSelectedItems($event)">

@@ -7,7 +7,7 @@ import { IpAuthService } from './services/ip-auth.service';
 import { IpProfileService } from './services/ip-profile.service';
 import { IpSnackbarService } from './services/ip-snackbar.service';
 
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -18,15 +18,16 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { SharedModule } from '../shared/shared.module';
 import { InvopayRoutingModule } from './invopay-routing.module';
-import { DecryptionInterceptor } from './services/decryption.interceptor';
-import { DecryptionService } from './services/decryption.service';
-import { TokenInterceptor } from './services/token.interceptor';
+import { Template1Component } from './views/template1/template1.component';
+import { HomeComponent } from './views/home/home.component';
 
 
 @NgModule({
     declarations: [
-        IpLoginComponent
+        IpLoginComponent,
+        Template1Component
     ],
     imports: [
         CommonModule,
@@ -42,22 +43,13 @@ import { TokenInterceptor } from './services/token.interceptor';
         MatProgressSpinnerModule,
         MatDialogModule,
         RouterModule,
+        SharedModule
     ],
     providers: [
         IpAuthService,
         IpProfileService,
         IpSnackbarService,
-        DecryptionService,
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: DecryptionInterceptor,
-            multi: true
-        },
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: TokenInterceptor,
-            multi: true,
-        },
+        SharedModule
     ],
     exports: [
         IpLoginComponent
